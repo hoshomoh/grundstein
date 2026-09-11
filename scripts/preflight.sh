@@ -11,8 +11,12 @@ if ! git diff-index --quiet HEAD --; then
   exit 1
 fi
 
-worktree="$(mktemp -d -t grundstein-preflight-XXXXXX)"
-cleanup() { git -C "$repo" worktree remove --force "$worktree" >/dev/null 2>&1 || rm -rf "$worktree"; }
+tmpdir="$(mktemp -d -t grundstein-preflight-XXXXXX)"
+worktree="$tmpdir/tree"
+cleanup() {
+  git -C "$repo" worktree remove --force "$worktree" >/dev/null 2>&1 || true
+  rm -rf "$tmpdir"
+}
 trap cleanup EXIT
 
 echo "preflight: checking out $(git rev-parse --short HEAD) into $worktree"
