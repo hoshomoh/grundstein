@@ -48,21 +48,64 @@ scratchpad, not in the repo.
 - [ ] `corner-shape: squircle` as progressive enhancement with a `border-radius` fallback
 - [ ] No colour/radius/size literal survives in any component — tokens only
 
-## Phase 3 — Domain (pure, no React, fully unit-tested)
+## Phase 3 — Verify the data against source
 
+The design's numbers came from a prototype and are a year old. Nothing ships until each one is
+checked against the official page and dated. Where a figure is inherently volatile, record it as a
+**dated default the user can edit**, not as a fact.
+
+- [ ] `src/domain/programmes.ts` carries a `verifiedOn` date and a `source` URL per programme
+- [ ] Re-check every KfW URL resolves (the 7 in the design are deep links that rot)
+- [ ] KfW 297 / 298 — ceiling, rate, term, grace, energy requirement, exclusions
+- [ ] KfW 300 — ceiling tiers by children/income/QNG, the €90k income cap and the +€10k per
+      additional child, owner exclusion
+- [ ] KfW 308 — ceiling tiers by number of children, the F/G/H class requirement, the 54-month
+      renovation window
+- [ ] KfW 124 — ceiling, rate, what it combines with
+- [ ] KfW 261 — ceiling, rate, repayment subsidy, building-age requirement
+- [ ] KfW 270 — ceiling, rate, term
+- [ ] Confirm the exclusion matrix is still accurate and still symmetric
+- [ ] All 16 Grunderwerbsteuer rates against each state's current rate
+- [ ] Notary ~1.5%, land registry ~0.5%, agent ~3.57% incl. VAT — still current
+- [ ] Anything that could not be confirmed is flagged in the UI, not quietly shipped
+
+## Phase 4 — Domain (pure, no React, fully unit-tested)
+
+**All money is `Decimal`.** No `number` arithmetic on a euro amount anywhere in `domain/`. Floats
+are fine for ratios and chart geometry; they are not fine for a balance that is subtracted 420 times
+in a row.
+
+- [ ] Add `decimal.js`; configure precision and `ROUND_HALF_EVEN` once, in one module
+- [ ] `src/domain/money.ts` — the `Money` type, construction, arithmetic, rounding to cents, and the
+      single conversion point to `number` for display
 - [ ] `src/domain/types.ts` — `Programme`, `Tranche`, `FollowupPeriod`, `Profile`, `ProjectType`,
       `EnergyTarget`, `StateCode`
-- [ ] `src/domain/programmes.ts` — the 8 KfW/bank programmes + `PROGRAMME_ORDER`
+- [ ] `src/domain/programmes.ts` — the 8 programmes + `PROGRAMME_ORDER` + provenance
 - [ ] `src/domain/states.ts` — 16 Bundesländer with transfer-tax rates
-- [ ] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace period + follow-up rate segments),
+- [ ] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace + follow-up segments),
       `buildPortfolio`
 - [ ] `src/domain/costs.ts` — transfer tax, notary, registry, agent, cash needed
 - [ ] `src/domain/eligibility.ts` — `checkEligibility`, `excludedProgrammes`, `findConflicts`
-- [ ] Tests: annuity vs. known values, zero-rate loan, grace ≥ term clamp, follow-up segment
-      boundaries, income cap +10k per extra child, conflict symmetry, cash-needed arithmetic
 
-## Phase 4 — Infrastructure
+### Verifying the calculation itself
 
+- [ ] Annuity checked against worked examples computed independently, not against our own output
+- [ ] **Closing balance is zero** after the final payment, to the cent, across a spread of amounts,
+      rates, terms and grace periods — this is the test that catches drift
+- [ ] Sum of principal instalments equals the amount borrowed, exactly
+- [ ] Sum of interest equals the reported total interest, exactly
+- [ ] Zero interest rate — payment is amount ÷ months, no division by zero
+- [ ] Grace period equal to or longer than the term is clamped, not crashed
+- [ ] Follow-up segment starting after the loan ends is ignored
+- [ ] A follow-up rate change re-amortises the remaining balance over the remaining term
+- [ ] Income cap rises €10k per child beyond the first
+- [ ] Conflict detection is symmetric whichever programme declares the exclusion
+- [ ] Cash needed = closing costs + down payment, to the cent
+- [ ] A 30-year loan paid monthly does not drift by a cent from a `Decimal` reference run
+
+## Phase 5 — Infrastructure
+
+- [ ] `src/lib/format.ts` — takes `Decimal`, never re-does arithmetic
 - [ ] `src/lib/format.ts` — `Intl` money/number/percent, de-DE grouping, the German decimal-comma
       parse used by every numeric input
 - [ ] `src/lib/dates.ts` — date-fns wrapper; nothing else touches a date
@@ -74,7 +117,7 @@ scratchpad, not in the repo.
       `useSyncExternalStore`, schema-versioned, debounced write, never `useEffect`
 - [ ] Tests: money parse/format round-trip, store rehydration from a corrupt payload
 
-## Phase 5 — Components (`src/components/ds/`)
+## Phase 6 — Components (`src/components/ds/`)
 
 - [ ] `TopBar` — language, text size, theme toggle
 - [ ] `RailSlider` — hairline track + fill, on shadcn `Slider` (keyboard + a11y)
@@ -85,7 +128,7 @@ scratchpad, not in the repo.
 - [ ] `StackBar`, `LegendRow`, `Chip`, `Badge`, `CalloutWarning`
 - [ ] Nothing under `src/components/ui/` is hand-edited
 
-## Phase 6 — Calculator route (`/`)
+## Phase 7 — Calculator route (`/`)
 
 - [ ] Hero: eyebrow, three-line H1, lede, live monthly figure
 - [ ] Three principles, scroll-revealed
@@ -100,7 +143,7 @@ scratchpad, not in the repo.
 - [ ] 006 Questions — FAQ
 - [ ] Footer with disclaimer and sources
 
-## Phase 7 — Library route (`/library`)
+## Phase 8 — Library route (`/library`)
 
 - [ ] Programme list as disclosures with all editable fields
 - [ ] Project-type and exclusion chip toggles
@@ -108,7 +151,7 @@ scratchpad, not in the repo.
 - [ ] Restore the eight originals, leaving price/tranches/answers untouched
 - [ ] Confirm dialogs via shadcn `AlertDialog`, not `window.confirm`
 
-## Phase 8 — Quality
+## Phase 9 — Quality
 
 - [ ] Accessibility pass: real buttons, labelled inputs, visible focus rings, 44px hit areas, full
       keyboard path, chart readouts announced
@@ -119,7 +162,7 @@ scratchpad, not in the repo.
 - [ ] Lighthouse ≥ 95 on performance and accessibility
 - [ ] `scripts/ci.sh` green from a clean install
 
-## Phase 9 — Deploy
+## Phase 10 — Deploy
 
 - [ ] `vercel.json` — SPA rewrite, cache headers for hashed assets
 - [ ] Decide and record the production domain

@@ -4,7 +4,7 @@ export const Route = createFileRoute('/library')({
   component: LibraryRoute,
 })
 
-/** Scaffold only — the programme editor arrives in Phase 7. */
+/** Scaffold only — the programme editor arrives in Phase 8. */
 function LibraryRoute() {
   return <main />
 }

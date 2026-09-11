@@ -70,6 +70,8 @@ Dependencies point inwards: `domain/` imports from nothing in `src/`.
 - **`useEffect` is a last resort.** See the table in `STANDARDS.md` §5.
 - **`domain/` stays pure.** No `window`, no `Date.now()`, no `localStorage`.
 - **Money never gets formatted or parsed outside `lib/format.ts`.**
+- **Money is a `Decimal`, never a `number`.** Convert to `number` only to render it.
+- **Every catalogue figure carries a `source` URL and a `verifiedOn` date.**
 
 ## Commits
 

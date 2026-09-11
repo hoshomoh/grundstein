@@ -96,6 +96,17 @@ absent `localStorage` payload falls back to defaults, and that fallback is teste
 shows what the user typed and the figures do not move. `NaN`, `Infinity` and negative money never
 reach the screen.
 
+**Money is never a float.** Every euro amount in `domain/` is a `Decimal` (decimal.js), rounded
+half-even to cents at exactly one place — the boundary where it becomes a `number` for display. A
+balance that survives 420 subtractions must close at zero to the cent, and binary floating point
+does not do that. Floats remain fine for ratios, percentages and chart geometry, which are never
+summed into money.
+
+**Every figure in the programme catalogue carries its provenance.** A ceiling, a rate or an
+eligibility rule without a `source` URL and a `verifiedOn` date is not data, it is a rumour. When a
+figure cannot be confirmed against the official page, say so in the interface rather than shipping
+it silently.
+
 **Error copy is design copy.** User-facing errors say what happened and what became of the user's
 work. Never "Something went wrong". Like every other string, they live in the locale files.
 
