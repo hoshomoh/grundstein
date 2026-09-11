@@ -95,6 +95,23 @@ in a row.
 - [ ] `src/domain/costs.ts` — transfer tax, notary, registry, agent, cash needed
 - [ ] `src/domain/eligibility.ts` — `checkEligibility`, `excludedProgrammes`, `findConflicts`
 
+### Corrections agreed after verification (2026-09-11)
+
+- [ ] `maxLoanFor(programme, profile)` replaces the flat `cap` — the ceiling is a function of the
+      household, and the amount slider's bound follows it
+- [ ] KfW 300 tier table: 170/200/220k by children (1–2 / 3–4 / 5+), 220/250/270k with QNG
+- [ ] KfW 308 tier table: 140/160/180k by children (1 / 2 / 3+) — replaces the stale 100/125/150k
+- [ ] KfW 297 accepts Effizienzhaus 55 (no oil or gas) as well as EH40, same 100k ceiling
+- [ ] KfW 261 Tilgungszuschuss: 5–15% by standard, +10% Worst Performing Building, +15% serial
+      renovation — reduces the balance, so it moves both the monthly payment and the total interest
+- [ ] KfW 270 grid-feed rule: a private applicant qualifies only if they feed the electricity or
+      heat into the grid — one more field on `Profile`
+- [ ] KfW 270 ceiling stays at 100k… no: stays at **150,000 €**, which is ours and not the
+      programme's (the programme allows 150 Mio). Carried in the catalogue with a provenance note so
+      it is never presented as a KfW rule — confirm the wording with Oshomo
+- [ ] Per-programme `maxYears`: 30 for 261 and 270, 35 for the rest, replacing one global bound
+- [ ] Tests for every tier boundary: 2→3 children on 300, 1→2 and 2→3 on 308, QNG on and off
+
 ### Verifying the calculation itself
 
 - [ ] Annuity checked against worked examples computed independently, not against our own output
