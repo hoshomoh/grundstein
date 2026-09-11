@@ -57,7 +57,8 @@ src/
     ds/        Grundstein's own components, composing ui/
   features/    calculator/ and library/ — the sections that make up each route
   routes/      TanStack Router route definitions
-  index.css    design tokens: colour, type, spacing, motion
+  index.css    shadcn's generated token layer carrying Grundstein's values,
+               plus the type, motion and layout scales
 ```
 
 Dependencies point inwards: `domain/` imports from nothing in `src/`.
@@ -66,6 +67,8 @@ Dependencies point inwards: `domain/` imports from nothing in `src/`.
 
 - **No user-visible English in a component.** Strings live in `src/i18n/locales/`.
 - **No colour, radius, spacing or font-size literal in a component.** Tokens only.
+- **Restyle a shadcn primitive by changing a token in `src/index.css`,** not the component. Its
+  `--primary`, `--border`, `--ring` and friends already point at the palette.
 - **Never edit `src/components/ui/`.** Wrap it in `ds/` or change a token.
 - **`useEffect` is a last resort.** See the table in `STANDARDS.md` §5.
 - **`domain/` stays pure.** No `window`, no `Date.now()`, no `localStorage`.

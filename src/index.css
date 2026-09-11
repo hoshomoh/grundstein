@@ -1,3 +1,370 @@
 @import 'tailwindcss';
+@import 'tw-animate-css';
+@import 'shadcn/tailwind.css';
 
-/* Design tokens land here in Phase 2. */
+/* Self-hosted, so first paint never waits on fonts.googleapis.com. Latin subsets only:
+ * one @font-face per weight, a few KB of woff2 each. */
+@import '@fontsource/zen-old-mincho/latin-400.css';
+@import '@fontsource/zen-old-mincho/latin-500.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-300.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-ext-300.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-400.css';
+@import '@fontsource/zen-kaku-gothic-new/latin-500.css';
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-ext-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
+
+/* The three principle numerals 一二三 are the only CJK on the site, and the display face
+ * has no latin glyph for them. Fontsource's `japanese-400.css` declares no unicode-range,
+ * so it would pull the whole multi-MB CJK font; its full `400.css` is range-gated but
+ * costs 104 KB of CSS on every load. Declaring the exact three codepoints against the
+ * three chunks that hold them costs ~1 KB of CSS, and the 42 KB of woff2 is fetched only
+ * if those glyphs are ever painted. Chunk numbers are pinned to @fontsource 5.3.0 — if a
+ * numeral renders as tofu after a font upgrade, re-derive them from that package's
+ * 400.css. */
+@font-face {
+  font-family: 'Zen Old Mincho';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/zen-old-mincho/files/zen-old-mincho-117-400-normal.woff2') format('woff2');
+  unicode-range: U+4e00;
+}
+@font-face {
+  font-family: 'Zen Old Mincho';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/zen-old-mincho/files/zen-old-mincho-111-400-normal.woff2') format('woff2');
+  unicode-range: U+4e8c;
+}
+@font-face {
+  font-family: 'Zen Old Mincho';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('@fontsource/zen-old-mincho/files/zen-old-mincho-113-400-normal.woff2') format('woff2');
+  unicode-range: U+4e09;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * This is shadcn's generated token layer carrying Grundstein's values. The
+ * structure — `@theme inline` mapping `--color-*` onto bare variables, `:root`
+ * and `.dark` holding the raw values — is exactly what `shadcn init` emits, so
+ * re-running init or adding a component never fights it.
+ *
+ * Two things are added rather than changed: the palette names the design itself
+ * uses (paper, ink, rule, shu, moku, bands), because shadcn has no token for "a
+ * hairline" or "the green that means you qualify"; and the type, motion and
+ * layout scales further down. Everything shadcn defines keeps shadcn's name and
+ * points at the palette.
+ * ───────────────────────────────────────────────────────────────────────────── */
+@theme inline {
+  --font-heading: var(--font-display);
+  --font-display: 'Zen Old Mincho', ui-serif, Georgia, serif;
+  --font-sans: 'Zen Kaku Gothic New', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+
+  /* Grundstein's own palette, registered the same way. */
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-rule: var(--rule);
+  --color-rule-2: var(--rule-2);
+  --color-shu: var(--shu);
+  --color-shu-soft: var(--shu-soft);
+  --color-moku: var(--moku);
+  --color-band-1: var(--band-1);
+  --color-band-2: var(--band-2);
+  --color-band-3: var(--band-3);
+  --color-band-4: var(--band-4);
+  --color-band-5: var(--band-5);
+  --color-band-6: var(--band-6);
+  --color-band-7: var(--band-7);
+  --color-band-8: var(--band-8);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  /* The design's palette. paper/card are grounds, ink is text at three strengths,
+   * rule is hairlines, shu (朱) is the vermilion accent, moku (木) the green used
+   * for one thing only: "you probably qualify". Bands colour the capital-structure
+   * bar, one per tranche. */
+  --paper: #fbfaf7;
+  --ink: #14140f;
+  --ink-2: #56544c;
+  --ink-3: #575550;
+  --rule: #dddad1;
+  --rule-2: #ebe8e1;
+  --shu: #a83a28;
+  --shu-soft: rgb(168 58 40 / 0.1);
+  --moku: #4f6b36;
+
+  --band-1: #a83a28;
+  --band-2: #4f6b36;
+  --band-3: #2b3a55;
+  --band-4: #8a6a1f;
+  --band-5: #6b3560;
+  --band-6: #1f6b6b;
+  --band-7: #7a4a2a;
+  --band-8: #4a4a4a;
+
+  /* shadcn's tokens, valued from the palette above. */
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card: #ffffff;
+  --card-foreground: var(--ink);
+  --popover: var(--card);
+  --popover-foreground: var(--ink);
+  --primary: var(--shu);
+  --primary-foreground: var(--paper);
+  --secondary: var(--rule-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--rule-2);
+  --muted-foreground: var(--ink-3);
+  --accent: var(--shu-soft);
+  --accent-foreground: var(--shu);
+  --destructive: var(--shu);
+  --border: var(--rule);
+  --input: var(--rule);
+  --ring: var(--shu);
+  --chart-1: var(--band-1);
+  --chart-2: var(--band-2);
+  --chart-3: var(--band-3);
+  --chart-4: var(--band-4);
+  --chart-5: var(--band-5);
+  --radius: 0.6875rem;
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--shu);
+  --sidebar-primary-foreground: var(--paper);
+  --sidebar-accent: var(--shu-soft);
+  --sidebar-accent-foreground: var(--shu);
+  --sidebar-border: var(--rule);
+  --sidebar-ring: var(--shu);
+
+  /* The reader's text-size multiplier, 1 · 1.15 · 1.32. Owned by the app store. */
+  --gs-fs: 1;
+  /* Height of the sticky summary bar, measured at runtime so the loans strip can
+   * pin directly beneath it. The fallback is the bar's height at --gs-fs: 1. */
+  --gs-barh: 80px;
+
+  color-scheme: light;
+}
+
+.dark {
+  --paper: #0d0d0b;
+  --ink: #f0eee7;
+  --ink-2: #afaca3;
+  --ink-3: #aba89e;
+  --rule: #2a2924;
+  --rule-2: #1e1d19;
+  --shu: #e2694c;
+  --shu-soft: rgb(226 105 76 / 0.13);
+  --moku: #afbd89;
+
+  --band-1: #e2694c;
+  --band-2: #afbd89;
+  --band-3: #7c93b8;
+  --band-4: #d3b05c;
+  --band-5: #c091b6;
+  --band-6: #6fb5b5;
+  --band-7: #c99164;
+  --band-8: #8f8d87;
+
+  --card: #121210;
+
+  color-scheme: dark;
+}
+
+/* Type, layout and motion do not change with the theme, so they are static. */
+@theme {
+  /* Every size is multiplied by --gs-fs, so the A/A/A control scales the whole page
+   * from one custom property rather than from a class on every element. */
+  --text-label: calc(12px * var(--gs-fs, 1));
+  --text-label--line-height: 1.4;
+  --text-xs: calc(13px * var(--gs-fs, 1));
+  --text-xs--line-height: 1.85;
+  --text-sm: calc(14px * var(--gs-fs, 1));
+  --text-sm--line-height: 1.9;
+  --text-base: calc(15px * var(--gs-fs, 1));
+  --text-base--line-height: 2;
+  --text-md: calc(16px * var(--gs-fs, 1));
+  --text-md--line-height: 1.7;
+  --text-lg: calc(18px * var(--gs-fs, 1));
+  --text-lg--line-height: 1.5;
+  --text-xl: calc(21px * var(--gs-fs, 1));
+  --text-xl--line-height: 1.45;
+
+  /* Fluid display sizes, straight from the design's clamps. */
+  --text-h1: calc(clamp(38px, 7.6vw, 82px) * var(--gs-fs, 1));
+  --text-h1--line-height: 1.18;
+  --text-h2: calc(clamp(22px, 3.6vw, 32px) * var(--gs-fs, 1));
+  --text-h2--line-height: 1.3;
+  --text-hero-figure: calc(clamp(34px, 6.2vw, 56px) * var(--gs-fs, 1));
+  --text-hero-figure--line-height: 1.1;
+  --text-bar-figure: calc(clamp(16px, 3.6vw, 23px) * var(--gs-fs, 1));
+  --text-bar-figure--line-height: 1.2;
+
+  --tracking-label: 0.1em;
+  --tracking-wide-label: 0.11em;
+  --tracking-figure: -0.03em;
+  --tracking-wordmark: 0.06em;
+
+  --container-page: 1040px;
+  --container-page-narrow: 940px;
+  --spacing-gutter: clamp(20px, 5vw, 40px);
+  --spacing-section: clamp(52px, 8vw, 94px);
+  --spacing-section-lg: clamp(56px, 9vw, 110px);
+
+  /* One easing curve for everything that moves, so the page has a single accent. */
+  --ease-gs: cubic-bezier(0.16, 0.7, 0.2, 1);
+
+  --animate-gs-in: gs-in 0.7s var(--ease-gs) both;
+  --animate-gs-fade: gs-fade 0.8s both;
+  --animate-gs-rule: gs-rule 1s var(--ease-gs) both;
+  --animate-gs-col: gs-col 1.1s var(--ease-gs) both;
+
+  @keyframes gs-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes gs-fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  @keyframes gs-rule {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes gs-col {
+    from {
+      transform: scaleY(0);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+
+    margin: 0;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    text-wrap: pretty;
+    transition:
+      background 0.6s ease,
+      color 0.6s ease;
+  }
+  html {
+    @apply font-sans;
+
+    scroll-behavior: smooth;
+  }
+
+  a {
+    color: var(--shu);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--ink);
+  }
+
+  /* The disclosure marker is drawn as a rotating plus, so the native one goes. */
+  summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+}
+
+@layer utilities {
+  /* Squircle corners where the browser has them, plain rounding everywhere else.
+   * Progressive enhancement: nothing depends on it. */
+  @supports (corner-shape: squircle) {
+    .squircle {
+      corner-shape: squircle;
+    }
+  }
+}
+
+/* Motion is decoration here — every readout it animates is also present as text. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -13,7 +13,8 @@
 
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
+    // exactOptionalPropertyTypes stays off: generated shadcn components in
+    // src/components/ui/ do not satisfy it, and STANDARDS.md §5 forbids editing them.
     "noImplicitOverride": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
