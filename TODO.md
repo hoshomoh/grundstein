@@ -56,24 +56,25 @@ scratchpad, not in the repo.
 
 ## Phase 3 — Verify the data against source
 
-The design's numbers came from a prototype and are a year old. Nothing ships until each one is
-checked against the official page and dated. Where a figure is inherently volatile, record it as a
-**dated default the user can edit**, not as a fact.
+Done 2026-09-11. Full record in [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md).
 
-- [ ] `src/domain/programmes.ts` carries a `verifiedOn` date and a `source` URL per programme
-- [ ] Re-check every KfW URL resolves (the 7 in the design are deep links that rot)
-- [ ] KfW 297 / 298 — ceiling, rate, term, grace, energy requirement, exclusions
-- [ ] KfW 300 — ceiling tiers by children/income/QNG, the €90k income cap and the +€10k per
-      additional child, owner exclusion
-- [ ] KfW 308 — ceiling tiers by number of children, the F/G/H class requirement, the 54-month
-      renovation window
-- [ ] KfW 124 — ceiling, rate, what it combines with
-- [ ] KfW 261 — ceiling, rate, repayment subsidy, building-age requirement
-- [ ] KfW 270 — ceiling, rate, term
-- [ ] Confirm the exclusion matrix is still accurate and still symmetric
-- [ ] All 16 Grunderwerbsteuer rates against each state's current rate
-- [ ] Notary ~1.5%, land registry ~0.5%, agent ~3.57% incl. VAT — still current
-- [ ] Anything that could not be confirmed is flagged in the UI, not quietly shipped
+- [x] Re-check every KfW URL resolves — all 7 do
+- [x] KfW 297 / 298 — ceilings 100k/150k confirmed; **EH55 tier missing from our model**
+- [x] KfW 300 — income cap, +10k/child, child and owner rules all confirmed; **ceiling is a children
+      × QNG matrix (170–270k), not a flat 270k**
+- [x] KfW 308 — income cap, F/G/H class and 54-month window confirmed; **all three ceilings stale:
+      100/125/150k should be 140/160/180k**
+- [x] KfW 124 — 100k ceiling, no energy or income test, combines widely: confirmed
+- [x] KfW 261 — 150k ceiling, 5-year building age, renovation-only: confirmed; **Tilgungszuschuss
+      (5–15% + bonuses) not modelled**; Laufzeit maxes at 30 not 35
+- [x] KfW 270 — **ceiling is 150 Mio €, not 150k**; private applicants must feed the grid
+- [x] Exclusion matrix still accurate and symmetric
+- [x] All 16 Grunderwerbsteuer rates — **all correct**, no change needed
+- [x] Notary 1.5% / registry 0.5% / agent 3.57% — all within current ranges
+- [x] Rates: KfW publishes none (every table reads `-,-- %`), so every rate in the app is a dated
+      editable default and is labelled as one
+- [ ] Anything that could not be confirmed is flagged in the UI, not quietly shipped (implement in
+      Phase 7)
 
 ## Phase 4 — Domain (pure, no React, fully unit-tested)
 
@@ -86,7 +87,8 @@ in a row.
       single conversion point to `number` for display
 - [ ] `src/domain/types.ts` — `Programme`, `Tranche`, `FollowupPeriod`, `Profile`, `ProjectType`,
       `EnergyTarget`, `StateCode`
-- [ ] `src/domain/programmes.ts` — the 8 programmes + `PROGRAMME_ORDER` + provenance
+- [ ] `src/domain/programmes.ts` — the 8 programmes + `PROGRAMME_ORDER`, each carrying its `source`
+      URL and `verifiedOn` date from docs/DATA-SOURCES.md
 - [ ] `src/domain/states.ts` — 16 Bundesländer with transfer-tax rates
 - [ ] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace + follow-up segments),
       `buildPortfolio`
