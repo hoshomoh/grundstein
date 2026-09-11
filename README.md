@@ -31,16 +31,16 @@ pnpm install --frozen-lockfile
 pnpm dev
 ```
 
-| Task                   | Command                             |
-| ---------------------- | ----------------------------------- |
-| Dev server             | `pnpm dev`                          |
-| Type-check             | `pnpm typecheck`                    |
-| Lint                   | `pnpm lint`                         |
-| Test                   | `pnpm test`                         |
-| Build                  | `pnpm build`                        |
-| Preview the build      | `pnpm preview`                      |
-| Everything CI runs     | `./scripts/ci.sh`                   |
-| Before pushing         | `./scripts/preflight.sh`            |
+| Task               | Command                  |
+| ------------------ | ------------------------ |
+| Dev server         | `pnpm dev`               |
+| Type-check         | `pnpm typecheck`         |
+| Lint               | `pnpm lint`              |
+| Test               | `pnpm test`              |
+| Build              | `pnpm build`             |
+| Preview the build  | `pnpm preview`           |
+| Everything CI runs | `./scripts/ci.sh`        |
+| Before pushing     | `./scripts/preflight.sh` |
 
 ## Built with
 
@@ -50,9 +50,9 @@ No backend, no database, no analytics. State lives in `localStorage` and goes no
 
 ## Contributing
 
-Read [`AGENTS.md`](./AGENTS.md) first, then [`CODE_STANDARDS.md`](./CODE_STANDARDS.md).
-[`CONTEXT.md`](./CONTEXT.md) is the glossary — use its terms exactly.
-[`TODO.md`](./TODO.md) is the running record of what is built and what is not.
+Read [`AGENTS.md`](./AGENTS.md) first, then [`STANDARDS.md`](./STANDARDS.md).
+[`CONTEXT.md`](./CONTEXT.md) is the glossary — use its terms exactly. [`TODO.md`](./TODO.md) is the
+running record of what is built and what is not.
 
 ## A caveat worth repeating
 

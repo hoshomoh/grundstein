@@ -1,13 +1,13 @@
 # Code standards
 
-Binding on every contributor and every agent working in this repo. `AGENTS.md` points here;
-reviews enforce it. Where a rule below and a rule in `AGENTS.md` disagree, `AGENTS.md` wins — it is
-closer to the commands.
+Binding on every contributor and every agent working in this repo. `AGENTS.md` points here; reviews
+enforce it. Where a rule below and a rule in `AGENTS.md` disagree, `AGENTS.md` wins — it is closer
+to the commands.
 
-Grundstein is a small calculator that people load once, in a browser, and trust with a decision worth
-several hundred thousand euros. Both facts push the same way: **plain code that a newcomer can read,
-test, and change without first learning our abstractions** — and arithmetic that can be proved right
-in isolation.
+Grundstein is a small calculator that people load once, in a browser, and trust with a decision
+worth several hundred thousand euros. Both facts push the same way: **plain code that a newcomer can
+read, test, and change without first learning our abstractions** — and arithmetic that can be proved
+right in isolation.
 
 ---
 
@@ -85,8 +85,8 @@ them — `grunderwerbsteuer`, `zinsbindung`, `tilgungsfrei`. Do not invent Engli
 
 ## 4. Errors
 
-**Guard clauses, fail early.** Handle edge cases at the top and return. No deeply nested `if`/`else`;
-the happy path stays at the left margin.
+**Guard clauses, fail early.** Handle edge cases at the top and return. No deeply nested
+`if`/`else`; the happy path stays at the left margin.
 
 **Standardised handling, never silent.** Throw `Error` subclasses or return a typed result; never
 swallow in an empty `catch`. The one sanctioned exception is reading persisted state: a corrupt or
@@ -115,13 +115,13 @@ differently, in this order:
 
 **`useEffect` is a last resort, not a default.** Most of what it gets used for has a better tool:
 
-| Instead of an effect that…                                          | Use                                    |
-| ------------------------------------------------------------------- | -------------------------------------- |
-| Subscribes to something outside React (media queries, storage)       | `useSyncExternalStore`                 |
-| Derives a value from props or state                                  | Compute it during render               |
-| Resets state when a prop changes                                     | A `key`, or compute it during render   |
-| Responds to a user action                                            | The event handler that caused it       |
-| Writes to the DOM the module already owns                            | That module, synchronously             |
+| Instead of an effect that…                                     | Use                                  |
+| -------------------------------------------------------------- | ------------------------------------ |
+| Subscribes to something outside React (media queries, storage) | `useSyncExternalStore`               |
+| Derives a value from props or state                            | Compute it during render             |
+| Resets state when a prop changes                               | A `key`, or compute it during render |
+| Responds to a user action                                      | The event handler that caused it     |
+| Writes to the DOM the module already owns                      | That module, synchronously           |
 
 What is left — genuinely synchronising with an external system, and nothing else — is what
 `useEffect` is for. In this app that is the `IntersectionObserver` for scroll reveals and the
@@ -169,8 +169,8 @@ Otherwise:
   `useSyncExternalStore`; transient UI state is `useState`. There is no third store.
 - No colour, radius, spacing or font-size literal in a component — tokens only. The one exception is
   a value the design itself computes from a token, and it carries a comment saying so.
-- Accessibility is not a later pass: real `<button>`s, labelled inputs, visible focus rings, 44px hit
-  areas, a keyboard path for everything, and a text readout for every chart.
+- Accessibility is not a later pass: real `<button>`s, labelled inputs, visible focus rings, 44px
+  hit areas, a keyboard path for everything, and a text readout for every chart.
 - Motion respects `prefers-reduced-motion`, and the page is fully usable with animation disabled.
 
 ---
@@ -186,8 +186,8 @@ rather than a working tree that has moved on since.
 
 The difference is not pedantry. `ci.sh` checks the tree you are looking at, and two ordinary things
 break that: a fix made _after_ the run passed, and a file that was never `git add`ed. Both leave a
-green run locally and a red one on GitHub. Note also that `tsc -b` is incremental, so a local run can
-skip files a fresh checkout will not.
+green run locally and a red one on GitHub. Note also that `tsc -b` is incremental, so a local run
+can skip files a fresh checkout will not.
 
 **Conventional Commits, and keep them short.**
 

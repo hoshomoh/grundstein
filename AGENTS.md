@@ -1,7 +1,7 @@
 # AGENTS.md
 
-Read this first, then [`CODE_STANDARDS.md`](./CODE_STANDARDS.md). Where the two disagree, this file
-wins — it is closer to the commands.
+Read this first, then [`STANDARDS.md`](./STANDARDS.md). Where the two disagree, this file wins — it
+is closer to the commands.
 
 ## What this is
 
@@ -14,19 +14,19 @@ rate runs out. Everything runs in the browser; nothing is sent anywhere.
 
 ## Commands
 
-| Task                  | Command                                    |
-| --------------------- | ------------------------------------------ |
-| Install               | `pnpm install --frozen-lockfile`           |
-| Dev server            | `pnpm dev`                                 |
-| Type-check            | `pnpm typecheck`                           |
-| Lint                  | `pnpm lint`                                |
-| Format                | `pnpm format` / `pnpm format:check`        |
-| Test                  | `pnpm test` / `pnpm test:watch`            |
-| Build                 | `pnpm build`                               |
-| Preview the build     | `pnpm preview`                             |
-| **Everything CI runs** | `./scripts/ci.sh`                         |
-| **Before pushing**    | `./scripts/preflight.sh`                   |
-| Add a shadcn component | `pnpm dlx shadcn@latest add <component>`  |
+| Task                   | Command                                  |
+| ---------------------- | ---------------------------------------- |
+| Install                | `pnpm install --frozen-lockfile`         |
+| Dev server             | `pnpm dev`                               |
+| Type-check             | `pnpm typecheck`                         |
+| Lint                   | `pnpm lint`                              |
+| Format                 | `pnpm format` / `pnpm format:check`      |
+| Test                   | `pnpm test` / `pnpm test:watch`          |
+| Build                  | `pnpm build`                             |
+| Preview the build      | `pnpm preview`                           |
+| **Everything CI runs** | `./scripts/ci.sh`                        |
+| **Before pushing**     | `./scripts/preflight.sh`                 |
+| Add a shadcn component | `pnpm dlx shadcn@latest add <component>` |
 
 pnpm only. Never `npm install` or `yarn` — it will produce a second lockfile.
 
@@ -67,7 +67,7 @@ Dependencies point inwards: `domain/` imports from nothing in `src/`.
 - **No user-visible English in a component.** Strings live in `src/i18n/locales/`.
 - **No colour, radius, spacing or font-size literal in a component.** Tokens only.
 - **Never edit `src/components/ui/`.** Wrap it in `ds/` or change a token.
-- **`useEffect` is a last resort.** See the table in `CODE_STANDARDS.md` §5.
+- **`useEffect` is a last resort.** See the table in `STANDARDS.md` §5.
 - **`domain/` stays pure.** No `window`, no `Date.now()`, no `localStorage`.
 - **Money never gets formatted or parsed outside `lib/format.ts`.**
 
@@ -75,8 +75,8 @@ Dependencies point inwards: `domain/` imports from nothing in `src/`.
 
 Conventional Commits, imperative, lower case, no full stop.
 
-**No body. No trailers.** No `Co-Authored-By`, no assistant or tool attribution — not for agents, not
-for Claude Code. `feat(domain): add annuity schedule` is a complete commit message.
+**No body. No trailers.** No `Co-Authored-By`, no assistant or tool attribution — not for agents,
+not for Claude Code. `feat(domain): add annuity schedule` is a complete commit message.
 
 One logical change per commit. Tick the `TODO.md` item in the same commit as the work it describes.
 
