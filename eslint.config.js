@@ -1,0 +1,108 @@
+import js from '@eslint/js'
+import jsxA11y from 'eslint-plugin-jsx-a11y'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+import globals from 'globals'
+import tseslint from 'typescript-eslint'
+
+export default tseslint.config(
+  {
+    ignores: ['dist/**', 'coverage/**', 'node_modules/**', 'src/routeTree.gen.ts'],
+  },
+
+  js.configs.recommended,
+  tseslint.configs.strictTypeChecked,
+  tseslint.configs.stylisticTypeChecked,
+
+  {
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: globals.browser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    plugins: {
+      'jsx-a11y': jsxA11y,
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...jsxA11y.flatConfigs.strict.rules,
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+
+      // STANDARDS.md §3: every signature carries its types; `any` needs a reason.
+      '@typescript-eslint/explicit-module-boundary-types': 'error',
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-non-null-assertion': 'error',
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
+      ],
+
+      // STANDARDS.md §4: no silently swallowed failure.
+      'no-empty': ['error', { allowEmptyCatch: false }],
+      '@typescript-eslint/only-throw-error': 'error',
+
+      // STANDARDS.md §5: useEffect is a last resort, so each one is argued for in writing.
+      'no-restricted-syntax': [
+        'error',
+        {
+          selector: 'CallExpression[callee.name="useEffect"]:not([leadingComments])',
+          message:
+            'useEffect is a last resort (STANDARDS.md §5). Check the table first, and if it is genuinely external synchronisation, comment above it saying which system it synchronises with.',
+        },
+      ],
+    },
+  },
+
+  // domain/ is pure: no React, no browser, no I/O.
+  {
+    files: ['src/domain/**/*.ts'],
+    languageOptions: { globals: {} },
+    rules: {
+      'no-restricted-globals': [
+        'error',
+        { name: 'window', message: 'domain/ is pure (STANDARDS.md §1).' },
+        { name: 'document', message: 'domain/ is pure (STANDARDS.md §1).' },
+        { name: 'localStorage', message: 'domain/ is pure (STANDARDS.md §1).' },
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            { group: ['@/lib/*', '@/state/*', '@/i18n/*', '@/components/*', '@/features/*'] },
+            { group: ['react', 'react-dom', 'react-i18next'] },
+          ],
+        },
+      ],
+    },
+  },
+
+  // Generated shadcn output is never hand-edited, so it is never linted either.
+  {
+    files: ['src/components/ui/**'],
+    rules: {
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+      'react-refresh/only-export-components': 'off',
+    },
+  },
+
+  {
+    files: ['**/*.test.{ts,tsx}', 'src/test/**'],
+    languageOptions: { globals: { ...globals.browser, ...globals.node } },
+    rules: {
+      '@typescript-eslint/no-non-null-assertion': 'off',
+      '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+  },
+
+  {
+    files: ['*.config.{js,ts}'],
+    languageOptions: { globals: globals.node },
+    extends: [tseslint.configs.disableTypeChecked],
+  },
+)
