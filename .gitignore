@@ -1,0 +1,26 @@
+node_modules/
+dist/
+dist-ssr/
+coverage/
+*.local
+
+# Build caches
+.vite/
+*.tsbuildinfo
+
+# Editors
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.swp
+
+# Tooling
+.eslintcache
+.vercel/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log*
