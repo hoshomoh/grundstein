@@ -91,8 +91,8 @@ Checked 2026-09-11. Link resolves.
 | Existing owners excluded | yes                 | yes                           | ✅                                  |
 | Zinsbindung              | 10 yr               | "10 Jahre"                    | ✅                                  |
 
-**Finding.** Every ceiling in this programme is out of date, by 30,000–40,000 € each. Our top
-ceiling of 150,000 € is below the _lowest_ current tier.
+**Finding.** Every ceiling in this programme is out of date, each by 30,000–40,000 €. A three-child
+household was being offered 150,000 € when it can have 180,000 €.
 
 ### 124 — Wohneigentumsprogramm
 
