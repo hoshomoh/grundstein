@@ -82,7 +82,8 @@ Done 2026-09-11. Full record in [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md).
 are fine for ratios and chart geometry; they are not fine for a balance that is subtracted 420 times
 in a row.
 
-- [ ] Add `decimal.js`; configure precision and `ROUND_HALF_EVEN` once, in one module
+- [x] Add `decimal.js`; configure precision and `ROUND_HALF_EVEN` once, in one module — a lint rule
+      forbids importing it anywhere but `domain/money.ts`
 - [ ] `src/domain/money.ts` — the `Money` type, construction, arithmetic, rounding to cents, and the
       single conversion point to `number` for display
 - [ ] `src/domain/types.ts` — `Programme`, `Tranche`, `FollowupPeriod`, `Profile`, `ProjectType`,

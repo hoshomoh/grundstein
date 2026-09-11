@@ -8,6 +8,8 @@ import './index.css'
 const router = createRouter({ routeTree, defaultPreload: 'intent' })
 
 declare module '@tanstack/react-router' {
+  // Module augmentation works by declaration merging, which only an interface can do.
+  // eslint-disable-next-line @typescript-eslint/consistent-type-definitions
   interface Register {
     router: typeof router
   }

@@ -38,6 +38,9 @@ export default tseslint.config(
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-non-null-assertion': 'error',
+      // STANDARDS.md §5 writes prop and model shapes as `type`, and a discriminated
+      // union cannot be an interface at all. Point the rule at the house style.
+      '@typescript-eslint/consistent-type-definitions': ['error', 'type'],
       '@typescript-eslint/consistent-type-imports': [
         'error',
         { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
@@ -59,9 +62,31 @@ export default tseslint.config(
     },
   },
 
+  // decimal.js is configured in exactly one place, so it is imported in exactly one
+  // place. Everything else goes through `@/domain/money` (STANDARDS.md §4).
+  {
+    files: ['src/**/*.{ts,tsx}'],
+    ignores: ['src/domain/money.ts', 'src/domain/money.test.ts'],
+    rules: {
+      'no-restricted-imports': [
+        'error',
+        {
+          paths: [
+            {
+              name: 'decimal.js',
+              message:
+                'Import Money and its helpers from @/domain/money — decimal.js is configured there and nowhere else.',
+            },
+          ],
+        },
+      ],
+    },
+  },
+
   // domain/ is pure: no React, no browser, no I/O.
   {
     files: ['src/domain/**/*.ts'],
+    ignores: ['src/domain/money.ts', 'src/domain/money.test.ts'],
     languageOptions: { globals: {} },
     rules: {
       'no-restricted-globals': [
@@ -73,6 +98,13 @@ export default tseslint.config(
       'no-restricted-imports': [
         'error',
         {
+          paths: [
+            {
+              name: 'decimal.js',
+              message:
+                'Import Money and its helpers from @/domain/money — decimal.js is configured there and nowhere else.',
+            },
+          ],
           patterns: [
             { group: ['@/lib/*', '@/state/*', '@/i18n/*', '@/components/*', '@/features/*'] },
             { group: ['react', 'react-dom', 'react-i18next'] },
@@ -80,6 +112,13 @@ export default tseslint.config(
         },
       ],
     },
+  },
+
+  // A TanStack Router file must export `Route` beside its component; that is the
+  // framework's contract, not an accident, so fast-refresh has nothing to warn about.
+  {
+    files: ['src/routes/**/*.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
   },
 
   // Generated shadcn output is never hand-edited, so it is never linted either.
