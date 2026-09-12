@@ -7,6 +7,14 @@ import { euros, type Money } from '@/domain/money'
 
 import { MoneyInput } from './money-input'
 
+/* `delay: null` types synchronously. With user-event's default inter-key delay these
+ * tests intermittently failed under a loaded suite — a keystroke would land after the
+ * assertion read the field. A flaky test is worse than no test, because it teaches
+ * everyone to ignore a red run. */
+function typist() {
+  return userEvent.setup({ delay: null })
+}
+
 function renderInput(value = euros(600_000)) {
   const onCommit = vi.fn<(value: Money) => void>()
   render(<MoneyInput value={value} onCommit={onCommit} label="Purchase price" />)
@@ -22,7 +30,7 @@ describe('MoneyInput', () => {
   /* The whole point of the draft: reformatting mid-word fights the typist and moves
    * the caret. While the field is being typed into it shows exactly what was typed. */
   it('shows what was typed while it is being typed', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
@@ -33,7 +41,7 @@ describe('MoneyInput', () => {
   })
 
   it('commits and reformats on blur', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
@@ -45,7 +53,7 @@ describe('MoneyInput', () => {
   })
 
   it('commits on Enter', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
@@ -55,7 +63,7 @@ describe('MoneyInput', () => {
   })
 
   it('reads a German figure with grouping and a decimal comma', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
@@ -68,7 +76,7 @@ describe('MoneyInput', () => {
    * are. Committing zero here would wipe someone's purchase price because they
    * tabbed away mid-edit. */
   it('commits nothing and snaps back when the draft is unreadable', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
@@ -80,7 +88,7 @@ describe('MoneyInput', () => {
   })
 
   it('commits nothing when the field is left empty', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
@@ -91,7 +99,7 @@ describe('MoneyInput', () => {
   })
 
   it('abandons the draft on Escape', async () => {
-    const user = userEvent.setup()
+    const user = typist()
     const { field, onCommit } = renderInput()
 
     await user.clear(field)
