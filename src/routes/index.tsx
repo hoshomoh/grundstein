@@ -3,16 +3,24 @@ import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { TopBar } from '@/components/ds'
-import type { Profile } from '@/domain/types'
+import type { Profile, ProgrammeKey, Tranche } from '@/domain/types'
 import { AboutYou } from '@/features/calculator/sections/about-you'
 import { Hero } from '@/features/calculator/sections/hero'
 import { SummaryBar } from '@/features/calculator/sections/summary-bar'
 import { TheProperty, type PropertyPatch } from '@/features/calculator/sections/the-property'
+import { YourLoans } from '@/features/calculator/sections/your-loans'
 import { useCalculation } from '@/features/calculator/use-calculation'
 import type { Language } from '@/i18n/locales'
 import { createPrefersDarkStore, nextTheme, resolveDark } from '@/lib/appearance'
 import { useSessionStore } from '@/state/session-context'
-import { withDown, withPrice, type FontScale } from '@/state/session-state'
+import {
+  addTranche,
+  removeTranche,
+  withDown,
+  withPrice,
+  withTranche,
+  type FontScale,
+} from '@/state/session-state'
 import { useSyncExternalStore } from 'react'
 
 export const Route = createFileRoute('/')({
@@ -24,7 +32,7 @@ const prefersDarkStore = createPrefersDarkStore(typeof window === 'undefined' ? 
 function CalculatorRoute(): ReactElement {
   const { t } = useTranslation()
   const store = useSessionStore()
-  const { state, costs, portfolio } = useCalculation()
+  const { state, costs, portfolio, cover, conflicts, conflictedTrancheIds } = useCalculation()
 
   const systemPrefersDark = useSyncExternalStore(
     prefersDarkStore.subscribe,
@@ -90,6 +98,30 @@ function CalculatorRoute(): ReactElement {
             if (patch.down) return withDown(next, patch.down)
             return next
           })
+        }}
+      />
+
+      <YourLoans
+        tranches={state.tranches}
+        programmes={state.programmes}
+        programmeOrder={state.programmeOrder}
+        profile={state.profile}
+        rows={portfolio.rows}
+        down={state.down}
+        cover={cover}
+        conflicts={conflicts}
+        conflictedTrancheIds={conflictedTrancheIds}
+        onTrancheChange={(id: number, patch: Partial<Tranche>) => {
+          store.update((current) => withTranche(current, id, patch))
+        }}
+        onTrancheRemove={(id: number) => {
+          store.update((current) => removeTranche(current, id))
+        }}
+        onTrancheAdd={(key: ProgrammeKey) => {
+          store.update((current) => addTranche(current, key))
+        }}
+        onReset={() => {
+          store.reset()
         }}
       />
     </main>

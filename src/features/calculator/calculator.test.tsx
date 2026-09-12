@@ -8,12 +8,14 @@ import { euros } from '@/domain/money'
 import { initialiseI18n } from '@/i18n'
 import type { SessionStorage } from '@/state/persistence'
 import { SessionProvider } from '@/state/session-context'
+import { addTranche } from '@/state/session-state'
 import { createSessionStore, type SessionStore } from '@/state/session-store'
 
 import { AboutYou } from './sections/about-you'
 import { Hero } from './sections/hero'
 import { SummaryBar } from './sections/summary-bar'
 import { TheProperty } from './sections/the-property'
+import { YourLoans } from './sections/your-loans'
 import { useCalculation } from './use-calculation'
 
 function memoryStorage(): SessionStorage {
@@ -30,7 +32,7 @@ function withStore(children: ReactNode, store: SessionStore): ReactElement {
 
 /** Renders the pieces that actually read the store, which is where wiring breaks. */
 function Assembled(): ReactElement {
-  const { state, costs, portfolio } = useCalculation()
+  const { state, costs, portfolio, cover, conflicts, conflictedTrancheIds } = useCalculation()
   return (
     <>
       <Hero monthlyPayment={portfolio.peakPayment} />
@@ -50,6 +52,21 @@ function Assembled(): ReactElement {
         agentInvolved={state.agentInvolved}
         costs={costs}
         onChange={() => undefined}
+      />
+      <YourLoans
+        tranches={state.tranches}
+        programmes={state.programmes}
+        programmeOrder={state.programmeOrder}
+        profile={state.profile}
+        rows={portfolio.rows}
+        down={state.down}
+        cover={cover}
+        conflicts={conflicts}
+        conflictedTrancheIds={conflictedTrancheIds}
+        onTrancheChange={() => undefined}
+        onTrancheRemove={() => undefined}
+        onTrancheAdd={() => undefined}
+        onReset={() => undefined}
       />
     </>
   )
@@ -165,5 +182,67 @@ describe('the calculator, assembled', () => {
     render(withStore(<Assembled />, store))
 
     expect(screen.queryByLabelText('Agent, your half %')).not.toBeInTheDocument()
+  })
+
+  it('lists the three loans the example opens with', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    expect(screen.getByDisplayValue(/KfW 300/)).toBeInTheDocument()
+    expect(screen.getByDisplayValue(/KfW 124/)).toBeInTheDocument()
+    expect(screen.getByDisplayValue('Bank mortgage')).toBeInTheDocument()
+  })
+
+  /* The tier grid, visible: a two-child household is offered 170.000 € on KfW 300, not
+   * the 270.000 € a flat cap would have let them slide to. */
+  it('bounds the amount slider by what this household can actually borrow', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    const amount = screen.getAllByRole('group', { name: 'Amount' })
+    expect(amount[0]?.querySelector('[role="slider"]')).toHaveAttribute('aria-valuemax', '170000')
+  })
+
+  it('moves that bound when the household changes', () => {
+    const store = createSessionStore(memoryStorage())
+    const { rerender } = render(withStore(<Assembled />, store))
+
+    store.update((state) => ({ ...state, profile: { ...state.profile, children: 5 } }))
+    rerender(withStore(<Assembled />, store))
+
+    const amount = screen.getAllByRole('group', { name: 'Amount' })
+    expect(amount[0]?.querySelector('[role="slider"]')).toHaveAttribute('aria-valuemax', '220000')
+  })
+
+  it('warns about a pair of loans that cannot fund the same home', () => {
+    const store = createSessionStore(memoryStorage())
+    store.update((state) => addTranche(state, '297'))
+    render(withStore(<Assembled />, store))
+
+    expect(screen.getByText('These two do not go together')).toBeInTheDocument()
+    expect(screen.getByText(/KfW 300 and KfW 297 cannot both pay/)).toBeInTheDocument()
+  })
+
+  it('says whether the loans cover the purchase', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+    expect(screen.getByText(/Still need|Covered|Too much by/)).toBeInTheDocument()
+  })
+
+  /* A household that does not qualify today may qualify after changing an answer, so
+   * the button stays — dashed rather than gone. */
+  it('offers every programme as an add button, eligible or not', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    for (const short of ['KfW 297', 'KfW 298', 'KfW 308', 'KfW 261', 'KfW 270', 'Hausbank']) {
+      expect(screen.getByRole('button', { name: short })).toBeInTheDocument()
+    }
+  })
+
+  /* Radix names only the thumb, and names it nothing. Without the group wrapper every
+   * slider on the page announces as an unnamed slider reading a bare number. */
+  it('gives every slider an accessible name', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    for (const name of ['Purchase price', 'Down payment', 'Amount', 'Interest rate']) {
+      expect(screen.getAllByRole('group', { name }).length).toBeGreaterThan(0)
+    }
   })
 })

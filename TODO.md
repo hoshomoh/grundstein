@@ -161,9 +161,9 @@ in a row.
 - [x] Sticky summary bar: monthly / cash needed / total interest
 - [x] 001 About you — project, children, income, owns a home, energy target
 - [x] 002 The property — price, down payment, state, agent toggle, cost table
-- [ ] 003 Your loans — per-tranche card, eligibility badge, four sliders, follow-up rate periods,
+- [x] 003 Your loans — per-tranche card, eligibility badge, four sliders, follow-up rate periods,
       KfW conditions disclosure, add/remove, cover indicator
-- [ ] Conflict callout for mutually exclusive programmes
+- [x] Conflict callout for mutually exclusive programmes
 - [ ] 004 Year by year — yearly bars, fixed-rate marker, month drill-down, readouts
 - [ ] 005 What each loan costs — ledger rows + the Σ total row
 - [ ] 006 Questions — FAQ
