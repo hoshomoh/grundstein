@@ -42,6 +42,25 @@ pnpm dev
 | Everything CI runs | `./scripts/ci.sh`        |
 | Before pushing     | `./scripts/preflight.sh` |
 
+## Deploying
+
+Static output, hosted on Vercel. `vercel.json` holds the whole configuration:
+
+- **SPA rewrite** — every path that is not a built asset serves `index.html`, so `/library` works on
+  a cold load and not only via client-side navigation.
+- **Cache headers** — hashed assets are immutable for a year; `index.html` is revalidated every
+  time, so a new deploy is picked up immediately.
+- **Content-Security-Policy** — `default-src 'self'`, no external origins at all. The app loads no
+  third-party scripts, fonts or analytics, so nothing has to be allowed through. `style-src` permits
+  inline styles because the charts size their bars with style attributes.
+
+```sh
+pnpm build     # produces dist/
+pnpm preview   # serves dist/ locally to check the built output
+```
+
+A push to `main` deploys. Pull requests get their own preview URL.
+
 ## Built with
 
 Vite · React 19 · TypeScript · TanStack Router · Tailwind CSS v4 · shadcn/ui · i18next · Vitest.

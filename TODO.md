@@ -190,7 +190,7 @@ in a row.
 
 ## Phase 10 — Deploy
 
-- [ ] `vercel.json` — SPA rewrite, cache headers for hashed assets
+- [x] `vercel.json` — SPA rewrite, cache headers for hashed assets
 - [ ] Decide and record the production domain
 - [ ] First deploy, smoke-test the live URL
 - [ ] `README.md` deploy section reflects what actually happened
