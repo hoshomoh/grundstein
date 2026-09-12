@@ -7,7 +7,7 @@ import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   {
-    ignores: ['dist/**', 'coverage/**', 'node_modules/**', 'src/routeTree.gen.ts'],
+    ignores: ['dist/**', 'coverage/**', 'node_modules/**', 'plans/**', 'src/routeTree.gen.ts'],
   },
 
   js.configs.recommended,

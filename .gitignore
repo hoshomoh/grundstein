@@ -24,3 +24,7 @@ logs/
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# Local working notes — audit plans, scratch analysis. Personal to whoever is working,
+# not part of the project.
+plans/
