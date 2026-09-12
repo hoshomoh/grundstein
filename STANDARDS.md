@@ -221,3 +221,5 @@ Otherwise:
 - One logical change per commit.
 - A change in behaviour changes a test.
 - A change to the persisted state shape bumps its version and adds a migration.
+- Where a `TODO.md` is tracking the work, tick the item in the same commit as the work it describes.
+  A checklist that lags the code is worse than none, because it is believed.

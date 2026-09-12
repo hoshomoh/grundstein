@@ -85,11 +85,18 @@ Conventional Commits, imperative, lower case, no full stop.
 **No body. No trailers.** No `Co-Authored-By`, no assistant or tool attribution — not for agents,
 not for Claude Code. `feat(domain): add annuity schedule` is a complete commit message.
 
-One logical change per commit.
+One logical change per commit. When a `TODO.md` is in play, tick its item in the same commit as the
+work, so the record and the code never disagree.
 
 Run `./scripts/ci.sh` before committing and `./scripts/preflight.sh` before pushing.
 
 ## Working agreement
+
+**Anything multi-step starts with a `TODO.md`** — a checklist of what needs doing, in order, ticked
+as it lands. Write it before the first line of code and keep it current; it is the record of where
+the work got to between sessions. Delete it when its phase is genuinely finished and fold anything
+durable into the docs that outlive it. There is no `TODO.md` right now because the build plan it
+tracked is done; the next substantial piece of work opens a new one.
 
 Full autonomy on implementation. Ask Oshomo before:
 
