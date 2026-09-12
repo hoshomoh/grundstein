@@ -1,14 +1,43 @@
-import type { ReactElement } from 'react'
+import type { ReactElement, RefCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { StatFigure } from '@/components/ds'
 import type { Money } from '@/domain/money'
 import { formatEuros, formatEurosWithCents } from '@/lib/format'
-import { publishHeightTo } from '@/lib/measure-height'
 import { cn } from '@/lib/utils'
 
-/** Created once, not per render: the identity of a ref callback is its lifetime. */
-const measureBar = publishHeightTo('--gs-barh')
+/**
+ * Publishes this bar's height to `--gs-barh`, which the loans strip further down the
+ * page uses as its sticky offset so it pins directly beneath the bar.
+ *
+ * The height cannot be written as a constant. The three figures sit on one row from
+ * about 500px up, two below that, and each of the three text-size steps and both
+ * languages move the wrap again. A hardcoded 80px was 40px short on a 402px phone,
+ * which pinned the strip behind this bar and hid it completely.
+ *
+ * A ref callback rather than an effect: React runs it when the node attaches and runs
+ * the cleanup when it leaves, which is exactly the lifetime of the measurement.
+ * Declared at module scope so a re-render does not detach and re-attach it.
+ */
+const measureBar: RefCallback<HTMLElement> = (node) => {
+  if (!node) return undefined
+
+  const root = node.ownerDocument.documentElement
+  const publish = (): void => {
+    root.style.setProperty('--gs-barh', `${String(node.offsetHeight)}px`)
+  }
+
+  publish()
+  const observer = new ResizeObserver(publish)
+  observer.observe(node)
+
+  return () => {
+    observer.disconnect()
+    // The stylesheet's own fallback beats a stale measurement of an element that has
+    // left the page.
+    root.style.removeProperty('--gs-barh')
+  }
+}
 
 export type SummaryBarProps = {
   monthlyPayment: Money
@@ -19,10 +48,8 @@ export type SummaryBarProps = {
 /**
  * The three figures that follow the reader down the page.
  *
- * Sticky at the top, so the consequence of every slider is always in view. The loans
- * strip pins directly beneath it at `top: var(--gs-barh)`, so this bar measures itself
- * into that property — its height changes with the viewport width, the text-size
- * setting and the language, and a strip pinned to a guess disappears behind it.
+ * Sticky at the top, so the consequence of every slider is always in view. It measures
+ * itself into `--gs-barh` — see `measureBar` above.
  */
 export function SummaryBar({
   monthlyPayment,
