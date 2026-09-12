@@ -146,13 +146,13 @@ in a row.
 ## Phase 6 — Components (`src/components/ds/`)
 
 - [ ] `TopBar` — language, text size, theme toggle
-- [ ] `RailSlider` — hairline track + fill, on shadcn `Slider` (keyboard + a11y)
-- [ ] `FieldLabel`, `HairlineInput`, `MoneyInput` (draft-while-typing, commit on blur)
-- [ ] `HairlineSelect` on shadcn `Select`
-- [ ] `StatFigure` — the digit-roll odometer, reduced-motion aware
+- [x] `RailSlider` — hairline track + fill, on shadcn `Slider` (keyboard + a11y)
+- [x] `FieldLabel`, `HairlineInput`, `MoneyInput` (draft-while-typing, commit on blur)
+- [x] `HairlineSelect` on shadcn `Select`
+- [x] `StatFigure` — the digit-roll odometer, reduced-motion aware
 - [ ] `Disclosure` on shadcn `Accordion` (FAQ + library rows)
 - [ ] `StackBar`, `LegendRow`, `Chip`, `Badge`, `CalloutWarning`
-- [ ] Nothing under `src/components/ui/` is hand-edited
+- [x] Nothing under `src/components/ui/` is hand-edited
 
 ## Phase 7 — Calculator route (`/`)
 
