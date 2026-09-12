@@ -151,7 +151,7 @@ function LibraryRoute(): ReactElement {
               'border-rule squircle text-ink-2 inline-flex min-h-10.5 items-center gap-2 rounded-lg',
               'hover:border-shu hover:text-shu hover:bg-shu-soft cursor-pointer border border-dashed',
               'text-label tracking-label bg-transparent px-4 py-2.5 font-mono uppercase',
-              'transition-colors duration-300',
+              'transition-colors duration-150',
             )}
           >
             <svg
@@ -184,7 +184,7 @@ function LibraryRoute(): ReactElement {
               className={cn(
                 'border-rule text-ink-3 hover:border-shu hover:text-shu ml-auto cursor-pointer',
                 'border-0 border-b bg-transparent py-2',
-                'text-label tracking-wide-label font-mono uppercase transition-colors duration-300',
+                'text-label tracking-wide-label font-mono uppercase transition-colors duration-150',
               )}
             >
               {t('library.restore')}

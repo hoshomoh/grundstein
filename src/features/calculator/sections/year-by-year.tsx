@@ -89,14 +89,14 @@ export function YearByYear({ portfolio }: YearByYearProps): ReactElement {
                   })}
                   className={cn(
                     'flex h-full min-w-0 flex-1 cursor-crosshair items-end border-0 p-0',
-                    'transition-colors duration-300',
+                    'transition-colors duration-150',
                     index === selectedYear ? 'bg-shu-soft' : 'bg-transparent',
                   )}
                 >
                   <span
                     aria-hidden
-                    className="flex w-full flex-col overflow-hidden rounded-t transition-[height] duration-500 ease-(--ease-gs)"
-                    style={{ height: `${heightPercent.toFixed(2)}%` }}
+                    className="flex h-full w-full origin-bottom flex-col overflow-hidden rounded-t transition-transform duration-500 ease-(--ease-gs)"
+                    style={{ transform: `scaleY(${(heightPercent / 100).toFixed(4)})` }}
                   >
                     {/* A 2px surface gap keeps the two segments legible where they
                         meet, which is where a stacked bar is hardest to read. */}
@@ -160,7 +160,7 @@ export function YearByYear({ portfolio }: YearByYearProps): ReactElement {
               setShowTable(!showTable)
             }}
             aria-expanded={showTable}
-            className="border-rule text-ink-3 hover:border-shu hover:text-shu text-label tracking-wide-label mt-4 cursor-pointer border-0 border-b bg-transparent py-1.5 font-mono uppercase transition-colors duration-300"
+            className="border-rule text-ink-3 hover:border-shu hover:text-shu text-label tracking-wide-label mt-4 cursor-pointer border-0 border-b bg-transparent py-1.5 font-mono uppercase transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]"
           >
             {showTable ? t('chart.hideTable') : t('chart.showTable')}
           </button>
@@ -207,7 +207,13 @@ function MonthDetail({ portfolio, year }: MonthDetailProps): ReactElement {
   )
 
   return (
-    <div className="animate-gs-in mt-6.5">
+    <div
+      className={cn(
+        'mt-6.5 translate-y-0 opacity-100',
+        'transition-[opacity,transform] duration-200 ease-(--ease-gs)',
+        'starting:translate-y-2 starting:opacity-0',
+      )}
+    >
       <p className="text-ink-3 text-label tracking-label mb-4.5 font-mono uppercase">
         {t('chart.monthTitle', { year: year + 1 })}
       </p>

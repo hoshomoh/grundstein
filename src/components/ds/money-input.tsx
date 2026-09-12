@@ -79,7 +79,7 @@ export function MoneyInput({
       }}
       className={cn(
         'border-rule text-ink h-(--gs-field-h) w-full border-0 border-b bg-transparent py-0',
-        'font-mono text-base leading-none transition-colors duration-300',
+        'font-mono text-base leading-none transition-colors duration-150',
         'focus:border-shu focus:outline-none',
         className,
       )}

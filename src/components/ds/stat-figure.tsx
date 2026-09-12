@@ -52,7 +52,7 @@ export function StatFigure({ text, className }: StatFigureProps): ReactElement {
               style={{ height: `${String(STEP_EM)}em` }}
             >
               <span
-                className="block transition-transform duration-700 ease-(--ease-gs)"
+                className="block transition-transform duration-700 ease-(--ease-gs-move)"
                 style={{ transform: `translateY(-${String(Number(character) * STEP_EM)}em)` }}
               >
                 {DIGITS.map((digit) => (

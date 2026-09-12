@@ -65,7 +65,7 @@ export function RateInput({
       }}
       className={cn(
         'border-rule text-ink w-12 border-0 border-b bg-transparent py-1 text-right',
-        'font-mono text-xs transition-colors duration-300',
+        'font-mono text-xs transition-colors duration-150',
         'focus:border-shu focus:outline-none',
         className,
       )}

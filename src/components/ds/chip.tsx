@@ -27,7 +27,7 @@ export function Chip({ children, selected, onToggle, className }: ChipProps): Re
       className={cn(
         'squircle min-h-(--gs-hit) rounded-md border px-3.5 py-2',
         'text-label tracking-wide-label font-mono',
-        'cursor-pointer transition-colors duration-300',
+        'cursor-pointer transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
         selected
           ? 'border-shu bg-shu-soft text-shu'
           : 'border-rule text-ink-3 hover:border-ink hover:text-ink bg-transparent',

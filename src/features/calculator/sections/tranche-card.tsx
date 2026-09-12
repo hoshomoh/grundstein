@@ -112,7 +112,7 @@ export function TrancheCard({
               className={cn(
                 'border-rule squircle text-ink-3 ml-auto flex size-8 shrink-0 items-center',
                 'hover:border-shu hover:text-shu cursor-pointer justify-center rounded-md',
-                'border bg-transparent transition-colors duration-300',
+                'border bg-transparent transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
               )}
             >
               <svg
@@ -330,7 +330,7 @@ function FollowupPeriods({ tranche, fixedYears, onChange }: FollowupPeriodsProps
               onClick={() => {
                 onChange({ followupPeriods: periods.filter((_, at) => at !== index) })
               }}
-              className="border-rule squircle text-ink-3 hover:border-shu hover:text-shu flex size-7 cursor-pointer items-center justify-center rounded-sm border bg-transparent transition-colors duration-300"
+              className="border-rule squircle text-ink-3 hover:border-shu hover:text-shu flex size-7 cursor-pointer items-center justify-center rounded-sm border bg-transparent transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]"
             >
               <svg
                 width="10"
@@ -359,7 +359,7 @@ function FollowupPeriods({ tranche, fixedYears, onChange }: FollowupPeriodsProps
         className={cn(
           'border-rule squircle text-ink-2 inline-flex min-h-9 items-center gap-1.75 rounded-md',
           'hover:border-ink hover:text-ink cursor-pointer border bg-transparent px-3.5 py-2',
-          'text-label tracking-label font-mono uppercase transition-colors duration-300',
+          'text-label tracking-label font-mono uppercase transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
         )}
       >
         <svg
@@ -405,7 +405,7 @@ function Conditions({ programme, profile, programmes }: ConditionsProps): ReactE
 
   return (
     <details className="border-rule-2 mt-4.5 border-t pt-3.5">
-      <summary className="text-ink-3 hover:text-shu text-label tracking-wide-label font-mono uppercase transition-colors duration-300">
+      <summary className="text-ink-3 hover:text-shu text-label tracking-wide-label font-mono uppercase transition-colors duration-150">
         {t('requirements.title')}
       </summary>
 

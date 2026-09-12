@@ -49,6 +49,18 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Tailwind's `hover:` compiles to a bare `:hover`, which a touchscreen fires on tap and
+ * then leaves applied until the next tap elsewhere. Redefining the variant gates every
+ * `hover:` utility in the app behind a real pointer, in one place, rather than
+ * prefixing twenty call sites. */
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
 /* ─────────────────────────────────────────────────────────────────────────────
  * This is shadcn's generated token layer carrying Grundstein's values. The
  * structure — `@theme inline` mapping `--color-*` onto bare variables, `:root`
@@ -279,13 +291,14 @@
   --spacing-section: clamp(52px, 8vw, 94px);
   --spacing-section-lg: clamp(56px, 9vw, 110px);
 
-  /* One easing curve for everything that moves, so the page has a single accent. */
+  /* Two curves, one job each. `gs` is a strong ease-out for things arriving; `gs-move`
+   * is an ease-in-out for things travelling between two positions on screen. */
   --ease-gs: cubic-bezier(0.16, 0.7, 0.2, 1);
+  --ease-gs-move: cubic-bezier(0.77, 0, 0.175, 1);
 
   --animate-gs-in: gs-in 0.7s var(--ease-gs) both;
   --animate-gs-fade: gs-fade 0.8s both;
   --animate-gs-rule: gs-rule 1s var(--ease-gs) both;
-  --animate-gs-col: gs-col 1.1s var(--ease-gs) both;
 
   @keyframes gs-in {
     from {
@@ -311,14 +324,6 @@
     }
     to {
       transform: scaleX(1);
-    }
-  }
-  @keyframes gs-col {
-    from {
-      transform: scaleY(0);
-    }
-    to {
-      transform: scaleY(1);
     }
   }
 }
@@ -380,11 +385,16 @@
     scroll-behavior: auto;
   }
 
+  /* Reduced motion asks for less movement, not for an interface that stops
+   * responding. Colour and opacity carry feedback without moving anything, so they
+   * stay — shortened, but present. */
   *,
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 150ms !important;
+    transition-property:
+      color, background-color, border-color, outline-color, opacity, fill, stroke !important;
   }
 }

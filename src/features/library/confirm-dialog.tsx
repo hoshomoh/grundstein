@@ -47,10 +47,13 @@ export function ConfirmDialog({
           <AlertDialogDescription className="text-ink-2 text-sm">{body}</AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel className="border-rule squircle rounded-md">
+          <AlertDialogCancel className="border-rule squircle rounded-md transition-[color,box-shadow] duration-150">
             {t('dialogs.cancel')}
           </AlertDialogCancel>
-          <AlertDialogAction onClick={onConfirm} className="bg-shu text-paper squircle rounded-md">
+          <AlertDialogAction
+            onClick={onConfirm}
+            className="bg-shu text-paper squircle rounded-md transition-[color,box-shadow] duration-150"
+          >
             {confirmLabel}
           </AlertDialogAction>
         </AlertDialogFooter>

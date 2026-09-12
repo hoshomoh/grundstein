@@ -218,7 +218,7 @@ export function ProgrammeEditor({
         >
           <button
             type="button"
-            className="border-rule squircle text-ink-3 hover:border-shu hover:text-shu text-label tracking-wide-label min-h-10 cursor-pointer rounded-md border bg-transparent px-3.75 py-2.25 font-mono uppercase transition-colors duration-300"
+            className="border-rule squircle text-ink-3 hover:border-shu hover:text-shu text-label tracking-wide-label min-h-10 cursor-pointer rounded-md border bg-transparent px-3.75 py-2.25 font-mono uppercase transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]"
           >
             {t('library.delete')}
           </button>

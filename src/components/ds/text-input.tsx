@@ -53,7 +53,7 @@ export function TextInput({ value, onCommit, label, className }: TextInputProps)
       }}
       className={cn(
         'font-display min-w-0 border-0 border-b border-transparent bg-transparent py-0.75 leading-none',
-        'hover:border-rule focus:border-shu transition-colors duration-300 focus:outline-none',
+        'hover:border-rule focus:border-shu transition-colors duration-150 focus:outline-none',
         className,
       )}
     />

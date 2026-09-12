@@ -36,7 +36,7 @@ export function Disclosure({ items, className }: DisclosureProps): ReactElement 
           <AccordionTrigger
             className={cn(
               'hover:text-shu text-md py-5 hover:no-underline',
-              'items-baseline gap-4 transition-colors duration-300',
+              'items-baseline gap-4 transition-[color,box-shadow] duration-150 ease-(--ease-gs)',
               // The generated chevron is replaced by a plus that rotates to a cross.
               '[&_[data-slot=accordion-trigger]>svg]:hidden',
               '[&>svg]:hidden',

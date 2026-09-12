@@ -66,7 +66,7 @@ export function TopBar({
               }}
               className={cn(
                 'text-label tracking-wide-label min-h-11 cursor-pointer px-2.5 py-2 font-mono',
-                'border-b bg-transparent transition-colors duration-300',
+                'border-b bg-transparent transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
                 code === language ? 'border-shu text-ink' : 'text-ink-3 border-transparent',
               )}
             >
@@ -91,7 +91,8 @@ export function TopBar({
                 }}
                 className={cn(
                   'h-(--gs-control-h) min-w-9 cursor-pointer px-3 font-mono leading-none',
-                  'transition-colors duration-300',
+                  'transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs)',
+                  'active:scale-[0.97]',
                   index < FONT_SCALES.length - 1 && 'border-rule border-r',
                   scale === fontScale ? 'bg-shu text-paper' : 'text-ink-3 bg-transparent',
                 )}
@@ -109,7 +110,7 @@ export function TopBar({
             className={cn(
               'border-rule squircle text-ink-2 ml-3.5 flex h-(--gs-control-h) items-center gap-1.5',
               'text-label tracking-wide-label rounded-lg border px-3.5 font-mono uppercase',
-              'hover:border-ink hover:text-ink cursor-pointer bg-transparent transition-colors duration-300',
+              'hover:border-ink hover:text-ink cursor-pointer bg-transparent transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
             )}
           >
             {isDark ? <SunIcon /> : <MoonIcon />}

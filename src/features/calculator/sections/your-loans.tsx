@@ -97,7 +97,14 @@ export function YourLoans({
       </div>
 
       {conflicts.length > 0 ? (
-        <Callout title={t('conflict.title')} className="mb-6">
+        <Callout
+          title={t('conflict.title')}
+          className={cn(
+            'mb-6 translate-y-0 opacity-100',
+            'transition-[opacity,transform] duration-[180ms] ease-(--ease-gs)',
+            'starting:-translate-y-1 starting:opacity-0',
+          )}
+        >
           {conflicts.map((conflict) => (
             <div key={`${conflict.a}|${conflict.b}`}>
               {t('conflict.pair', {
@@ -111,23 +118,31 @@ export function YourLoans({
 
       <div className="border-rule border-t">
         {tranches.map((tranche, index) => (
-          <TrancheCard
+          <div
             key={tranche.id}
-            tranche={tranche}
-            programme={programmes[tranche.programmeKey]}
-            programmes={programmes}
-            profile={profile}
-            share={shareOf(tranche.amount, financed)}
-            bandColour={`var(--band-${String((index % BAND_COUNT) + 1)})`}
-            row={rows.find((row) => row.trancheId === tranche.id)}
-            inConflict={conflictedTrancheIds.has(tranche.id)}
-            onChange={(patch) => {
-              onTrancheChange(tranche.id, patch)
-            }}
-            onRemove={() => {
-              onTrancheRemove(tranche.id)
-            }}
-          />
+            className={cn(
+              'translate-y-0 opacity-100',
+              'transition-[opacity,transform] duration-[220ms] ease-(--ease-gs)',
+              'starting:translate-y-2 starting:opacity-0',
+            )}
+          >
+            <TrancheCard
+              tranche={tranche}
+              programme={programmes[tranche.programmeKey]}
+              programmes={programmes}
+              profile={profile}
+              share={shareOf(tranche.amount, financed)}
+              bandColour={`var(--band-${String((index % BAND_COUNT) + 1)})`}
+              row={rows.find((row) => row.trancheId === tranche.id)}
+              inConflict={conflictedTrancheIds.has(tranche.id)}
+              onChange={(patch) => {
+                onTrancheChange(tranche.id, patch)
+              }}
+              onRemove={() => {
+                onTrancheRemove(tranche.id)
+              }}
+            />
+          </div>
         ))}
       </div>
 
@@ -152,7 +167,7 @@ export function YourLoans({
               className={cn(
                 'border-rule squircle text-ink-2 min-h-10 rounded-lg border px-3.5 py-2.25',
                 'hover:border-ink hover:text-ink cursor-pointer bg-transparent',
-                'text-label font-mono tracking-[0.08em] transition-colors duration-300',
+                'text-label font-mono tracking-[0.08em] transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
                 // Dashed rather than hidden: a loan the household does not qualify for
                 // today may be one they qualify for after changing an answer.
                 eligible ? 'border-solid' : 'border-dashed',
@@ -169,7 +184,7 @@ export function YourLoans({
           className={cn(
             'border-rule text-ink-3 hover:border-shu hover:text-shu ml-auto cursor-pointer',
             'border-0 border-b bg-transparent py-1.75',
-            'text-label tracking-wide-label font-mono uppercase transition-colors duration-300',
+            'text-label tracking-wide-label font-mono uppercase transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
           )}
         >
           {t('tranche.reset')}
