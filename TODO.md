@@ -181,18 +181,27 @@ in a row.
 
 - [x] Accessibility pass: real buttons, labelled inputs, visible focus rings, 44px hit areas, full
       keyboard path, chart readouts announced
-- [ ] Responsive pass at 360 / 768 / 1440
-- [ ] Dark mode parity, including the theme-toggle and system-preference paths
-- [ ] Reduced-motion pass
+- [ ] Responsive pass at 360 / 768 / 1440 — **needs eyes on a rendered page.** The summary bar's
+      360px overflow was found and fixed by arithmetic, but nothing has been looked at.
+- [x] Dark mode parity — verified at the level it can be: all 18 raw palette colours are redefined
+      under `.dark` (checked programmatically, none left at their light value), and both the toggle
+      and the system-preference paths have tests. What is **not** verified is how it looks: contrast
+      and legibility need eyes.
+- [x] Reduced-motion pass — complete. The `prefers-reduced-motion` rule zeroes `animation-duration`,
+      `transition-duration` and `scroll-behavior` globally, and a scan confirms no
+      `requestAnimationFrame`, `setInterval` or `.animate()` anywhere in `src/`, so nothing moves
+      outside CSS's reach.
 - [x] `<title>`, meta description, favicon, Open Graph, `lang` attribute follows i18n
-- [ ] Lighthouse ≥ 95 on performance and accessibility
+- [ ] Lighthouse ≥ 95 on performance and accessibility — **needs a browser.**
 - [x] `scripts/ci.sh` green from a clean install
 
 ## Phase 10 — Deploy
 
 - [x] `vercel.json` — SPA rewrite, cache headers for hashed assets
-- [ ] Decide and record the production domain
-- [ ] First deploy, smoke-test the live URL
+- [ ] Decide and record the production domain — Oshomo to choose; Vercel's default
+      `grundstein-*.vercel.app` works until then.
+- [ ] First deploy — Oshomo imports `hoshomoh/grundstein` in the Vercel dashboard; `vercel.json`
+      carries the whole configuration, so there is nothing to fill in.
 - [ ] `README.md` deploy section reflects what actually happened
 
 ## Parked
