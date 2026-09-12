@@ -186,7 +186,7 @@ in a row.
 - [ ] Reduced-motion pass
 - [x] `<title>`, meta description, favicon, Open Graph, `lang` attribute follows i18n
 - [ ] Lighthouse ≥ 95 on performance and accessibility
-- [ ] `scripts/ci.sh` green from a clean install
+- [x] `scripts/ci.sh` green from a clean install
 
 ## Phase 10 — Deploy
 

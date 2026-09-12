@@ -27,7 +27,10 @@ export function SummaryBar({
 
   return (
     <div id="summary-bar" className="bg-paper border-rule sticky top-0 z-40 border-t border-b">
-      <div className="mx-auto grid max-w-(--container-page) grid-cols-3 gap-[clamp(10px,3vw,30px)] px-(--spacing-gutter) py-3.5">
+      {/* Three fixed columns overflow at 360px once the reader steps the text up:
+          each cell is ~100px and "1.548,10 €" at the largest size needs ~127px. Letting
+          the columns wrap turns that into two rows rather than clipped figures. */}
+      <div className="mx-auto grid max-w-(--container-page) grid-cols-[repeat(auto-fit,minmax(140px,1fr))] gap-x-[clamp(10px,3vw,30px)] gap-y-2 px-(--spacing-gutter) py-3.5">
         <Figure label={t('summary.monthly')} accent>
           {formatEurosWithCents(monthlyPayment)}
         </Figure>
