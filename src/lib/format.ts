@@ -39,16 +39,21 @@ export function formatNumber(amount: Money): string {
   return plainNumber.format(toNumber(amount))
 }
 
+/* The space before the unit is a no-break space. With an ordinary one the browser is
+ * free to wrap between the number and its unit, which at larger text sizes it does —
+ * leaving a bare "%" stranded on the next line. */
+const UNIT_SPACE = '\u00A0'
+
 /** `3,80 %` — always two decimals, so a column of rates lines up. */
 export function formatPercent(percent: number): string {
   const safe = Number.isFinite(percent) ? percent : 0
-  return `${safe.toFixed(2).replace('.', ',')} %`
+  return `${safe.toFixed(2).replace('.', ',')}${UNIT_SPACE}%`
 }
 
 /** `6,5 %` — one decimal, for tax rates where the second is always zero. */
 export function formatShortPercent(percent: number): string {
   const safe = Number.isFinite(percent) ? percent : 0
-  return `${safe.toFixed(1).replace('.', ',')} %`
+  return `${safe.toFixed(1).replace('.', ',')}${UNIT_SPACE}%`
 }
 
 /* German writes 1.250,50 where English writes 1,250.50 — the separators are swapped,

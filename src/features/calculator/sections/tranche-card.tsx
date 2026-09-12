@@ -60,10 +60,10 @@ export function TrancheCard({
       )}
     >
       <div className="flex items-start gap-4">
-        <div className="w-11.5 shrink-0 pt-0.75">
+        <div className="w-(--gs-share-w) shrink-0 pt-0.75">
           <div
             className={cn(
-              'tracking-figure font-mono text-lg',
+              'tracking-figure font-mono text-lg whitespace-nowrap',
               tranche.amount.greaterThan(0) ? 'text-ink' : 'text-ink-3',
             )}
           >
@@ -233,9 +233,9 @@ type SliderRowProps = {
 function SliderRow({ label, reading, ...slider }: SliderRowProps): ReactElement {
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-2.5">
+      <div className="flex min-h-(--gs-reading-h) flex-wrap items-baseline justify-between gap-x-2.5 gap-y-0.5">
         <FieldLabel>{label}</FieldLabel>
-        <span className="font-mono text-xs tracking-[-0.02em]">{reading}</span>
+        <span className="font-mono text-xs tracking-[-0.02em] whitespace-nowrap">{reading}</span>
       </div>
       <RailSlider label={label} {...slider} />
     </div>

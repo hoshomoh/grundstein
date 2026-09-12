@@ -71,7 +71,7 @@ export function RailSlider({
           if (next !== undefined) onChange(next)
         }}
         className={cn(
-          'h-10 py-0',
+          'h-(--gs-field-h) py-0',
           // The track is a hairline, not a pill.
           '[&_[data-slot=slider-track]]:h-px [&_[data-slot=slider-track]]:rounded-none',
           '[&_[data-slot=slider-track]]:bg-rule [&_[data-slot=slider-track]]:overflow-visible',

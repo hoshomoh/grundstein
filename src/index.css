@@ -187,6 +187,16 @@
 
   /* The reader's text-size multiplier, 1 · 1.15 · 1.32. Owned by the app store. */
   --gs-fs: 1;
+  /* One height for every field, so a select, a money input and a slider sitting in
+   * one row share a baseline. It scales with the text size, because a 44px box around
+   * 20px text is not the same control it was around 15px text. 44px is the minimum
+   * hit area (STANDARDS.md §5), so the scale only ever grows it. */
+  --gs-field-h: calc(44px * var(--gs-fs, 1));
+  /* The row holding a label and its reading. Fixed at 28px it clipped as soon as the
+   * reader stepped the text up. */
+  --gs-reading-h: calc(28px * var(--gs-fs, 1));
+  /* The share column beside each loan: wide enough for "100,00 %" at any text size. */
+  --gs-share-w: calc(58px * var(--gs-fs, 1));
   /* Height of the sticky summary bar, measured at runtime so the loans strip can
    * pin directly beneath it. The fallback is the bar's height at --gs-fs: 1. */
   --gs-barh: 80px;

@@ -53,22 +53,30 @@ describe('formatNumber', () => {
 
 describe('formatPercent', () => {
   it('uses a decimal comma and always two places', () => {
-    expect(formatPercent(3.8)).toBe('3,80 %')
-    expect(formatPercent(1.125)).toBe('1,13 %')
-    expect(formatPercent(0)).toBe('0,00 %')
+    expect(formatPercent(3.8)).toBe('3,80\u00A0%')
+    expect(formatPercent(1.125)).toBe('1,13\u00A0%')
+    expect(formatPercent(0)).toBe('0,00\u00A0%')
   })
 
   it('shows one place for tax rates', () => {
-    expect(formatShortPercent(6.5)).toBe('6,5 %')
-    expect(formatShortPercent(3.5)).toBe('3,5 %')
+    expect(formatShortPercent(6.5)).toBe('6,5\u00A0%')
+    expect(formatShortPercent(3.5)).toBe('3,5\u00A0%')
+  })
+
+  /* An ordinary space lets the browser wrap between the number and its unit, which it
+   * does at larger text sizes — stranding a bare "%" on the next line. */
+  it('binds the unit to its number with a no-break space', () => {
+    expect(formatPercent(3.8)).not.toContain(' ')
+    expect(formatShortPercent(6.5)).not.toContain(' ')
+    expect(formatPercent(3.8)).toContain('\u00A0')
   })
 
   /* A NaN reaching the screen would read as a broken app; zero at least reads as a
    * number (STANDARDS.md §4). */
   it('never renders NaN or Infinity', () => {
-    expect(formatPercent(Number.NaN)).toBe('0,00 %')
-    expect(formatPercent(Number.POSITIVE_INFINITY)).toBe('0,00 %')
-    expect(formatShortPercent(Number.NaN)).toBe('0,0 %')
+    expect(formatPercent(Number.NaN)).toBe('0,00\u00A0%')
+    expect(formatPercent(Number.POSITIVE_INFINITY)).toBe('0,00\u00A0%')
+    expect(formatShortPercent(Number.NaN)).toBe('0,0\u00A0%')
   })
 })
 

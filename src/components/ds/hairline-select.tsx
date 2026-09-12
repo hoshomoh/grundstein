@@ -46,7 +46,7 @@ export function HairlineSelect({
         id={id}
         aria-label={label}
         className={cn(
-          'border-rule text-ink h-11 w-full rounded-none border-0 border-b bg-transparent px-0',
+          'border-rule text-ink h-(--gs-field-h) w-full rounded-none border-0 border-b bg-transparent px-0',
           'text-base shadow-none transition-colors duration-300',
           'focus-visible:border-shu focus-visible:ring-0',
           '[&_[data-slot=select-value]]:truncate',
