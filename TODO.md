@@ -131,14 +131,14 @@ in a row.
 
 ## Phase 5 — Infrastructure
 
-- [ ] `src/lib/format.ts` — takes `Decimal`, never re-does arithmetic
-- [ ] `src/lib/format.ts` — `Intl` money/number/percent, de-DE grouping, the German decimal-comma
+- [x] `src/lib/format.ts` — takes `Decimal`, never re-does arithmetic
+- [x] `src/lib/format.ts` — `Intl` money/number/percent, de-DE grouping, the German decimal-comma
       parse used by every numeric input
-- [ ] `src/lib/dates.ts` — date-fns wrapper; nothing else touches a date
+- [x] `src/lib/dates.ts` — date-fns wrapper; nothing else touches a date
 - [ ] `src/lib/locale-store.ts` — owns i18next language + date-fns locale together
 - [ ] `src/i18n/locales/en.json` + `de.json` — every string from the design, both languages,
       including the 9 FAQ entries and per-programme prose
-- [ ] `src/i18n/locales.ts` — adding a language is a JSON file plus one entry
+- [x] `src/i18n/locales.ts` — adding a language is a JSON file plus one entry
 - [ ] `src/state/session-store.ts` — localStorage-backed app state read through
       `useSyncExternalStore`, schema-versioned, debounced write, never `useEffect`
 - [ ] Tests: money parse/format round-trip, store rehydration from a corrupt payload
