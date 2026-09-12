@@ -71,7 +71,17 @@ export function RailSlider({
           if (next !== undefined) onChange(next)
         }}
         className={cn(
-          'h-(--gs-field-h) py-0',
+          // Radix centres the rail in the slider's box. A select beside it draws its
+          // underline at the bottom of an identical box, so the two lines end up half a
+          // field-height apart. Dropping the rail to the baseline is what the design
+          // does, and it puts every control in a row on one line.
+          'h-(--gs-field-h) items-end py-0',
+          // Radix positions the thumb from the root's alignment too, so it lands on the
+          // baseline with its bottom edge; nudging it down by half its own height
+          // (less half the rail) leaves it straddling the line rather than standing on
+          // it. `relative`/`top` rather than a translate, because the thumb's transform
+          // is already spoken for by the hover scale.
+          '[&_[data-slot=slider-thumb]]:relative [&_[data-slot=slider-thumb]]:top-(--gs-thumb-drop)',
           // The track is a hairline, not a pill.
           '[&_[data-slot=slider-track]]:h-px [&_[data-slot=slider-track]]:rounded-none',
           '[&_[data-slot=slider-track]]:bg-rule [&_[data-slot=slider-track]]:overflow-visible',

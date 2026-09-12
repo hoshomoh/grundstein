@@ -148,7 +148,7 @@ export function TrancheCard({
             </p>
           ) : null}
 
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-7.5 gap-y-1">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-7.5 gap-y-3">
             <SliderRow
               label={t('tranche.amount')}
               reading={formatEuros(tranche.amount)}

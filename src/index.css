@@ -217,8 +217,10 @@
   --gs-control-h: 34px;
   /* The capital-structure and ledger bars. */
   --gs-bar-h: 22px;
-  /* The slider thumb. */
+  /* The slider thumb, and half of it — the thumb straddles the rail rather than
+   * sitting on top of it. */
   --gs-thumb: 13px;
+  --gs-thumb-drop: calc(var(--gs-thumb) / 2 - 0.5px);
   /* Height of the sticky summary bar, measured at runtime so the loans strip can
    * pin directly beneath it. The fallback is the bar's height at --gs-fs: 1. */
   --gs-barh: 80px;
