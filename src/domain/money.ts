@@ -74,6 +74,11 @@ export function max(a: Money, b: Money): Money {
  *
  * Used by the cover indicator and by the tests that assert a schedule closes: a
  * balance of 0.000000001 € is zero to anyone who is not a computer.
+ *
+ * It is also the right comparison for two sums of the same figures added in different
+ * orders. Addition at a fixed precision is not associative — summing 300 monthly
+ * interest charges directly and summing them in 25 groups of 12 differ by about
+ * 4e-28 € — so `.equals()` is the wrong test for "these agree".
  */
 export function equalToTheCent(a: Money, b: Money): boolean {
   return toCents(a).equals(toCents(b))

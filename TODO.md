@@ -91,7 +91,7 @@ in a row.
 - [x] `src/domain/programmes.ts` — the 8 programmes + `PROGRAMME_ORDER`, each carrying its `source`
       URL and `verifiedOn` date from docs/DATA-SOURCES.md
 - [x] `src/domain/states.ts` — 16 Bundesländer with transfer-tax rates and in-force dates
-- [x] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace + follow-up segments),
+- [x] `src/domain/amortisation.ts` + `src/domain/portfolio.ts` — `annuity`, `amortise`,
       `buildPortfolio`
 - [x] `src/domain/costs.ts` — transfer tax, notary, registry, agent, cash needed
 - [x] `src/domain/eligibility.ts` — `checkEligibility`, `excludedProgrammes`, `findConflicts`
