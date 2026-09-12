@@ -15,6 +15,9 @@ import { AboutYou } from './sections/about-you'
 import { Hero } from './sections/hero'
 import { SummaryBar } from './sections/summary-bar'
 import { TheProperty } from './sections/the-property'
+import { Questions } from './sections/questions'
+import { WhatEachLoanCosts } from './sections/what-each-loan-costs'
+import { YearByYear } from './sections/year-by-year'
 import { YourLoans } from './sections/your-loans'
 import { useCalculation } from './use-calculation'
 
@@ -68,6 +71,9 @@ function Assembled(): ReactElement {
         onTrancheAdd={() => undefined}
         onReset={() => undefined}
       />
+      <YearByYear portfolio={portfolio} />
+      <WhatEachLoanCosts portfolio={portfolio} programmes={state.programmes} />
+      <Questions />
     </>
   )
 }
@@ -244,5 +250,57 @@ describe('the calculator, assembled', () => {
     for (const name of ['Purchase price', 'Down payment', 'Amount', 'Interest rate']) {
       expect(screen.getAllByRole('group', { name }).length).toBeGreaterThan(0)
     }
+  })
+
+  /* Two series distinguished by colour need a legend by name, or the only way to tell
+   * repayment from interest is to already know which is which. */
+  it('names both series in the chart legend', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    expect(screen.getAllByText('Repayment').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Interest').length).toBeGreaterThan(0)
+  })
+
+  /* The chart is coloured divs; this is the path a screen reader takes through it. */
+  it('gives every chart bar a readable label', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    const bars = screen.getAllByRole('button', { name: /^Year \d+:/ })
+    expect(bars.length).toBeGreaterThan(20)
+    expect(bars[0]).toHaveAccessibleName(/interest plus .* repayment/)
+  })
+
+  it('marks where the fixed rate ends', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+    expect(screen.getByText('Fixed rate ends')).toBeInTheDocument()
+  })
+
+  /* The palette checker flags the light-mode neutral at 2.73:1, which obliges a table
+   * view. It is not decoration and not optional. */
+  it('publishes the chart figures as a table', async () => {
+    const user = userEvent.setup({ delay: null })
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    await user.click(screen.getByRole('button', { name: 'Show the figures' }))
+
+    const table = screen.getByRole('table', { name: 'Every year as a table' })
+    expect(table).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Hide the figures' })).toBeInTheDocument()
+  })
+
+  it('totals every loan in the ledger', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+    expect(screen.getByText('Everything together')).toBeInTheDocument()
+  })
+
+  it('answers all ten questions', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    expect(
+      screen.getByRole('button', { name: /Why can I not borrow the fees/ }),
+    ).toBeInTheDocument()
+    expect(
+      screen.getByRole('button', { name: /Where do these numbers come from/ }),
+    ).toBeInTheDocument()
   })
 })

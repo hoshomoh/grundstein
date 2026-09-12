@@ -155,7 +155,10 @@
     "yearReadout": "Jahr {{year}}: {{interest}} Zinsen plus {{principal}} Tilgung, zusammen {{total}}.",
     "monthHint": "Tippen Sie einen Balken an, um den Monat zu sehen.",
     "monthTitle": "Jahr {{year}} · Monat für Monat",
-    "monthReadout": "Monat {{month}}: {{interest}} Zinsen plus {{principal}} Tilgung, zusammen {{total}}."
+    "monthReadout": "Monat {{month}}: {{interest}} Zinsen plus {{principal}} Tilgung, zusammen {{total}}.",
+    "showTable": "Zahlen anzeigen",
+    "hideTable": "Zahlen ausblenden",
+    "tableLabel": "Jedes Jahr als Tabelle"
   },
   "structure": {
     "equity": "Ihr Geld",

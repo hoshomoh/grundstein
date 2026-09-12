@@ -155,7 +155,10 @@
     "yearReadout": "Year {{year}}: {{interest}} interest plus {{principal}} repayment, so {{total}}.",
     "monthHint": "Tap a bar to see that month.",
     "monthTitle": "Year {{year}} · month by month",
-    "monthReadout": "Month {{month}}: {{interest}} interest plus {{principal}} repayment, so {{total}}."
+    "monthReadout": "Month {{month}}: {{interest}} interest plus {{principal}} repayment, so {{total}}.",
+    "showTable": "Show the figures",
+    "hideTable": "Hide the figures",
+    "tableLabel": "Every year as a table"
   },
   "structure": {
     "equity": "Your money",

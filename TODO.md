@@ -164,10 +164,10 @@ in a row.
 - [x] 003 Your loans — per-tranche card, eligibility badge, four sliders, follow-up rate periods,
       KfW conditions disclosure, add/remove, cover indicator
 - [x] Conflict callout for mutually exclusive programmes
-- [ ] 004 Year by year — yearly bars, fixed-rate marker, month drill-down, readouts
-- [ ] 005 What each loan costs — ledger rows + the Σ total row
-- [ ] 006 Questions — FAQ
-- [ ] Footer with disclaimer and sources
+- [x] 004 Year by year — yearly bars, fixed-rate marker, month drill-down, readouts
+- [x] 005 What each loan costs — ledger rows + the Σ total row
+- [x] 006 Questions — FAQ
+- [x] Footer with disclaimer and sources
 
 ## Phase 8 — Library route (`/library`)
 

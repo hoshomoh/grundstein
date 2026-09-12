@@ -8,6 +8,10 @@ import { AboutYou } from '@/features/calculator/sections/about-you'
 import { Hero } from '@/features/calculator/sections/hero'
 import { SummaryBar } from '@/features/calculator/sections/summary-bar'
 import { TheProperty, type PropertyPatch } from '@/features/calculator/sections/the-property'
+import { Questions } from '@/features/calculator/sections/questions'
+import { SiteFooter } from '@/features/calculator/sections/site-footer'
+import { WhatEachLoanCosts } from '@/features/calculator/sections/what-each-loan-costs'
+import { YearByYear } from '@/features/calculator/sections/year-by-year'
 import { YourLoans } from '@/features/calculator/sections/your-loans'
 import { useCalculation } from '@/features/calculator/use-calculation'
 import type { Language } from '@/i18n/locales'
@@ -124,6 +128,14 @@ function CalculatorRoute(): ReactElement {
           store.reset()
         }}
       />
+
+      <YearByYear portfolio={portfolio} />
+
+      <WhatEachLoanCosts portfolio={portfolio} programmes={state.programmes} />
+
+      <Questions />
+
+      <SiteFooter />
     </main>
   )
 }
