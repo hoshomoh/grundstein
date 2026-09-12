@@ -13,6 +13,7 @@ import { createSessionStore, type SessionStore } from '@/state/session-store'
 import { AboutYou } from './sections/about-you'
 import { Hero } from './sections/hero'
 import { SummaryBar } from './sections/summary-bar'
+import { TheProperty } from './sections/the-property'
 import { useCalculation } from './use-calculation'
 
 function memoryStorage(): SessionStorage {
@@ -39,6 +40,17 @@ function Assembled(): ReactElement {
         totalInterest={portfolio.totalInterest}
       />
       <AboutYou profile={state.profile} showGridFeed={false} onChange={() => undefined} />
+      <TheProperty
+        price={state.price}
+        down={state.down}
+        stateCode={state.stateCode}
+        notaryPercent={state.notaryPercent}
+        registryPercent={state.registryPercent}
+        agentPercent={state.agentPercent}
+        agentInvolved={state.agentInvolved}
+        costs={costs}
+        onChange={() => undefined}
+      />
     </>
   )
 }
@@ -123,5 +135,35 @@ describe('the calculator, assembled', () => {
     rerender(withStore(<Assembled />, store))
 
     expect(screen.getByLabelText('Household income, € a year')).toHaveValue('150.000')
+  })
+
+  /* The distinction the whole app exists to make: the down payment is not the cash you
+   * need. On the opening example they are 0 € and 54.420 €, and a reader who confuses
+   * them arrives at completion day short by every fee. */
+  it('separates the down payment from the cash needed on the day', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    expect(screen.getByText('Cash you need on the day')).toBeInTheDocument()
+    expect(screen.getAllByText('Down payment').length).toBeGreaterThan(0)
+  })
+
+  it('names the state whose transfer tax it is charging', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+    expect(screen.getByText(/Transfer tax · Bayern/)).toBeInTheDocument()
+  })
+
+  it('lets the reader override the notary and registry rates', () => {
+    render(withStore(<Assembled />, createSessionStore(memoryStorage())))
+
+    expect(screen.getByLabelText('Notary %')).toHaveValue('1,5')
+    expect(screen.getByLabelText('Land registry %')).toHaveValue('0,5')
+  })
+
+  it('drops the agent row when no agent is involved', () => {
+    const store = createSessionStore(memoryStorage())
+    store.update((state) => ({ ...state, agentInvolved: false }))
+    render(withStore(<Assembled />, store))
+
+    expect(screen.queryByLabelText('Agent, your half %')).not.toBeInTheDocument()
   })
 })

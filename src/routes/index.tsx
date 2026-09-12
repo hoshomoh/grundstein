@@ -7,11 +7,12 @@ import type { Profile } from '@/domain/types'
 import { AboutYou } from '@/features/calculator/sections/about-you'
 import { Hero } from '@/features/calculator/sections/hero'
 import { SummaryBar } from '@/features/calculator/sections/summary-bar'
+import { TheProperty, type PropertyPatch } from '@/features/calculator/sections/the-property'
 import { useCalculation } from '@/features/calculator/use-calculation'
 import type { Language } from '@/i18n/locales'
 import { createPrefersDarkStore, nextTheme, resolveDark } from '@/lib/appearance'
 import { useSessionStore } from '@/state/session-context'
-import type { FontScale } from '@/state/session-state'
+import { withDown, withPrice, type FontScale } from '@/state/session-state'
 import { useSyncExternalStore } from 'react'
 
 export const Route = createFileRoute('/')({
@@ -69,6 +70,26 @@ function CalculatorRoute(): ReactElement {
         showGridFeed={showGridFeed}
         onChange={(patch: Partial<Profile>) => {
           store.update((current) => ({ ...current, profile: { ...current.profile, ...patch } }))
+        }}
+      />
+
+      <TheProperty
+        price={state.price}
+        down={state.down}
+        stateCode={state.stateCode}
+        notaryPercent={state.notaryPercent}
+        registryPercent={state.registryPercent}
+        agentPercent={state.agentPercent}
+        agentInvolved={state.agentInvolved}
+        costs={costs}
+        onChange={(patch: PropertyPatch) => {
+          store.update((current) => {
+            const next = { ...current, ...patch }
+            // The down payment can never exceed the price, whichever of the two moved.
+            if (patch.price) return withPrice(next, patch.price)
+            if (patch.down) return withDown(next, patch.down)
+            return next
+          })
         }}
       />
     </main>

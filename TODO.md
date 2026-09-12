@@ -160,7 +160,7 @@ in a row.
 - [x] Three principles, scroll-revealed
 - [x] Sticky summary bar: monthly / cash needed / total interest
 - [x] 001 About you — project, children, income, owns a home, energy target
-- [ ] 002 The property — price, down payment, state, agent toggle, cost table
+- [x] 002 The property — price, down payment, state, agent toggle, cost table
 - [ ] 003 Your loans — per-tranche card, eligibility badge, four sliders, follow-up rate periods,
       KfW conditions disclosure, add/remove, cover indicator
 - [ ] Conflict callout for mutually exclusive programmes

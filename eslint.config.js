@@ -139,6 +139,25 @@ export default tseslint.config(
     },
   },
 
+  // The setup file patches globals jsdom does not implement. Stubs are empty and
+  // unbound by nature, and the rules that object to that are about application code.
+  {
+    files: ['src/test/setup.ts'],
+    rules: {
+      '@typescript-eslint/no-empty-function': 'off',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/no-unnecessary-type-assertion': 'off',
+      '@typescript-eslint/unbound-method': 'off',
+    },
+  },
+
+  // A context file exports its provider and its hook together; splitting them to
+  // satisfy fast refresh would put the two halves of one thing in two files.
+  {
+    files: ['src/**/*-context.tsx'],
+    rules: { 'react-refresh/only-export-components': 'off' },
+  },
+
   {
     files: ['*.config.{js,ts}'],
     languageOptions: { globals: globals.node },
