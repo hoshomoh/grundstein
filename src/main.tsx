@@ -2,6 +2,12 @@ import { RouterProvider, createRouter } from '@tanstack/react-router'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
+import { startAppearanceSync } from './app/appearance-sync'
+import { initialiseI18n } from './i18n'
+import { createPrefersDarkStore } from './lib/appearance'
+import { browserStorage } from './state/persistence'
+import { SessionProvider } from './state/session-context'
+import { createSessionStore } from './state/session-store'
 import { routeTree } from './routeTree.gen'
 import './index.css'
 
@@ -18,8 +24,22 @@ declare module '@tanstack/react-router' {
 const rootElement = document.getElementById('root')
 if (!rootElement) throw new Error('index.html is missing its #root element')
 
+const store = createSessionStore(browserStorage(window.localStorage))
+
+initialiseI18n(store.getSnapshot().language)
+startAppearanceSync(store, createPrefersDarkStore(window), document.documentElement)
+
+/* A page being closed has no later, and the store's write is debounced by 300ms.
+ * `pagehide` fires on close, navigation and the iOS back-forward cache alike, which
+ * `beforeunload` does not. */
+window.addEventListener('pagehide', () => {
+  store.flush()
+})
+
 createRoot(rootElement).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <SessionProvider store={store}>
+      <RouterProvider router={router} />
+    </SessionProvider>
   </StrictMode>,
 )

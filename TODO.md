@@ -156,10 +156,10 @@ in a row.
 
 ## Phase 7 — Calculator route (`/`)
 
-- [ ] Hero: eyebrow, three-line H1, lede, live monthly figure
-- [ ] Three principles, scroll-revealed
-- [ ] Sticky summary bar: monthly / cash needed / total interest
-- [ ] 001 About you — project, children, income, owns a home, energy target
+- [x] Hero: eyebrow, three-line H1, lede, live monthly figure
+- [x] Three principles, scroll-revealed
+- [x] Sticky summary bar: monthly / cash needed / total interest
+- [x] 001 About you — project, children, income, owns a home, energy target
 - [ ] 002 The property — price, down payment, state, agent toggle, cost table
 - [ ] 003 Your loans — per-tranche card, eligibility badge, four sliders, follow-up rate periods,
       KfW conditions disclosure, add/remove, cover indicator

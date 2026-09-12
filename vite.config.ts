@@ -25,6 +25,12 @@ export default defineConfig({
      * `// @vitest-environment jsdom` at the top of the file. */
     environment: 'node',
     globals: true,
+    /* A jsdom render of the profile section mounts five Radix selects and takes a
+     * second or two; the 5s default then times out under any load, which reports a
+     * slow test as a broken one. Isolation is kept — sharing workers would let the
+     * i18next singleton and the Decimal config leak between files, and correctness is
+     * the point of this codebase. */
+    testTimeout: 20_000,
     setupFiles: ['./src/test/setup.ts'],
     css: false,
     coverage: {
