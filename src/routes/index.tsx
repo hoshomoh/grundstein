@@ -50,6 +50,15 @@ function CalculatorRoute(): ReactElement {
 
   return (
     <main className="bg-paper text-ink min-h-screen">
+      {/* First in the tab order, invisible until focused: without it a keyboard
+          reader crosses the whole top strip before reaching anything they came for. */}
+      <a
+        href="#content"
+        className="bg-card text-ink border-shu focus:ring-shu sr-only rounded-md border px-4 py-2 focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
+      >
+        {t('meta.skipToContent')}
+      </a>
+
       <TopBar
         language={state.language}
         onLanguage={(language: Language) => {
@@ -69,7 +78,9 @@ function CalculatorRoute(): ReactElement {
         brand={<Wordmark subtitle={t('nav.subtitle')} />}
       />
 
-      <Hero monthlyPayment={portfolio.peakPayment} />
+      <div id="content" tabIndex={-1}>
+        <Hero monthlyPayment={portfolio.peakPayment} />
+      </div>
 
       <SummaryBar
         monthlyPayment={portfolio.peakPayment}

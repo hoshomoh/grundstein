@@ -17,11 +17,16 @@ export function startAppearanceSync(
   store: SessionStore,
   prefersDark: MediaQueryStore,
   documentElement: HTMLElement,
+  setTitle?: (title: string) => void,
 ): () => void {
   function sync(): void {
     const { theme, fontScale, language } = store.getSnapshot()
     applyAppearance(documentElement, { theme, fontScale, language }, prefersDark.getSnapshot())
+
     if (i18next.language !== language) void i18next.changeLanguage(language)
+    // The tab title is the one piece of copy outside React's tree, so it is translated
+    // here rather than left in whatever language the page was built in.
+    setTitle?.(i18next.t('meta.title'))
   }
 
   sync()

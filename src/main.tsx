@@ -27,7 +27,9 @@ if (!rootElement) throw new Error('index.html is missing its #root element')
 const store = createSessionStore(browserStorage(window.localStorage))
 
 initialiseI18n(store.getSnapshot().language)
-startAppearanceSync(store, createPrefersDarkStore(window), document.documentElement)
+startAppearanceSync(store, createPrefersDarkStore(window), document.documentElement, (title) => {
+  document.title = title
+})
 
 /* A page being closed has no later, and the store's write is debounced by 300ms.
  * `pagehide` fires on close, navigation and the iOS back-forward cache alike, which

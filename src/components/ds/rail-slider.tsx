@@ -77,7 +77,7 @@ export function RailSlider({
           '[&_[data-slot=slider-track]]:bg-rule [&_[data-slot=slider-track]]:overflow-visible',
           '[&_[data-slot=slider-range]]:bg-shu [&_[data-slot=slider-range]]:h-px',
           // The thumb: 13px, paper-filled, ink-outlined, growing on hover.
-          '[&_[data-slot=slider-thumb]]:size-[13px] [&_[data-slot=slider-thumb]]:border',
+          '[&_[data-slot=slider-thumb]]:size-(--gs-thumb) [&_[data-slot=slider-thumb]]:border',
           '[&_[data-slot=slider-thumb]]:border-ink [&_[data-slot=slider-thumb]]:bg-paper',
           '[&_[data-slot=slider-thumb]]:shadow-none [&_[data-slot=slider-thumb]]:ring-0',
           '[&_[data-slot=slider-thumb]]:transition-transform [&_[data-slot=slider-thumb]]:duration-300',

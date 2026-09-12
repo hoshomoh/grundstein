@@ -426,13 +426,18 @@ function Conditions({ programme, profile, programmes }: ConditionsProps): ReactE
           <Condition label={t('requirements.note')}>{programme.provenance.note}</Condition>
         ) : null}
 
+        {/* KfW publishes no rates at all — every product page renders its rate table
+            as "-,-- %". Saying so is the difference between a starting point and a
+            quoted figure, and the reader is about to plan around it. */}
+        <p className="text-ink-3 col-span-full m-0">{t('provenance.rateIsAStartingPoint')}</p>
+
         <div className="col-span-full">
           {programme.provenance.source ? (
             <a href={programme.provenance.source} target="_blank" rel="noopener noreferrer">
               {t('requirements.official')} ↗
             </a>
           ) : (
-            <span className="text-ink-3">{t('provenance.ourFigure')}</span>
+            <span className="text-ink-3">{t('provenance.unverified')}</span>
           )}
         </div>
       </dl>

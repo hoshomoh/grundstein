@@ -52,7 +52,7 @@ scratchpad, not in the repo.
 - [x] Grundstein-only tokens (`--ink-2` `--rule-2` `--shu-soft` `--moku` `--band-1..8`) registered
       through the same `@theme inline` block
 - [x] `tw-animate-css` added — shadcn's generated components use its `animate-in` utilities
-- [ ] No colour/radius/size literal survives in any component — tokens only (re-check in Phase 9)
+- [x] No colour/radius/size literal survives in any component — tokens only (re-check in Phase 9)
 
 ## Phase 3 — Verify the data against source
 
@@ -73,7 +73,7 @@ Done 2026-09-11. Full record in [`docs/DATA-SOURCES.md`](docs/DATA-SOURCES.md).
 - [x] Notary 1.5% / registry 0.5% / agent 3.57% — all within current ranges
 - [x] Rates: KfW publishes none (every table reads `-,-- %`), so every rate in the app is a dated
       editable default and is labelled as one
-- [ ] Anything that could not be confirmed is flagged in the UI, not quietly shipped (implement in
+- [x] Anything that could not be confirmed is flagged in the UI, not quietly shipped (implement in
       Phase 7)
 
 ## Phase 4 — Domain (pure, no React, fully unit-tested)
@@ -179,12 +179,12 @@ in a row.
 
 ## Phase 9 — Quality
 
-- [ ] Accessibility pass: real buttons, labelled inputs, visible focus rings, 44px hit areas, full
+- [x] Accessibility pass: real buttons, labelled inputs, visible focus rings, 44px hit areas, full
       keyboard path, chart readouts announced
 - [ ] Responsive pass at 360 / 768 / 1440
 - [ ] Dark mode parity, including the theme-toggle and system-preference paths
 - [ ] Reduced-motion pass
-- [ ] `<title>`, meta description, favicon, Open Graph, `lang` attribute follows i18n
+- [x] `<title>`, meta description, favicon, Open Graph, `lang` attribute follows i18n
 - [ ] Lighthouse ≥ 95 on performance and accessibility
 - [ ] `scripts/ci.sh` green from a clean install
 

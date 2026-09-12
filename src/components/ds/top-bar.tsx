@@ -90,7 +90,7 @@ export function TopBar({
                   onFontScale(scale)
                 }}
                 className={cn(
-                  'h-[34px] min-w-9 cursor-pointer px-3 font-mono leading-none',
+                  'h-(--gs-control-h) min-w-9 cursor-pointer px-3 font-mono leading-none',
                   'transition-colors duration-300',
                   index < FONT_SCALES.length - 1 && 'border-rule border-r',
                   scale === fontScale ? 'bg-shu text-paper' : 'text-ink-3 bg-transparent',
@@ -107,7 +107,7 @@ export function TopBar({
             onClick={onToggleTheme}
             title={t('nav.themeToggle')}
             className={cn(
-              'border-rule squircle text-ink-2 ml-3.5 flex h-[34px] items-center gap-1.5',
+              'border-rule squircle text-ink-2 ml-3.5 flex h-(--gs-control-h) items-center gap-1.5',
               'text-label tracking-wide-label rounded-lg border px-3.5 font-mono uppercase',
               'hover:border-ink hover:text-ink cursor-pointer bg-transparent transition-colors duration-300',
             )}

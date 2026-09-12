@@ -14,8 +14,9 @@ export type ChipProps = {
  * A small toggle used for project types and exclusions in the Library.
  *
  * A real `<button>` with `aria-pressed`, not a styled div: the state has to be
- * announced, and the keyboard has to reach it (STANDARDS.md §5). The 38px height plus
- * the surrounding gap clears the 44px hit area.
+ * announced, and the keyboard has to reach it (STANDARDS.md §5). It is a full 44px
+ * tall: the design drew these at 38px, which is under the floor for a target someone
+ * taps on a phone.
  */
 export function Chip({ children, selected, onToggle, className }: ChipProps): ReactElement {
   return (
@@ -24,7 +25,7 @@ export function Chip({ children, selected, onToggle, className }: ChipProps): Re
       aria-pressed={selected}
       onClick={onToggle}
       className={cn(
-        'squircle min-h-[38px] rounded-md border px-3.5 py-2',
+        'squircle min-h-(--gs-hit) rounded-md border px-3.5 py-2',
         'text-label tracking-wide-label font-mono',
         'cursor-pointer transition-colors duration-300',
         selected

@@ -29,7 +29,10 @@ export type StackBarProps = {
 export function StackBar({ segments, label, className }: StackBarProps): ReactElement {
   return (
     <div className={className}>
-      <div aria-hidden className="squircle mb-2.5 flex h-[22px] gap-px overflow-hidden rounded-sm">
+      <div
+        aria-hidden
+        className="squircle mb-2.5 flex h-(--gs-bar-h) gap-px overflow-hidden rounded-sm"
+      >
         {segments.map((segment) => (
           <div
             key={segment.id}

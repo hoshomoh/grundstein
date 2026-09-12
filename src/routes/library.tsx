@@ -88,6 +88,15 @@ function LibraryRoute(): ReactElement {
 
   return (
     <main className="bg-paper text-ink min-h-screen">
+      {/* First in the tab order, invisible until focused: without it a keyboard
+          reader crosses the whole top strip before reaching anything they came for. */}
+      <a
+        href="#content"
+        className="bg-card text-ink border-shu focus:ring-shu sr-only rounded-md border px-4 py-2 focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:z-50"
+      >
+        {t('meta.skipToContent')}
+      </a>
+
       <TopBar
         language={state.language}
         onLanguage={(language: Language) => {
@@ -114,7 +123,11 @@ function LibraryRoute(): ReactElement {
         }
       />
 
-      <header className="mx-auto max-w-(--container-page-narrow) px-(--spacing-gutter) pt-[clamp(52px,10vh,96px)] pb-[clamp(34px,5vw,54px)]">
+      <header
+        id="content"
+        tabIndex={-1}
+        className="mx-auto max-w-(--container-page-narrow) px-(--spacing-gutter) pt-[clamp(52px,10vh,96px)] pb-[clamp(34px,5vw,54px)]"
+      >
         <p className="text-ink-3 text-label tracking-label mb-[clamp(26px,5vw,44px)] font-mono uppercase">
           {t('library.eyebrow')}
         </p>
