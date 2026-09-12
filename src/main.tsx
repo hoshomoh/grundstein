@@ -38,15 +38,6 @@ window.addEventListener('pagehide', () => {
   store.flush()
 })
 
-/* Temporary: `?debug=overflow` names whatever is widening the page, on screen, because
- * a phone has no console. Dynamically imported, so a normal load never fetches it.
- * Remove this and src/debug/ once the mobile overflow is traced. */
-if (new URLSearchParams(window.location.search).get('debug') === 'overflow') {
-  void import('./debug/report-overflow').then((module) => {
-    module.reportOverflow()
-  })
-}
-
 createRoot(rootElement).render(
   <StrictMode>
     <SessionProvider store={store}>
