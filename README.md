@@ -70,8 +70,24 @@ No backend, no database, no analytics. State lives in `localStorage` and goes no
 ## Contributing
 
 Read [`AGENTS.md`](./AGENTS.md) first, then [`STANDARDS.md`](./STANDARDS.md).
-[`CONTEXT.md`](./CONTEXT.md) is the glossary — use its terms exactly. [`TODO.md`](./TODO.md) is the
-running record of what is built and what is not.
+[`CONTEXT.md`](./CONTEXT.md) is the glossary — use its terms exactly.
+[`docs/DATA-SOURCES.md`](./docs/DATA-SOURCES.md) is where every figure came from.
+
+## Before each release: re-check the figures
+
+`docs/DATA-SOURCES.md` records every ceiling, income limit, combination rule and tax rate with the
+URL it came from and the date it was last checked against that source. **Re-run that check before
+telling anyone the numbers are current.**
+
+Two kinds of figure live in the catalogue and they age differently:
+
+- **Rules** — ceilings, income caps, project types, exclusions — are published by KfW and change a
+  few times a year. These are verified facts and carry a `verifiedOn`.
+- **Rates** are not published at all. Every KfW product page renders its rate table as `-,-- %`,
+  because your rate is set when the loan is approved. Every rate in the app is an editable starting
+  point and the interface says so.
+
+Last full verification: **2026-09-11**.
 
 ## A caveat worth repeating
 

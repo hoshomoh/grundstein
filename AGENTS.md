@@ -85,15 +85,13 @@ Conventional Commits, imperative, lower case, no full stop.
 **No body. No trailers.** No `Co-Authored-By`, no assistant or tool attribution — not for agents,
 not for Claude Code. `feat(domain): add annuity schedule` is a complete commit message.
 
-One logical change per commit. Tick the `TODO.md` item in the same commit as the work it describes.
+One logical change per commit.
 
 Run `./scripts/ci.sh` before committing and `./scripts/preflight.sh` before pushing.
 
 ## Working agreement
 
-`TODO.md` is the running record. Work through it in order, tick items as they land.
-
 Full autonomy on implementation. Ask Oshomo before:
 
-- a design or architectural decision that is not already settled in `TODO.md`
+- a design or architectural decision that is not already settled
 - installing anything at the system level (project-local `pnpm` dependencies are fine)

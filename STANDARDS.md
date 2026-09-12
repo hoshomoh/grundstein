@@ -221,4 +221,3 @@ Otherwise:
 - One logical change per commit.
 - A change in behaviour changes a test.
 - A change to the persisted state shape bumps its version and adds a migration.
-- `TODO.md` is the running record of what is done; tick the item in the same commit as the work.
