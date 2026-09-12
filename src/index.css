@@ -221,8 +221,10 @@
    * sitting on top of it. */
   --gs-thumb: 13px;
   --gs-thumb-drop: calc(var(--gs-thumb) / 2 - 0.5px);
-  /* Height of the sticky summary bar, measured at runtime so the loans strip can
-   * pin directly beneath it. The fallback is the bar's height at --gs-fs: 1. */
+  /* Height of the sticky summary bar, which the loans strip pins beneath. The bar
+   * measures itself into this on mount (lib/measure-height.ts) because its height
+   * moves with the viewport width, the text size and the language — three figures on
+   * one row on a desktop, two rows on a phone. This value is only the first paint. */
   --gs-barh: 80px;
 
   color-scheme: light;

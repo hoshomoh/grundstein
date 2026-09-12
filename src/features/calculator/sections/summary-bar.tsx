@@ -4,7 +4,11 @@ import { useTranslation } from 'react-i18next'
 import { StatFigure } from '@/components/ds'
 import type { Money } from '@/domain/money'
 import { formatEuros, formatEurosWithCents } from '@/lib/format'
+import { publishHeightTo } from '@/lib/measure-height'
 import { cn } from '@/lib/utils'
+
+/** Created once, not per render: the identity of a ref callback is its lifetime. */
+const measureBar = publishHeightTo('--gs-barh')
 
 export type SummaryBarProps = {
   monthlyPayment: Money
@@ -16,7 +20,9 @@ export type SummaryBarProps = {
  * The three figures that follow the reader down the page.
  *
  * Sticky at the top, so the consequence of every slider is always in view. The loans
- * strip pins directly beneath it, which is what `--gs-barh` in index.css is measuring.
+ * strip pins directly beneath it at `top: var(--gs-barh)`, so this bar measures itself
+ * into that property — its height changes with the viewport width, the text-size
+ * setting and the language, and a strip pinned to a guess disappears behind it.
  */
 export function SummaryBar({
   monthlyPayment,
@@ -26,7 +32,11 @@ export function SummaryBar({
   const { t } = useTranslation()
 
   return (
-    <div id="summary-bar" className="bg-paper border-rule sticky top-0 z-40 border-t border-b">
+    <div
+      id="summary-bar"
+      ref={measureBar}
+      className="bg-paper border-rule sticky top-0 z-40 border-t border-b"
+    >
       {/* Three fixed columns overflow at 360px once the reader steps the text up:
           each cell is ~100px and "1.548,10 €" at the largest size needs ~127px. Letting
           the columns wrap turns that into two rows rather than clipped figures. */}

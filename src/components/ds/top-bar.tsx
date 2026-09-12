@@ -54,7 +54,11 @@ export function TopBar({
       >
         {brand}
 
-        <div className="flex shrink-0 items-center gap-0.5">
+        {/* Wrapping, not `shrink-0`. The three controls need ~300px of the ~320px a
+            360px phone has, and they grow with the text-size setting and again in
+            German ('DUNKEL' over 'DARK'). Held rigid they push the page wider than the
+            screen; allowed to wrap they take a second line. */}
+        <div className="flex flex-wrap items-center justify-end gap-x-0.5 gap-y-2">
           {LANGUAGES.map((code) => (
             <button
               key={code}

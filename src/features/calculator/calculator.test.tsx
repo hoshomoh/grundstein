@@ -92,6 +92,23 @@ describe('the summary bar', () => {
     expect(screen.getByText('Cash you need')).toBeInTheDocument()
     expect(screen.getByText('Interest total')).toBeInTheDocument()
   })
+
+  /* The loans strip pins at `top: var(--gs-barh)`. If the bar stops publishing its own
+   * height the strip falls back to the stylesheet's guess, and on any screen where the
+   * bar wraps to two rows the strip pins underneath it and disappears. jsdom lays
+   * nothing out, so only the wiring is checked here — the number is checked in a
+   * browser. */
+  it('publishes its height for the strip that pins beneath it', () => {
+    section((c) => (
+      <SummaryBar
+        monthlyPayment={c.portfolio.peakPayment}
+        cashNeeded={c.costs.cashNeeded}
+        totalInterest={c.portfolio.totalInterest}
+      />
+    ))
+
+    expect(document.documentElement.style.getPropertyValue('--gs-barh')).toMatch(/^\d+px$/)
+  })
 })
 
 describe('about you', () => {

@@ -35,6 +35,8 @@ export function YearByYear({ portfolio }: YearByYearProps): ReactElement {
   const [showTable, setShowTable] = useState(false)
 
   const years = portfolio.yearly
+  /** Where the fixed-rate marker stands, as a fraction of the chart's width. */
+  const markerShare = years.length === 0 ? 0 : FIXED_RATE_YEARS / years.length
   const tallest = years.reduce<Money>(
     (highest, year) => max(highest, year.principal.plus(year.interest)),
     euros(1),
@@ -114,9 +116,19 @@ export function YearByYear({ portfolio }: YearByYearProps): ReactElement {
               <div
                 aria-hidden
                 className="border-shu pointer-events-none absolute top-0 bottom-0 w-0 border-l border-dashed"
-                style={{ left: `${((FIXED_RATE_YEARS / years.length) * 100).toFixed(2)}%` }}
+                style={{ left: `${(markerShare * 100).toFixed(2)}%` }}
               >
-                <span className="text-shu text-label absolute top-0 left-1.75 font-mono tracking-[0.08em] whitespace-nowrap uppercase">
+                {/* The label hangs off a line that can stand anywhere across the chart,
+                    and it cannot wrap. On a phone it is most of the chart's width, so
+                    past halfway it goes on the left of the line — otherwise a loan that
+                    runs barely longer than its fixed rate pushes the label, and the
+                    page, past the edge of the screen. */}
+                <span
+                  className={cn(
+                    'text-shu text-label absolute top-0 font-mono tracking-[0.08em] whitespace-nowrap uppercase',
+                    markerShare > 0.5 ? 'right-1.75 text-right' : 'left-1.75',
+                  )}
+                >
                   {t('chart.fixedEnds')}
                 </span>
               </div>
