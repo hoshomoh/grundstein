@@ -46,8 +46,14 @@ export function HairlineSelect({
         id={id}
         aria-label={label}
         className={cn(
-          'border-rule text-ink h-(--gs-field-h) w-full rounded-none border-0 border-b bg-transparent px-0',
-          'text-base shadow-none transition-colors duration-300',
+          // The generated trigger sets its height as `data-[size=default]:h-8`, an
+          // attribute selector that outranks a plain `h-*` class. Matching the variant
+          // puts both in one tailwind-merge group, so this one replaces it outright
+          // instead of losing the cascade and leaving the select 12px shorter than the
+          // inputs beside it.
+          'h-(--gs-field-h) data-[size=default]:h-(--gs-field-h)',
+          'border-rule text-ink w-full rounded-none border-0 border-b bg-transparent px-0 py-0',
+          'text-base shadow-none transition-colors duration-150',
           'focus-visible:border-shu focus-visible:ring-0',
           '[&_[data-slot=select-value]]:truncate',
           className,
