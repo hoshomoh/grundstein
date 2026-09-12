@@ -128,7 +128,12 @@ function LedgerRow({
       <div className="mb-3 flex flex-wrap items-baseline gap-x-3.5 gap-y-2">
         <Badge tone={tone}>{badge}</Badge>
         <span className="font-display min-w-0 flex-1 basis-45 text-lg">{name}</span>
-        <span className="flex shrink-0 items-baseline gap-3.5">
+        {/* Not `shrink-0`. A loan with interest-only years reads "1,12 % · 25 YR · 2 YR
+            INTEREST ONLY" — 35 monospace characters at 0.1em tracking, 294px — and with
+            the interest share beside it the pair is 438px, where a 402px phone offers
+            362px. Held rigid it widened the whole page by 56px. Allowed to wrap and
+            shrink, the terms break at their own separators. */}
+        <span className="flex min-w-0 flex-wrap items-baseline gap-x-3.5 gap-y-1">
           <span className="text-ink-3 text-label tracking-label font-mono uppercase">{terms}</span>
           <span className="text-shu font-mono text-sm tracking-[-0.02em] whitespace-nowrap">
             {formatPercent(interestShare)} {t('chart.interest').toLowerCase()}
