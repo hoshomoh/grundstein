@@ -39,6 +39,11 @@ export const STATES_VERIFIED_ON = '2026-09-11'
 
 const DEFAULT_STATE_CODE: StateCode = 'BY'
 
+/** Whether a value names one of the sixteen states. */
+export function isStateCode(value: unknown): value is StateCode {
+  return typeof value === 'string' && FEDERAL_STATES.some((state) => state.code === value)
+}
+
 /**
  * The state for a code, falling back to Bayern rather than throwing.
  *

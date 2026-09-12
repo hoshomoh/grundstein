@@ -139,9 +139,9 @@ in a row.
 - [x] `src/i18n/locales/en.json` + `de.json` — every string from the design, both languages,
       including the 9 FAQ entries and per-programme prose
 - [x] `src/i18n/locales.ts` — adding a language is a JSON file plus one entry
-- [ ] `src/state/session-store.ts` — localStorage-backed app state read through
+- [x] `src/state/session-store.ts` — localStorage-backed app state read through
       `useSyncExternalStore`, schema-versioned, debounced write, never `useEffect`
-- [ ] Tests: money parse/format round-trip, store rehydration from a corrupt payload
+- [x] Tests: money parse/format round-trip, store rehydration from a corrupt payload
 
 ## Phase 6 — Components (`src/components/ds/`)
 
