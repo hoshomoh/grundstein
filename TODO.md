@@ -84,50 +84,50 @@ in a row.
 
 - [x] Add `decimal.js`; configure precision and `ROUND_HALF_EVEN` once, in one module — a lint rule
       forbids importing it anywhere but `domain/money.ts`
-- [ ] `src/domain/money.ts` — the `Money` type, construction, arithmetic, rounding to cents, and the
+- [x] `src/domain/money.ts` — the `Money` type, construction, arithmetic, rounding to cents, and the
       single conversion point to `number` for display
-- [ ] `src/domain/types.ts` — `Programme`, `Tranche`, `FollowupPeriod`, `Profile`, `ProjectType`,
+- [x] `src/domain/types.ts` — `Programme`, `Tranche`, `FollowupPeriod`, `Profile`, `ProjectType`,
       `EnergyTarget`, `StateCode`
-- [ ] `src/domain/programmes.ts` — the 8 programmes + `PROGRAMME_ORDER`, each carrying its `source`
+- [x] `src/domain/programmes.ts` — the 8 programmes + `PROGRAMME_ORDER`, each carrying its `source`
       URL and `verifiedOn` date from docs/DATA-SOURCES.md
 - [x] `src/domain/states.ts` — 16 Bundesländer with transfer-tax rates and in-force dates
-- [ ] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace + follow-up segments),
+- [x] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace + follow-up segments),
       `buildPortfolio`
 - [ ] `src/domain/costs.ts` — transfer tax, notary, registry, agent, cash needed
 - [ ] `src/domain/eligibility.ts` — `checkEligibility`, `excludedProgrammes`, `findConflicts`
 
 ### Corrections agreed after verification (2026-09-11)
 
-- [ ] `maxLoanFor(programme, profile)` replaces the flat `cap` — the ceiling is a function of the
+- [x] `maxLoanFor(programme, profile)` replaces the flat `cap` — the ceiling is a function of the
       household, and the amount slider's bound follows it
 - [x] KfW 300 tier table: 170/200/220k by children (1–2 / 3–4 / 5+), 220/250/270k with QNG
 - [x] KfW 308 tier table: 140/160/180k by children (1 / 2 / 3+) — replaces the stale 100/125/150k
 - [x] KfW 297 accepts Effizienzhaus 55 (no oil or gas) as well as EH40, same 100k ceiling
-- [ ] KfW 261 Tilgungszuschuss: 5–15% by standard, +10% Worst Performing Building, +15% serial
+- [x] KfW 261 Tilgungszuschuss: 5–15% by standard, +10% Worst Performing Building, +15% serial
       renovation — reduces the balance, so it moves both the monthly payment and the total interest
 - [ ] KfW 270 grid-feed rule: a private applicant qualifies only if they feed the electricity or
       heat into the grid — one more field on `Profile`
-- [ ] KfW 270 ceiling stays at 100k… no: stays at **150,000 €**, which is ours and not the
-      programme's (the programme allows 150 Mio). Carried in the catalogue with a provenance note so
-      it is never presented as a KfW rule — confirm the wording with Oshomo
+- [x] KfW 270 ceiling stays at **150,000 €**, which is ours and not the programme's (the programme
+      allows 150 Mio). Carried in the catalogue with a provenance note so it is never presented as a
+      KfW rule — confirm the wording with Oshomo
 - [x] Per-programme `maxYears`: 30 for 261 and 270, 35 for the rest, replacing one global bound
 - [x] Tests for every tier boundary: 2→3 children on 300, 1→2 and 2→3 on 308, QNG on and off
 
 ### Verifying the calculation itself
 
-- [ ] Annuity checked against worked examples computed independently, not against our own output
-- [ ] **Closing balance is zero** after the final payment, to the cent, across a spread of amounts,
+- [x] Annuity checked against worked examples computed independently, not against our own output
+- [x] **Closing balance is zero** after the final payment, to the cent, across a spread of amounts,
       rates, terms and grace periods — this is the test that catches drift
-- [ ] Sum of principal instalments equals the amount borrowed, exactly
-- [ ] Sum of interest equals the reported total interest, exactly
-- [ ] Zero interest rate — payment is amount ÷ months, no division by zero
-- [ ] Grace period equal to or longer than the term is clamped, not crashed
-- [ ] Follow-up segment starting after the loan ends is ignored
-- [ ] A follow-up rate change re-amortises the remaining balance over the remaining term
-- [ ] Income cap rises €10k per child beyond the first
-- [ ] Conflict detection is symmetric whichever programme declares the exclusion
+- [x] Sum of principal instalments equals the amount borrowed, exactly
+- [x] Sum of interest equals the reported total interest, exactly
+- [x] Zero interest rate — payment is amount ÷ months, no division by zero
+- [x] Grace period equal to or longer than the term is clamped, not crashed
+- [x] Follow-up segment starting after the loan ends is ignored
+- [x] A follow-up rate change re-amortises the remaining balance over the remaining term
+- [x] Income cap rises €10k per child beyond the first
+- [x] Conflict detection is symmetric whichever programme declares the exclusion
 - [ ] Cash needed = closing costs + down payment, to the cent
-- [ ] A 30-year loan paid monthly does not drift by a cent from a `Decimal` reference run
+- [x] A 30-year loan paid monthly does not drift by a cent from a `Decimal` reference run
 
 ## Phase 5 — Infrastructure
 
