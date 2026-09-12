@@ -195,7 +195,7 @@
   /* The row holding a label and its reading. Fixed at 28px it clipped as soon as the
    * reader stepped the text up. */
   --gs-reading-h: calc(28px * var(--gs-fs, 1));
-  /* The share column beside each loan: wide enough for "100,00 %" at any text size. */
+  /* The share column beside each loan: wide enough for "100 %" at any text size. */
   --gs-share-w: calc(58px * var(--gs-fs, 1));
   /* The smallest a target may be and still be comfortably hittable (STANDARDS.md §5). */
   --gs-hit: 44px;

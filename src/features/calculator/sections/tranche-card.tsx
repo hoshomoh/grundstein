@@ -7,7 +7,7 @@ import { euros, toNumber } from '@/domain/money'
 import type { PortfolioRow } from '@/domain/portfolio'
 import { maxLoanFor } from '@/domain/programmes'
 import type { FollowupPeriod, Profile, Programme, ProgrammeKey, Tranche } from '@/domain/types'
-import { formatEuros, formatEurosWithCents, formatPercent } from '@/lib/format'
+import { formatEuros, formatEurosWithCents, formatPercent, formatWholePercent } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
 import { reasonToText } from '../eligibility-copy'
@@ -67,7 +67,7 @@ export function TrancheCard({
               tranche.amount.greaterThan(0) ? 'text-ink' : 'text-ink-3',
             )}
           >
-            {formatPercent(share)}
+            {formatWholePercent(share)}
           </div>
           <div
             aria-hidden
@@ -88,7 +88,7 @@ export function TrancheCard({
               onCommit={(name) => {
                 onChange({ name })
               }}
-              className="flex-1 basis-48 text-xl"
+              className="flex-1 basis-80 text-xl"
             />
 
             {programme?.isKfw === true ? (
@@ -233,9 +233,14 @@ type SliderRowProps = {
 function SliderRow({ label, reading, ...slider }: SliderRowProps): ReactElement {
   return (
     <div>
-      <div className="flex min-h-(--gs-reading-h) flex-wrap items-baseline justify-between gap-x-2.5 gap-y-0.5">
-        <FieldLabel>{label}</FieldLabel>
-        <span className="font-mono text-xs tracking-[-0.02em] whitespace-nowrap">{reading}</span>
+      {/* Stacked, not side by side. These columns are ~150px wide, and a two-word
+          label like "Interest rate" cannot share a line with its reading — it wrapped,
+          which dropped the reading onto a second line and left the four sliders
+          beneath sitting at different heights. One line each keeps every column the
+          same height whatever the label says. */}
+      <div className="grid gap-y-0.5">
+        <FieldLabel className="truncate">{label}</FieldLabel>
+        <span className="truncate font-mono text-xs tracking-[-0.02em]">{reading}</span>
       </div>
       <RailSlider label={label} {...slider} />
     </div>

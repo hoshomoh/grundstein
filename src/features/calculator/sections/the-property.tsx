@@ -94,9 +94,9 @@ export function TheProperty(props: ThePropertyProps): ReactElement {
         />
 
         <div className="grid grid-rows-[1fr_auto] gap-2">
-          <div className="flex min-h-(--gs-reading-h) flex-wrap items-baseline justify-between gap-x-3.5 gap-y-1">
+          <div className="flex min-h-(--gs-reading-h) flex-nowrap items-baseline justify-between gap-3.5">
             <FieldLabel>{t('property.state')}</FieldLabel>
-            <span className="text-shu text-md font-mono tracking-[-0.02em] whitespace-nowrap">
+            <span className="text-shu text-md shrink-0 font-mono tracking-[-0.02em] whitespace-nowrap">
               {formatShortPercent(costs.state.transferTaxPercent)}
             </span>
           </div>
@@ -213,9 +213,11 @@ type SliderFieldProps = {
 function SliderField({ label, reading, ...slider }: SliderFieldProps): ReactElement {
   return (
     <div className="grid grid-rows-[1fr_auto] gap-2">
-      <div className="flex min-h-(--gs-reading-h) flex-wrap items-baseline justify-between gap-x-3.5 gap-y-1">
+      <div className="flex min-h-(--gs-reading-h) flex-nowrap items-baseline justify-between gap-3.5">
         <FieldLabel>{label}</FieldLabel>
-        <span className="text-md font-mono tracking-[-0.02em] whitespace-nowrap">{reading}</span>
+        <span className="text-md shrink-0 font-mono tracking-[-0.02em] whitespace-nowrap">
+          {reading}
+        </span>
       </div>
       <RailSlider label={label} {...slider} />
     </div>

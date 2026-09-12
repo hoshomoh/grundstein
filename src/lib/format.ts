@@ -50,6 +50,12 @@ export function formatPercent(percent: number): string {
   return `${safe.toFixed(2).replace('.', ',')}${UNIT_SPACE}%`
 }
 
+/** `28 %` — no decimals, for a share where the fraction is noise and the space is tight. */
+export function formatWholePercent(percent: number): string {
+  const safe = Number.isFinite(percent) ? Math.round(percent) : 0
+  return `${String(safe)}${UNIT_SPACE}%`
+}
+
 /** `6,5 %` — one decimal, for tax rates where the second is always zero. */
 export function formatShortPercent(percent: number): string {
   const safe = Number.isFinite(percent) ? percent : 0

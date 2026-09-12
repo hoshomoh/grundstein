@@ -8,6 +8,7 @@ import {
   formatNumber,
   formatPercent,
   formatShortPercent,
+  formatWholePercent,
   parseDecimal,
   parseMoney,
   percentWidth,
@@ -56,6 +57,15 @@ describe('formatPercent', () => {
     expect(formatPercent(3.8)).toBe('3,80\u00A0%')
     expect(formatPercent(1.125)).toBe('1,13\u00A0%')
     expect(formatPercent(0)).toBe('0,00\u00A0%')
+  })
+
+  /* The share beside each loan sits in a 58px column. Two decimals ("28,33 %") need
+   * ~75px there and collided with the badge beside it. */
+  it('rounds a share to a whole number', () => {
+    expect(formatWholePercent(28.33)).toBe('28\u00A0%')
+    expect(formatWholePercent(99.6)).toBe('100\u00A0%')
+    expect(formatWholePercent(0)).toBe('0\u00A0%')
+    expect(formatWholePercent(Number.NaN)).toBe('0\u00A0%')
   })
 
   it('shows one place for tax rates', () => {
