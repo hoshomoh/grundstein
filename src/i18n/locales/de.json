@@ -1,0 +1,281 @@
+{
+  "nav": {
+    "subtitle": "Für Käufer in Deutschland",
+    "themeLight": "Hell",
+    "themeDark": "Dunkel",
+    "themeToggle": "Darstellung wechseln",
+    "textSize": "Schriftgröße"
+  },
+  "hero": {
+    "eyebrow": "8 KfW-Darlehen. 16 Steuersätze. Eine Monatsrate.",
+    "titleA": "Sehen Sie, was Ihre",
+    "titleB": "Finanzierung wirklich kostet.",
+    "titleC": "Jedes Darlehen, jedes Jahr.",
+    "lede": "Ihre Bank nennt Ihnen eine Zahl. Hier steht der Rest: die günstigen KfW-Darlehen, die Sie kombinieren können, das Geld, das am Tag der Übergabe da sein muss, und was passiert, wenn die Zinsbindung endet.",
+    "stat": "Ihre Monatsrate"
+  },
+  "principles": [
+    {
+      "numeral": "一",
+      "title": "Kombinieren geht, aber nicht beliebig",
+      "body": "KfW 300 passt nicht neben 297 oder 298. KfW 261 ist für Sanierungen, nicht für Neubauten. KfW 124 und 270 passen zu fast allem. Jedes Programm hat eigene Grenzen, eigene Zinsen und eigene Bedingungen."
+    },
+    {
+      "numeral": "二",
+      "title": "Ein Teil muss Eigenkapital sein",
+      "body": "Die Grunderwerbsteuer liegt in Bayern bei 3,5 Prozent und in NRW bei 6,5 Prozent. Mit Notar, Grundbuch und Makler brauchen Sie 5 bis 12 Prozent des Kaufpreises als Eigenkapital, und zwar am Tag der Übergabe. Diesen Teil finanziert keine Bank."
+    },
+    {
+      "numeral": "三",
+      "title": "Auf Jahr zehn kommt es an",
+      "body": "Die Zinsbindung läuft meist zehn Jahre. Danach wird die Restschuld zu dem Zins refinanziert, den es dann gibt. Setzen Sie einen hohen Wert ein und prüfen Sie, ob die Rate noch passt."
+    }
+  ],
+  "sections": {
+    "situation": "Über Sie",
+    "purchase": "Die Immobilie",
+    "tranches": "Ihre Darlehen",
+    "course": "Jahr für Jahr",
+    "ledger": "Was jedes Darlehen kostet",
+    "terms": "Fragen"
+  },
+  "summary": {
+    "monthly": "Monatsrate",
+    "cash": "Benötigtes Eigenkapital",
+    "interest": "Zinsen gesamt"
+  },
+  "profile": {
+    "project": "Ihr Vorhaben",
+    "children": "Kinder unter 18",
+    "income": "Haushaltseinkommen, € pro Jahr",
+    "owns": "Schon Wohneigentum?",
+    "energy": "Energieziel",
+    "feedsGrid": "Strom wird ins Netz eingespeist?",
+    "yes": "Ja",
+    "no": "Nein",
+    "childrenMore": "5 oder mehr",
+    "projectOptions": {
+      "newbuild": "Neubau",
+      "existing": "Kauf einer bestehenden Immobilie",
+      "renovate": "Sanierung meiner eigenen Immobilie"
+    },
+    "energyOptions": {
+      "qng": "EH40 mit QNG, die höchste Stufe",
+      "eh40": "Effizienzhaus 40",
+      "eh55": "Effizienzhaus 55",
+      "eh85": "EH70 bis 85 EE, für Sanierungen",
+      "none": "Noch unklar"
+    },
+    "energyShort": {
+      "qng": "EH40 + QNG",
+      "eh40": "Effizienzhaus 40",
+      "eh55": "Effizienzhaus 55",
+      "eh85": "EH70–85 EE",
+      "none": "noch unklar"
+    }
+  },
+  "property": {
+    "price": "Kaufpreis",
+    "down": "Eigenkapital",
+    "state": "Bundesland",
+    "agent": "Ein Makler ist beteiligt und ich zahle meinen Anteil",
+    "transfer": "Grunderwerbsteuer",
+    "notary": "Notar",
+    "registry": "Grundbuch",
+    "agentFee": "Makler, Ihre Hälfte",
+    "totalClosing": "Gebühren und Steuer zusammen",
+    "downRow": "Eigenkapital",
+    "cashTotal": "Am Tag der Übergabe nötig"
+  },
+  "tranche": {
+    "amount": "Betrag",
+    "rate": "Zinssatz",
+    "years": "Jahre",
+    "grace": "Nur Zinsen",
+    "monthly": "Pro Monat",
+    "interest": "Zinsen",
+    "principal": "Tilgung",
+    "borrowed": "Geliehen",
+    "interestOver": "Zinsen über",
+    "afterFixed": "Wenn die Zinsbindung endet",
+    "noFollowups": "Nichts eingetragen, der Zins oben gilt die ganze Laufzeit.",
+    "fromYear": "Ab Jahr",
+    "for": "für",
+    "yearsShort": "Jahre",
+    "at": "zu",
+    "addPeriod": "Zinsänderung hinzufügen",
+    "add": "Hinzufügen",
+    "reset": "Neu anfangen",
+    "close": "Schließen",
+    "remove": "Dieses Darlehen entfernen",
+    "removePeriod": "Diesen Zeitraum entfernen",
+    "yearAbbrev": "J.",
+    "subsidy": "Tilgungszuschuss",
+    "subsidyNote": "Der Staat übernimmt {{amount}} dieses Darlehens, Sie nehmen also {{gross}} auf und zahlen {{net}} zurück."
+  },
+  "eligibility": {
+    "eligible": "Sie qualifizieren sich wahrscheinlich",
+    "checkIt": "Bitte prüfen",
+    "reasons": {
+      "projectType": "Nur für: {{types}}",
+      "needsChild": "Mindestens ein Kind unter 18 nötig",
+      "incomeAboveLimit": "Haushaltseinkommen über der Grenze von {{limit}}",
+      "alreadyOwns": "Nicht für bestehende Eigentümer",
+      "energyTarget": "Erfordert {{targets}}",
+      "needsGridFeed": "Nur wenn Sie den Strom oder die Wärme ins Netz einspeisen"
+    },
+    "or": " oder "
+  },
+  "conflict": {
+    "title": "Diese zwei passen nicht zusammen",
+    "pair": "{{first}} und {{second}} gehen nicht für dasselbe Zuhause."
+  },
+  "requirements": {
+    "title": "Bedingungen und Kombinationen",
+    "forWhom": "Für wen:",
+    "energy": "Energie:",
+    "maxLoan": "Höchstbetrag:",
+    "qualifies": "Sie brauchen:",
+    "cannotCombine": "Passt nicht zu:",
+    "note": "Gut zu wissen:",
+    "official": "Nachlesen auf kfw.de",
+    "noRestrictions": "nichts, es passt zu allem",
+    "noTest": "nichts Besonderes",
+    "needsChild": "mindestens ein Kind unter 18",
+    "incomeUnder": "Einkommen ≤ {{limit}}",
+    "noExistingHome": "kein bestehendes Wohneigentum",
+    "gridFeed": "Einspeisung ins Netz"
+  },
+  "chart": {
+    "principal": "Tilgung",
+    "interest": "Zinsen",
+    "fixedEnds": "Zinsbindung endet",
+    "hint": "Tippen Sie ein Jahr an, um seine zwölf Monate zu sehen.",
+    "mostExpensive": "Das teuerste Jahr kostet {{amount}}.",
+    "yearReadout": "Jahr {{year}}: {{interest}} Zinsen plus {{principal}} Tilgung, zusammen {{total}}.",
+    "monthHint": "Tippen Sie einen Balken an, um den Monat zu sehen.",
+    "monthTitle": "Jahr {{year}} · Monat für Monat",
+    "monthReadout": "Monat {{month}}: {{interest}} Zinsen plus {{principal}} Tilgung, zusammen {{total}}."
+  },
+  "structure": {
+    "equity": "Ihr Geld",
+    "covered": "Gedeckt",
+    "over": "Zu viel um {{amount}}",
+    "short": "Es fehlen {{amount}}"
+  },
+  "ledger": {
+    "note": "Jeder Balken zeigt, was ein Darlehen insgesamt kostet. Dunkel ist die geliehene Summe. Rot sind die Zinsen, die obendrauf kommen.",
+    "everything": "Alles zusammen",
+    "blended": "gemischt"
+  },
+  "provenance": {
+    "verifiedOn": "Geprüft auf {{source}} am {{date}}",
+    "ourFigure": "Unsere Zahl, nicht die des Programms",
+    "rateIsAStartingPoint": "Die KfW veröffentlicht ihre Zinsen nicht — sie werden bei der Zusage festgelegt. Ersetzen Sie diesen Wert durch den Zins aus Ihrem Angebot.",
+    "unverified": "Nicht gegen eine offizielle Seite geprüft"
+  },
+  "footer": {
+    "disclaimer": "Das ist ein Modell, keine Beratung. Zinsen, Grenzen und Regeln ändern sich. Prüfen Sie alles auf den offiziellen KfW-Seiten, bevor Sie unterschreiben. Alles, was Sie eingeben, bleibt in diesem Browser.",
+    "sources": "Quellen",
+    "libraryLink": "Darlehensliste bearbeiten"
+  },
+  "dialogs": {
+    "resetTitle": "Neu anfangen mit den Beispielzahlen?",
+    "resetBody": "Kaufpreis, Darlehen und Ihre Angaben werden auf den Anfangszustand zurückgesetzt.",
+    "confirm": "Neu anfangen",
+    "cancel": "Alles behalten"
+  },
+  "library": {
+    "eyebrow": "Das Hinterzimmer",
+    "title": "Alle Darlehen, die der Rechner kennt.",
+    "lede": "Hier stehen die Darlehen und Bedingungen hinter den Zahlen auf der Hauptseite. Ändern Sie einen Höchstbetrag, einen Zins oder eine Regel, und der Rechner nutzt das sofort. Die meisten brauchen diese Seite nie, und für den Rechner ist sie nicht nötig.",
+    "name": "Bezeichnung",
+    "short": "Kurzform",
+    "cap": "Höchstbetrag, €",
+    "defaultAmount": "Startbetrag, €",
+    "defaultRate": "Startzins, %",
+    "defaultYears": "Laufzeit, Jahre",
+    "defaultGrace": "Nur Zinsen, Jahre",
+    "incomeCap": "Einkommensgrenze, € (leer lassen für keine)",
+    "url": "Offizielle Seite",
+    "isKfw": "Das ist ein KfW-Darlehen",
+    "requiresChild": "Braucht mindestens ein Kind",
+    "excludesOwners": "Nicht für bestehende Eigentümer",
+    "projectTypes": "Nutzbar für",
+    "excludes": "Passt nicht zu",
+    "delete": "Dieses Darlehen löschen",
+    "add": "Darlehen hinzufügen",
+    "restore": "Originaldarlehen zurückholen",
+    "footerNote": "Änderungen werden in diesem Browser gespeichert und gehen nirgendwo sonst hin. Das Zurückholen der Originaldarlehen lässt Kaufpreis, Darlehen und Ihre Angaben unberührt.",
+    "back": "Zurück zum Rechner",
+    "deleteTitle": "Dieses Darlehen löschen?",
+    "deleteBody": "Ihre Darlehen, die es nutzen, verschwinden mit.",
+    "restoreTitle": "Die acht Originaldarlehen zurückholen?",
+    "restoreBody": "Selbst angelegte Darlehen werden entfernt."
+  },
+  "faq": [
+    {
+      "q": "Warum kann ich die Gebühren nicht mitfinanzieren?",
+      "paras": [
+        "Deutsche Banken beleihen den Wert der Immobilie, und die Gebühren rund um den Kauf gehören nicht dazu. Grunderwerbsteuer, Notar, Grundbuch und Makler kommen deshalb aus Ihrem Ersparten, zusätzlich zum Eigenkapital im Kaufpreis.",
+        "Rechnen Sie mit etwa 5,5 bis 8,5 Prozent des Kaufpreises ohne Makler und 9 bis 12 Prozent mit Makler."
+      ]
+    },
+    {
+      "q": "Was ist die Grunderwerbsteuer?",
+      "paras": [
+        "Eine einmalige Steuer beim Kauf und meist der größte einzelne Posten. Jedes Bundesland legt den Satz selbst fest. Er reicht von 3,5 Prozent in Bayern bis 6,5 Prozent in NRW, Brandenburg, im Saarland und in Schleswig-Holstein."
+      ]
+    },
+    {
+      "q": "Notar und Grundbuch",
+      "paras": [
+        "Jeder Kauf muss beim Notar beurkundet und im Grundbuch eingetragen werden. Der Notar kostet rund 1,5 Prozent, das Grundbuch rund 0,5 Prozent, bundesweit ähnlich. Beides können Sie oben anpassen, wenn Ihr Angebot abweicht."
+      ]
+    },
+    {
+      "q": "Wann zahle ich einen Makler?",
+      "paras": [
+        "Nur wenn einer beteiligt ist. Seit Dezember 2020 wird die Provision etwa hälftig zwischen Käufer und Verkäufer geteilt, Ihr Anteil liegt damit meist bei rund 3,57 Prozent inklusive Mehrwertsteuer."
+      ]
+    },
+    {
+      "q": "Eigenkapital oder benötigtes Geld?",
+      "paras": [
+        "Das Eigenkapital ist der Teil des Kaufpreises, den Sie selbst tragen, und er senkt die Darlehenssumme. Das benötigte Geld ist dieser Teil plus alle Gebühren, also der Betrag, der am Tag der Übergabe auf dem Konto sein muss."
+      ]
+    },
+    {
+      "q": "Was heißt tilgungsfreie Zeit?",
+      "paras": [
+        "Eine Phase am Anfang, in der Sie nur Zinsen zahlen und nichts vom Darlehen abbezahlen. Die ersten Raten sind kleiner, aber Sie tilgen das ganze Darlehen dann in weniger Jahren. Die Rate danach ist höher und Sie zahlen insgesamt mehr Zinsen. Die Monatsrate oben auf der Seite ist diese höhere Rate."
+      ]
+    },
+    {
+      "q": "Was passiert nach zehn Jahren?",
+      "paras": [
+        "KfW-Darlehen binden den Zins meist zehn Jahre, die gestrichelte Linie im Diagramm markiert das Ende. Die Restschuld wird dann zu dem Zins refinanziert, den es gerade gibt. Diese Zahl kennt niemand vorher, also probieren Sie ein paar aus."
+      ]
+    },
+    {
+      "q": "Welche KfW-Darlehen kann ich kombinieren?",
+      "paras": [
+        "Manche passen nicht zusammen. KfW 300 geht nicht mit 297 oder 298, und 297 und 298 sind zwei Varianten desselben Programms, Sie wählen also eine. KfW 261 ist für Sanierungen und geht nicht mit den Neubauprogrammen.",
+        "KfW 124 und 270 passen zu fast allem, ebenso Ihr Bankdarlehen. Bei einer unzulässigen Kombination erscheint eine Warnung."
+      ]
+    },
+    {
+      "q": "Woher kommen diese Zahlen?",
+      "paras": [
+        "Die Höchstbeträge, Einkommensgrenzen und Kombinationsregeln stammen von den offiziellen KfW-Seiten, und jede Angabe trägt das Datum der letzten Prüfung. Die Zinsen nicht: Die KfW veröffentlicht sie nicht, weil Ihr Zins bei der Zusage festgelegt wird. Jeder Zins hier ist ein plausibler Startwert, den Sie durch den Wert aus Ihrem Angebot ersetzen sollten.",
+        "Regeln ändern sich. Prüfen Sie alles auf den offiziellen Seiten, bevor Sie unterschreiben."
+      ]
+    },
+    {
+      "q": "Wohin gehen meine Daten?",
+      "paras": [
+        "Nirgendwohin. Alles, was Sie eingeben, auch Änderungen an der Darlehensliste, wird nur in diesem Browser gespeichert. Neu anfangen setzt die Beispielzahlen zurück."
+      ]
+    }
+  ]
+}

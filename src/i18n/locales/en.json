@@ -1,0 +1,281 @@
+{
+  "nav": {
+    "subtitle": "For buyers in Germany",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeToggle": "Switch appearance",
+    "textSize": "Text size"
+  },
+  "hero": {
+    "eyebrow": "8 KfW loans. 16 state tax rates. One monthly payment.",
+    "titleA": "See what your mortgage",
+    "titleB": "actually costs.",
+    "titleC": "Every loan, every year.",
+    "lede": "Your bank quotes you one number. This shows you the rest: the cheap KfW loans you can stack, the cash you need on the day, and what happens when your fixed rate runs out.",
+    "stat": "Your monthly payment"
+  },
+  "principles": [
+    {
+      "numeral": "一",
+      "title": "You can stack loans, within limits",
+      "body": "KfW 300 will not sit next to 297 or 298. KfW 261 is for renovations, not new builds. KfW 124 and 270 go with almost anything. Each one has its own ceiling, its own rate and its own conditions."
+    },
+    {
+      "numeral": "二",
+      "title": "Some of it has to be cash",
+      "body": "Transfer tax is 3.5% in Bayern and 6.5% in NRW. Add the notary, the land registry and the agent and you need 5 to 12 percent of the price in cash on the day you complete. No bank will lend you that part."
+    },
+    {
+      "numeral": "三",
+      "title": "Year ten is the one to watch",
+      "body": "Most fixed rates last ten years. After that, whatever you still owe is refinanced at whatever rate exists then. Try a high one and see whether the payment still works."
+    }
+  ],
+  "sections": {
+    "situation": "About you",
+    "purchase": "The property",
+    "tranches": "Your loans",
+    "course": "Year by year",
+    "ledger": "What each loan costs",
+    "terms": "Questions"
+  },
+  "summary": {
+    "monthly": "Monthly payment",
+    "cash": "Cash you need",
+    "interest": "Interest total"
+  },
+  "profile": {
+    "project": "Your plan",
+    "children": "Children under 18",
+    "income": "Household income, € a year",
+    "owns": "Already own a home?",
+    "energy": "Energy target",
+    "feedsGrid": "Solar power fed into the grid?",
+    "yes": "Yes",
+    "no": "No",
+    "childrenMore": "5 or more",
+    "projectOptions": {
+      "newbuild": "Building a new home",
+      "existing": "Buying an existing home",
+      "renovate": "Renovating the home I own"
+    },
+    "energyOptions": {
+      "qng": "EH40 plus QNG, the highest",
+      "eh40": "Effizienzhaus 40",
+      "eh55": "Effizienzhaus 55",
+      "eh85": "EH70 to 85 EE, for renovations",
+      "none": "Not sure yet"
+    },
+    "energyShort": {
+      "qng": "EH40 + QNG",
+      "eh40": "Effizienzhaus 40",
+      "eh55": "Effizienzhaus 55",
+      "eh85": "EH70–85 EE",
+      "none": "not sure yet"
+    }
+  },
+  "property": {
+    "price": "Purchase price",
+    "down": "Down payment",
+    "state": "State",
+    "agent": "An agent is involved and I pay their share",
+    "transfer": "Transfer tax",
+    "notary": "Notary",
+    "registry": "Land registry",
+    "agentFee": "Agent, your half",
+    "totalClosing": "Fees and tax together",
+    "downRow": "Down payment",
+    "cashTotal": "Cash you need on the day"
+  },
+  "tranche": {
+    "amount": "Amount",
+    "rate": "Interest rate",
+    "years": "Years",
+    "grace": "Interest only",
+    "monthly": "Per month",
+    "interest": "Interest",
+    "principal": "Repayment",
+    "borrowed": "Borrowed",
+    "interestOver": "Interest over",
+    "afterFixed": "When the fixed rate ends",
+    "noFollowups": "Nothing set, so the rate above runs the whole way.",
+    "fromYear": "From year",
+    "for": "for",
+    "yearsShort": "years",
+    "at": "at",
+    "addPeriod": "Add a rate change",
+    "add": "Add",
+    "reset": "Start over",
+    "close": "Close",
+    "remove": "Remove this loan",
+    "removePeriod": "Remove this period",
+    "yearAbbrev": "yr",
+    "subsidy": "Repayment subsidy",
+    "subsidyNote": "The state repays {{amount}} of this loan on your behalf, so you borrow {{gross}} and pay back {{net}}."
+  },
+  "eligibility": {
+    "eligible": "You probably qualify",
+    "checkIt": "Worth checking",
+    "reasons": {
+      "projectType": "Only for: {{types}}",
+      "needsChild": "Needs at least one child under 18",
+      "incomeAboveLimit": "Household income above the limit of {{limit}}",
+      "alreadyOwns": "Not for people who already own a home",
+      "energyTarget": "Needs {{targets}}",
+      "needsGridFeed": "Only if you feed the electricity or heat into the grid"
+    },
+    "or": " or "
+  },
+  "conflict": {
+    "title": "These two do not go together",
+    "pair": "{{first}} and {{second}} cannot both pay for the same home."
+  },
+  "requirements": {
+    "title": "Conditions and what it pairs with",
+    "forWhom": "Who it is for:",
+    "energy": "Energy:",
+    "maxLoan": "Most you can borrow:",
+    "qualifies": "You need:",
+    "cannotCombine": "Does not pair with:",
+    "note": "Good to know:",
+    "official": "Read it on kfw.de",
+    "noRestrictions": "nothing, it pairs with everything",
+    "noTest": "nothing special",
+    "needsChild": "at least one child under 18",
+    "incomeUnder": "income ≤ {{limit}}",
+    "noExistingHome": "to not already own a home",
+    "gridFeed": "to feed the power into the grid"
+  },
+  "chart": {
+    "principal": "Repayment",
+    "interest": "Interest",
+    "fixedEnds": "Fixed rate ends",
+    "hint": "Tap any year to see its twelve months.",
+    "mostExpensive": "The most expensive year costs {{amount}}.",
+    "yearReadout": "Year {{year}}: {{interest}} interest plus {{principal}} repayment, so {{total}}.",
+    "monthHint": "Tap a bar to see that month.",
+    "monthTitle": "Year {{year}} · month by month",
+    "monthReadout": "Month {{month}}: {{interest}} interest plus {{principal}} repayment, so {{total}}."
+  },
+  "structure": {
+    "equity": "Your money",
+    "covered": "Covered",
+    "over": "Too much by {{amount}}",
+    "short": "Still need {{amount}}"
+  },
+  "ledger": {
+    "note": "Each bar is what one loan costs you in total. Dark is the money you borrowed. Red is the interest you pay on top of it.",
+    "everything": "Everything together",
+    "blended": "blended"
+  },
+  "provenance": {
+    "verifiedOn": "Checked against {{source}} on {{date}}",
+    "ourFigure": "Our figure, not the programme's",
+    "rateIsAStartingPoint": "KfW does not publish its rates — they are set when your loan is approved. Replace this with the rate on your own offer.",
+    "unverified": "Not confirmed against an official page"
+  },
+  "footer": {
+    "disclaimer": "This is a model, not advice. Rates, ceilings and rules change, so check the official KfW pages before you sign anything. Everything you type stays in this browser.",
+    "sources": "Sources",
+    "libraryLink": "Edit the loan list"
+  },
+  "dialogs": {
+    "resetTitle": "Start again with the example numbers?",
+    "resetBody": "Your price, your loans and your answers all go back to how they started.",
+    "confirm": "Start over",
+    "cancel": "Keep what I have"
+  },
+  "library": {
+    "eyebrow": "The back room",
+    "title": "Every loan the calculator knows.",
+    "lede": "These are the loans and the terms behind the numbers on the main page. Change a ceiling, a rate or a rule here and the calculator uses it straight away. Most people never need this page, and nothing here is required to use the calculator.",
+    "name": "Name",
+    "short": "Short label",
+    "cap": "Most you can borrow, €",
+    "defaultAmount": "Starting amount, €",
+    "defaultRate": "Starting rate, %",
+    "defaultYears": "Starting term, years",
+    "defaultGrace": "Interest only, years",
+    "incomeCap": "Income limit, € (leave blank for none)",
+    "url": "Official page",
+    "isKfw": "This is a KfW loan",
+    "requiresChild": "Needs at least one child",
+    "excludesOwners": "Not for people who already own",
+    "projectTypes": "Can be used for",
+    "excludes": "Does not pair with",
+    "delete": "Delete this loan",
+    "add": "Add a loan",
+    "restore": "Put the original loans back",
+    "footerNote": "Changes are saved in this browser and go nowhere else. Putting the original loans back leaves your price, your loans and your answers untouched.",
+    "back": "Back to the calculator",
+    "deleteTitle": "Delete this loan?",
+    "deleteBody": "Any of your loans using it will go too.",
+    "restoreTitle": "Put the eight original loans back?",
+    "restoreBody": "Anything you added yourself will be removed."
+  },
+  "faq": [
+    {
+      "q": "Why can I not borrow the fees?",
+      "paras": [
+        "German banks lend against the value of the property, and the fees around the purchase are not part of that value. So the transfer tax, the notary, the land registry and the agent all have to come out of your own savings, on top of any down payment.",
+        "Expect roughly 5.5 to 8.5 percent of the price without an agent, and 9 to 12 percent with one."
+      ]
+    },
+    {
+      "q": "What is the transfer tax?",
+      "paras": [
+        "A one off tax when you buy, and usually the biggest single fee. Each state sets its own rate. It runs from 3.5 percent in Bayern up to 6.5 percent in NRW, Brandenburg, Saarland and Schleswig-Holstein."
+      ]
+    },
+    {
+      "q": "Notary and land registry",
+      "paras": [
+        "Every sale has to be signed in front of a notary and recorded in the land register. The notary is around 1.5 percent and the registry around 0.5 percent, much the same everywhere. Both are editable above if your quote differs."
+      ]
+    },
+    {
+      "q": "When do I pay an agent?",
+      "paras": [
+        "Only if one is involved in the sale. Since December 2020 the fee is split about evenly between buyer and seller, which usually leaves your half at around 3.57 percent including VAT."
+      ]
+    },
+    {
+      "q": "Down payment or cash needed?",
+      "paras": [
+        "The down payment is the part of the price you cover yourself, and it lowers what you borrow. Cash needed is that plus every fee, which is the money that has to be in your account on completion day."
+      ]
+    },
+    {
+      "q": "What are interest only years?",
+      "paras": [
+        "A stretch at the start where you pay interest and nothing comes off the loan. Your early payments are smaller, but you then repay the whole loan over fewer years, so the payment afterwards is bigger and you pay more interest overall. The monthly figure at the top of the page is that bigger payment."
+      ]
+    },
+    {
+      "q": "What happens after ten years?",
+      "paras": [
+        "KfW loans normally fix the rate for ten years, and the dashed line in the chart marks the end of it. Whatever you still owe then gets refinanced at whatever rate is on offer. Nobody knows that number, so it is worth trying a few."
+      ]
+    },
+    {
+      "q": "Which KfW loans can I combine?",
+      "paras": [
+        "Some cannot share a home. KfW 300 will not go with 297 or 298, and 297 and 298 are two versions of the same loan so you pick one. KfW 261 is for renovations and does not go with the new build loans.",
+        "KfW 124 and 270 go with almost everything, and so does your bank loan. You will see a warning if you pick a pair that is not allowed."
+      ]
+    },
+    {
+      "q": "Where do these numbers come from?",
+      "paras": [
+        "The ceilings, income limits and combination rules come from the official KfW pages, and each one carries the date it was last checked. The interest rates do not: KfW does not publish them, because your rate is set when your loan is approved. Every rate here is a plausible starting point for you to replace with the one on your own offer.",
+        "Rules change. Check the official pages before you sign anything."
+      ]
+    },
+    {
+      "q": "Where does my data go?",
+      "paras": [
+        "Nowhere. Everything you enter, including any changes to the loan list, is saved in this browser only. Start over puts the example numbers back."
+      ]
+    }
+  ]
+}

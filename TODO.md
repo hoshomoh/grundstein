@@ -135,8 +135,8 @@ in a row.
 - [x] `src/lib/format.ts` — `Intl` money/number/percent, de-DE grouping, the German decimal-comma
       parse used by every numeric input
 - [x] `src/lib/dates.ts` — date-fns wrapper; nothing else touches a date
-- [ ] `src/lib/locale-store.ts` — owns i18next language + date-fns locale together
-- [ ] `src/i18n/locales/en.json` + `de.json` — every string from the design, both languages,
+- [x] `src/lib/locale-store.ts` — owns i18next language + date-fns locale together
+- [x] `src/i18n/locales/en.json` + `de.json` — every string from the design, both languages,
       including the 9 FAQ entries and per-programme prose
 - [x] `src/i18n/locales.ts` — adding a language is a JSON file plus one entry
 - [ ] `src/state/session-store.ts` — localStorage-backed app state read through
