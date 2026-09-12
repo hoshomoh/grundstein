@@ -139,6 +139,79 @@ export function removeTranche(state: SessionState, id: number): SessionState {
   return { ...state, tranches: state.tranches.filter((tranche) => tranche.id !== id) }
 }
 
+/** Change one programme in the catalogue. */
+export function withProgramme(
+  state: SessionState,
+  key: ProgrammeKey,
+  patch: Partial<Programme>,
+): SessionState {
+  const existing = state.programmes[key]
+  if (!existing) return state
+
+  return { ...state, programmes: { ...state.programmes, [key]: { ...existing, ...patch } } }
+}
+
+/**
+ * Add a programme of the reader's own.
+ *
+ * It carries no source and today's date: it is theirs, not KfW's, and the interface
+ * says so wherever a provenance is shown.
+ */
+export function addProgramme(state: SessionState, today: string): SessionState {
+  let suffix = 1
+  while (`custom${String(suffix)}` in state.programmes) suffix++
+  const key = `custom${String(suffix)}`
+
+  const programme: Programme = {
+    key,
+    name: 'Custom loan',
+    short: `Custom ${String(suffix)}`,
+    isKfw: false,
+    url: null,
+    ceiling: { kind: 'flat', amount: euros(100_000) },
+    defaultAmount: euros(50_000),
+    defaultRatePercent: 3,
+    defaultYears: 25,
+    defaultGraceYears: 0,
+    maxYears: 35,
+    zinsbindungYears: 10,
+    projectTypes: ['newbuild', 'existing', 'renovate'],
+    energyTargets: null,
+    requiresChild: false,
+    incomeCap: null,
+    incomeCapPerExtraChild: euros(0),
+    excludesExistingOwners: false,
+    requiresGridFeed: false,
+    excludes: [],
+    subsidy: null,
+    provenance: { source: null, verifiedOn: today },
+  }
+
+  return {
+    ...state,
+    programmes: { ...state.programmes, [key]: programme },
+    programmeOrder: [...state.programmeOrder, key],
+  }
+}
+
+/** Toggle one value in a programme's project types or exclusions. */
+export function toggleProgrammeValue<K extends 'projectTypes' | 'excludes'>(
+  state: SessionState,
+  key: ProgrammeKey,
+  field: K,
+  value: Programme[K][number],
+): SessionState {
+  const programme = state.programmes[key]
+  if (!programme) return state
+
+  const current: readonly string[] = programme[field]
+  const next = current.includes(value)
+    ? current.filter((existing) => existing !== value)
+    : [...current, value]
+
+  return withProgramme(state, key, { [field]: next })
+}
+
 /**
  * Delete a programme from the catalogue.
  *

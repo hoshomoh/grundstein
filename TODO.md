@@ -171,11 +171,11 @@ in a row.
 
 ## Phase 8 — Library route (`/library`)
 
-- [ ] Programme list as disclosures with all editable fields
-- [ ] Project-type and exclusion chip toggles
-- [ ] Add / delete a programme; deleting drops tranches that used it
-- [ ] Restore the eight originals, leaving price/tranches/answers untouched
-- [ ] Confirm dialogs via shadcn `AlertDialog`, not `window.confirm`
+- [x] Programme list as disclosures with all editable fields
+- [x] Project-type and exclusion chip toggles
+- [x] Add / delete a programme; deleting drops tranches that used it
+- [x] Restore the eight originals, leaving price/tranches/answers untouched
+- [x] Confirm dialogs via shadcn `AlertDialog`, not `window.confirm`
 
 ## Phase 9 — Quality
 
