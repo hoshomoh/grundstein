@@ -93,8 +93,8 @@ in a row.
 - [x] `src/domain/states.ts` — 16 Bundesländer with transfer-tax rates and in-force dates
 - [x] `src/domain/amortisation.ts` — `annuity`, `amortise` (grace + follow-up segments),
       `buildPortfolio`
-- [ ] `src/domain/costs.ts` — transfer tax, notary, registry, agent, cash needed
-- [ ] `src/domain/eligibility.ts` — `checkEligibility`, `excludedProgrammes`, `findConflicts`
+- [x] `src/domain/costs.ts` — transfer tax, notary, registry, agent, cash needed
+- [x] `src/domain/eligibility.ts` — `checkEligibility`, `excludedProgrammes`, `findConflicts`
 
 ### Corrections agreed after verification (2026-09-11)
 
@@ -105,7 +105,7 @@ in a row.
 - [x] KfW 297 accepts Effizienzhaus 55 (no oil or gas) as well as EH40, same 100k ceiling
 - [x] KfW 261 Tilgungszuschuss: 5–15% by standard, +10% Worst Performing Building, +15% serial
       renovation — reduces the balance, so it moves both the monthly payment and the total interest
-- [ ] KfW 270 grid-feed rule: a private applicant qualifies only if they feed the electricity or
+- [x] KfW 270 grid-feed rule: a private applicant qualifies only if they feed the electricity or
       heat into the grid — one more field on `Profile`
 - [x] KfW 270 ceiling stays at **150,000 €**, which is ours and not the programme's (the programme
       allows 150 Mio). Carried in the catalogue with a provenance note so it is never presented as a
@@ -126,7 +126,7 @@ in a row.
 - [x] A follow-up rate change re-amortises the remaining balance over the remaining term
 - [x] Income cap rises €10k per child beyond the first
 - [x] Conflict detection is symmetric whichever programme declares the exclusion
-- [ ] Cash needed = closing costs + down payment, to the cent
+- [x] Cash needed = closing costs + down payment, to the cent
 - [x] A 30-year loan paid monthly does not drift by a cent from a `Decimal` reference run
 
 ## Phase 5 — Infrastructure

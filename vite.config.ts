@@ -20,7 +20,10 @@ export default defineConfig({
     sourcemap: true,
   },
   test: {
-    environment: 'jsdom',
+    /* Node by default: domain/ and lib/ are pure arithmetic and spinning up a DOM for
+     * them cost more than the tests themselves. A component test opts in with
+     * `// @vitest-environment jsdom` at the top of the file. */
+    environment: 'node',
     globals: true,
     setupFiles: ['./src/test/setup.ts'],
     css: false,
