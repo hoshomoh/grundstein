@@ -36,6 +36,7 @@ pnpm dev
 | Dev server         | `pnpm dev`               |
 | Type-check         | `pnpm typecheck`         |
 | Lint               | `pnpm lint`              |
+| Colour contrast    | `pnpm contrast`          |
 | Test               | `pnpm test`              |
 | Build              | `pnpm build`             |
 | Preview the build  | `pnpm preview`           |

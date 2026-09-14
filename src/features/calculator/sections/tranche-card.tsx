@@ -140,31 +140,31 @@ export function TrancheCard({
           {/* Why, not just that. A badge saying "worth checking" with no reason leaves
               the reader to guess which of six rules they failed. */}
           {programme?.isKfw === true && !eligibility.ok ? (
-            <p className="text-shu mb-4 text-xs">
+            <LoanNote tone="warn">
               {eligibility.reasons.map((reason) => reasonToText(reason, t)).join(' · ')}
-            </p>
+            </LoanNote>
           ) : null}
 
           {/* A number that changed itself needs to say so, and say why — otherwise the
               reader's 270.000 € is quietly 170.000 € and the payment beneath it is
               unexplained. */}
           {wasCapped ? (
-            <p className="text-shu mb-4 text-xs">
+            <LoanNote tone="warn">
               {t('tranche.cappedToCeiling', {
                 requested: formatEuros(tranche.amount),
                 ceiling: formatEuros(drawable),
               })}
-            </p>
+            </LoanNote>
           ) : null}
 
           {row?.subsidy.greaterThan(0) === true ? (
-            <p className="text-moku mb-4 text-xs">
+            <LoanNote tone="good">
               {t('tranche.subsidyNote', {
                 amount: formatEuros(row.subsidy),
                 gross: formatEuros(row.amount),
                 net: formatEuros(row.repayable),
               })}
-            </p>
+            </LoanNote>
           ) : null}
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-7.5 gap-y-3">
@@ -235,6 +235,35 @@ export function TrancheCard({
         </div>
       </div>
     </div>
+  )
+}
+
+type LoanNoteProps = {
+  /** `warn` for something the reader has to deal with, `good` for money coming back. */
+  tone: 'warn' | 'good'
+  children: ReactNode
+}
+
+/**
+ * One line of explanation under a loan's header — why it is flagged, what was capped,
+ * what the Tilgungszuschuss is worth.
+ *
+ * The prose is ink, not the tone colour. Vermilion clears AA against paper at 6.10:1
+ * and against the dark ground at 5.89:1, but a whole sentence of it at 13px is still
+ * tiring to read, and worse in dark mode where it blooms against near-black. The tone
+ * lives in a hairline down the left edge instead — the same vocabulary the card already
+ * uses to mark a conflict — which leaves the words themselves at 7.3:1 and 8.6:1.
+ */
+function LoanNote({ tone, children }: LoanNoteProps): ReactElement {
+  return (
+    <p
+      className={cn(
+        'text-ink-2 mb-4 border-l-2 py-0.5 pl-3 text-xs',
+        tone === 'warn' ? 'border-shu' : 'border-moku',
+      )}
+    >
+      {children}
+    </p>
   )
 }
 

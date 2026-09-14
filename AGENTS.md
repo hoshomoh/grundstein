@@ -21,6 +21,7 @@ rate runs out. Everything runs in the browser; nothing is sent anywhere.
 | Type-check             | `pnpm typecheck`                         |
 | Lint                   | `pnpm lint`                              |
 | Format                 | `pnpm format` / `pnpm format:check`      |
+| Colour contrast        | `pnpm contrast`                          |
 | Test                   | `pnpm test` / `pnpm test:watch`          |
 | Build                  | `pnpm build`                             |
 | Preview the build      | `pnpm preview`                           |

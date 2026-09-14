@@ -12,6 +12,9 @@ pnpm format:check
 step "lint"
 pnpm lint
 
+step "contrast"
+pnpm contrast
+
 step "typecheck"
 pnpm typecheck
 

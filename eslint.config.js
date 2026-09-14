@@ -158,8 +158,11 @@ export default tseslint.config(
     rules: { 'react-refresh/only-export-components': 'off' },
   },
 
+  // Config files, and the small Node scripts beside them, are plain JavaScript run by
+  // Node outside the app's TypeScript project — so the type-aware rules have no types
+  // to work from and are turned off rather than pointed at a second tsconfig.
   {
-    files: ['*.config.{js,ts}'],
+    files: ['*.config.{js,ts}', 'scripts/**/*.mjs'],
     languageOptions: { globals: globals.node },
     extends: [tseslint.configs.disableTypeChecked],
   },

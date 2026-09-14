@@ -17,6 +17,7 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "contrast": "node scripts/contrast.mjs",
     "test": "vitest run",
     "test:watch": "vitest"
   },
