@@ -182,10 +182,13 @@ Otherwise:
   a value the design itself computes from a token, and it carries a comment saying so.
 - Accessibility is not a later pass: real `<button>`s, labelled inputs, visible focus rings, 44px
   hit areas, a keyboard path for everything, and a text readout for every chart.
-- Every text colour is checked against its ground in **both** themes — `pnpm contrast`, which CI
-  runs. Clearing the ratio is the floor, not the goal: a whole sentence set in an accent at 13px
-  passes AA and still reads badly, worse in dark mode where a saturated colour blooms against
-  near-black. Accents belong on short labels, figures and borders; prose is `--ink` or `--ink-2`.
+- Every text colour is checked **where it is used** — colour, ground and size together, in both
+  themes. `pnpm contrast` (a CI step) holds a table of those usages and fails if a `text-*` colour
+  appears in `src/` that the table does not cover, or if one comes from outside the palette. A new
+  colour therefore cannot ship without someone saying what it sits on and how big it is.
+- Clearing the ratio is the floor, not the goal: a whole sentence set in an accent at 13px passes AA
+  and still reads badly, worse in dark mode where a saturated colour blooms against near-black.
+  Accents belong on short labels, figures and borders; prose is `--ink` or `--ink-2`.
 - Motion respects `prefers-reduced-motion`, and the page is fully usable with animation disabled.
 
 ---

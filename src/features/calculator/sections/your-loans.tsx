@@ -126,6 +126,13 @@ export function YourLoans({
         </Callout>
       ) : null}
 
+      <SuggestedPackage
+        suggestion={suggestion}
+        tranches={tranches}
+        programmes={programmes}
+        onApply={onApplySuggestion}
+      />
+
       <div className="border-rule border-t">
         {tranches.map((tranche, index) => (
           <div
@@ -155,13 +162,6 @@ export function YourLoans({
           </div>
         ))}
       </div>
-
-      <SuggestedPackage
-        suggestion={suggestion}
-        tranches={tranches}
-        programmes={programmes}
-        onApply={onApplySuggestion}
-      />
 
       <div className="flex flex-wrap items-center gap-2 pt-6">
         <span className="text-ink-3 text-label tracking-label mr-2 font-mono uppercase">
@@ -221,6 +221,11 @@ type SuggestedPackageProps = {
 /**
  * The arrangement of borrowing these answers point at, offered rather than imposed.
  *
+ * Above the loans rather than below them. Someone who has already scrolled through
+ * eight sliders tuning a loan does not want to be told afterwards that a different
+ * arrangement was available — the alternative is worth seeing before the work, not
+ * after it.
+ *
  * It appears only when it would change something: once the package is in place the
  * panel goes, because an offer to apply what is already applied is noise and a button
  * that does nothing teaches people to ignore buttons.
@@ -240,7 +245,7 @@ function SuggestedPackage({
   if (matchesSuggestion(tranches, suggestion)) return null
 
   return (
-    <div className="border-rule-2 squircle mt-[clamp(26px,4vw,42px)] rounded-xl border border-dashed p-[clamp(18px,3vw,26px)]">
+    <div className="border-rule-2 squircle mb-[clamp(26px,4vw,42px)] rounded-xl border border-dashed p-[clamp(18px,3vw,26px)]">
       <p className="text-ink-3 text-label tracking-label mb-4 font-mono uppercase">
         {t('suggestion.title')}
       </p>
