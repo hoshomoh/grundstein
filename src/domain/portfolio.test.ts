@@ -157,6 +157,23 @@ describe('the Tilgungszuschuss', () => {
     expect(row?.subsidy.equals(euros(22_500))).toBe(true)
   })
 
+  /* KfW's subsidy table has two columns, Erneuerbare-Energien and
+   * Nachhaltigkeits-Klasse, and the app's `eh85` option is the EE one — it reads "EH70
+   * to 85 EE". KfW pays nothing on either standard in that column; the 5% belongs to
+   * the Nachhaltigkeits-Klasse. Reading across the two promised a renovating household
+   * 7.500 € it would never see. */
+  it('is nothing for EH70-85 in the Erneuerbare-Energien variant', () => {
+    const row = buildPortfolio(
+      [tranche({ programmeKey: '261', amount: euros(150_000) })],
+      PROGRAMMES,
+      profile({ energy: 'eh85' }),
+    ).rows[0]
+
+    expect(row?.subsidy).toBeDefined()
+    expect(isZeroToTheCent(row!.subsidy)).toBe(true)
+    expect(row?.repayable.equals(euros(150_000))).toBe(true)
+  })
+
   it('is nothing where the household has no energy target', () => {
     const row = buildPortfolio(
       [tranche({ programmeKey: '261', amount: euros(150_000) })],

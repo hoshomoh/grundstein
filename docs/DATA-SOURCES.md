@@ -4,16 +4,19 @@ Every figure the calculator ships is listed here with where it came from and whe
 checked against that source. `src/domain/programmes.ts` and `src/domain/states.ts` carry the same
 `source` and `verifiedOn` values in code; this file is the working record behind them.
 
-**Last check against source: 2026-09-11.** **Record reconciled with the shipped code: 2026-09-12.**
+**Last check against source: 2026-09-14** — every KfW programme page below, and both
+Grunderwerbsteuer tables, re-read that day and compared against `src/domain/programmes.ts` and
+`src/domain/states.ts`. The purchase-fee conventions were not re-read and still carry 2026-09-11:
+they are fee schedules and market custom rather than a page that changes.
 
 A figure is only as good as its date. Re-run this check before any release, and whenever a user
 reports a number that does not match their offer.
 
 ## How to read the tables
 
-The **Ours** column is what the app ships today, not what an earlier draft had. Where the 2026-09-11
-check found a figure wrong, the figure was corrected and a **Fixed** note below the table records
-what changed — the history is kept because a number that moved once will move again.
+The **Ours** column is what the app ships today, not what an earlier draft had. Where a check found
+a figure wrong, the figure was corrected and a dated **Fixed** note below the table records what
+changed — the history is kept because a number that moved once will move again.
 
 | Mark | Meaning                                                                           |
 | ---- | --------------------------------------------------------------------------------- |
@@ -47,7 +50,7 @@ published, and those are verified below.
 
 Source:
 <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Neubau/Förderprodukte/Klimafreundlicher-Neubau-Wohngebäude-(297-298)/>
-Checked 2026-09-11. Link resolves.
+Checked 2026-09-14. Link resolves.
 
 | Figure              | Ours              | Source                               | Status          |
 | ------------------- | ----------------- | ------------------------------------ | --------------- |
@@ -67,7 +70,7 @@ flat 25 years to the programme's real 35.
 
 Source:
 <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Neubau/Förderprodukte/Wohneigentum-für-Familien-(300)/>
-Checked 2026-09-11. Link resolves.
+Checked 2026-09-14. Link resolves.
 
 | Figure                   | Ours                  | Source                                        | Status |
 | ------------------------ | --------------------- | --------------------------------------------- | ------ |
@@ -96,7 +99,7 @@ change.
 
 Source:
 <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/Förderprodukte/Wohneigentum-für-Familien-Bestandserwerb-(308)/>
-Checked 2026-09-11. Link resolves.
+Checked 2026-09-14. Link resolves.
 
 | Figure                   | Ours                | Source                        | Status |
 | ------------------------ | ------------------- | ----------------------------- | ------ |
@@ -120,7 +123,7 @@ EH85 EE on the page.
 
 Source:
 <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Neubau/Förderprodukte/Wohneigentumsprogramm-(124)/>
-Checked 2026-09-11. Link resolves.
+Checked 2026-09-14. Link resolves.
 
 | Figure          | Ours      | Source                                               | Status                                 |
 | --------------- | --------- | ---------------------------------------------------- | -------------------------------------- |
@@ -139,7 +142,7 @@ happens when the fixed rate ends, at whatever year they choose.
 
 Source:
 <https://www.kfw.de/inlandsfoerderung/Privatpersonen/Bestehende-Immobilie/Förderprodukte/Bundesförderung-für-effiziente-Gebäude-Wohngebäude-Kredit-(261-262)/>
-Checked 2026-09-11. Link resolves.
+Checked 2026-09-14. Link resolves.
 
 | Figure             | Ours                       | Source                                      | Status |
 | ------------------ | -------------------------- | ------------------------------------------- | ------ |
@@ -149,6 +152,12 @@ Checked 2026-09-11. Link resolves.
 | Zinsbindung        | 10 yr                      | max 10 years                                | ✅     |
 | Max Laufzeit       | 30 yr                      | "bis zu 30 Jahre"                           | ✅     |
 | Tilgungszuschuss   | 5–15%, +10% WPB, +15% ser. | 5–15% by standard, +10% WPB, +15% serial    | ✅     |
+| — on EH70/EH85 EE  | 0%                         | none; only the Nachhaltigkeits-Klasse earns | ✅     |
+
+**Fixed on 2026-09-14.** The subsidy table is two columns, Erneuerbare-Energien and
+Nachhaltigkeits-Klasse, and we had been reading across them. Our `eh85` option is labelled "EH70 to
+85 EE", and KfW pays nothing on either of those in the EE column — 5% is the Nachhaltigkeits-Klasse
+rate. The app was promising a renovating household up to 7.500 € it would not receive. Now 0%.
 
 **Fixed on 2026-09-11.** The repayment subsidy is real money that reduces what you owe — up to
 22,500 € on a 150,000 € loan at EH40 Nachhaltigkeit, before the Worst-Performing-Building and
@@ -161,7 +170,7 @@ programme's 30.
 
 Source:
 <https://www.kfw.de/inlandsfoerderung/Unternehmen/Energie-Umwelt/Förderprodukte/Erneuerbare-Energien-Standard-(270)/>
-Checked 2026-09-11. Link resolves.
+Checked 2026-09-14. Link resolves.
 
 | Figure         | Ours                        | Source                                                                | Status                                 |
 | -------------- | --------------------------- | --------------------------------------------------------------------- | -------------------------------------- |
@@ -169,7 +178,7 @@ Checked 2026-09-11. Link resolves.
 | Share financed | —                           | "Bis zu 100 % Ihrer Investitionskosten"                               | —                                      |
 | Max Laufzeit   | 30 yr                       | "bis zu 30 Jahre"                                                     | ✅                                     |
 | Ceiling        | 150,000 €, declared as ours | "bis zu 150 Mio. Euro pro Vorhaben"                                   | 🔶 ours, and labelled as ours          |
-| Zinsbindung    | 10 yr                       | 5, 10, 15, 20 or 30                                                   | 🔶 only the 10-year option is modelled |
+| Zinsbindung    | 10 yr                       | 5, 10, 15 or 20                                                       | 🔶 only the 10-year option is modelled |
 
 **Fixed on 2026-09-11.** Two things were wrong. The grid-feed condition on private applicants is an
 eligibility rule the prototype did not model at all; the app now asks the question and only asks it
@@ -188,7 +197,7 @@ figures, and are presented as editable.
 ## Grunderwerbsteuer
 
 Sources: <https://www.finanz-tools.de/grunderwerbsteuer/bundeslaender-tabelle> and
-<https://rechenbar.de/ratgeber/grunderwerbsteuer-2026-bundeslaender/>, cross-checked 2026-09-11.
+<https://rechenbar.de/ratgeber/grunderwerbsteuer-2026-bundeslaender/>, cross-checked 2026-09-14.
 Both agree on all 16.
 
 **All sixteen of our rates are correct.** No change needed.
@@ -231,15 +240,21 @@ our 1.5% + 0.5% matches.
 
 ## Open items
 
-Everything the 2026-09-11 check found wrong has been fixed. What is left is what we chose not to
-model, kept here so the choice is visible rather than forgotten:
+Everything the checks have found wrong has been fixed. What is left is what we chose not to model,
+kept here so the choice is visible rather than forgotten:
 
-1. **A second Zinsbindung length** for 124 (5 years) and 270 (5, 15, 20 or 30). Both loans carry the
+1. **A second Zinsbindung length** for 124 (5 years) and 270 (5, 15 or 20). Both loans carry the
    omission in `provenance.note`. The follow-up-period editor covers the substance of it — a user
    can already say what happens at any year the fixed rate ends.
 2. **270's ceiling** is ours, not the programme's, and says so on the loan.
 
 ## Re-checking
+
+`./scripts/preflight.sh` refuses to pass once `CATALOGUE_VERIFIED_ON` is more than 30 days old, so
+"re-run this before any release" is enforced rather than merely written down. It was merely written
+down until 2026-09-14, and the catalogue drifted three days and several deploys past its date while
+the interface went on printing that date on every loan. A push that touches no figures can set
+`GRUNDSTEIN_MAX_DATA_AGE_DAYS` to get by, which makes skipping the check a deliberate act.
 
 Open each source URL above, read the figure, and compare it with `src/domain/programmes.ts`. When
 everything matches, move `CATALOGUE_VERIFIED_ON` in that file and the two dates at the top of this

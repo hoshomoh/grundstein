@@ -2,12 +2,12 @@ import { euros, max, min, type Money } from './money'
 import type { CeilingRule, Profile, Programme, ProgrammeKey } from './types'
 
 /** The date every figure below was last checked against source. */
-export const CATALOGUE_VERIFIED_ON = '2026-09-11'
+export const CATALOGUE_VERIFIED_ON = '2026-09-14'
 
 const KFW = 'https://www.kfw.de/inlandsfoerderung/Privatpersonen'
 
 /**
- * The eight loans the calculator knows, as verified on 2026-09-11.
+ * The eight loans the calculator knows, as verified on 2026-09-14.
  * The working record behind every figure is docs/DATA-SOURCES.md.
  *
  * Two kinds of number live here and they are not the same kind of thing:
@@ -207,7 +207,11 @@ export const PROGRAMMES: Readonly<Record<ProgrammeKey, Programme>> = {
     // The one programme here that pays a Tilgungszuschuss. It reduces the balance, so
     // it moves both the monthly payment and the lifetime interest.
     subsidy: {
-      percentByEnergyTarget: { qng: 15, eh40: 10, eh55: 5, eh85: 5, none: 0 },
+      /* Our `eh85` is the Erneuerbare-Energien variant — the option reads "EH70 to 85
+       * EE". KfW pays a Tilgungszuschuss on EH70 and EH85 only in the
+       * Nachhaltigkeits-Klasse, so the EE variant earns nothing. It was 5 here, which
+       * promised a renovating household up to 7.500 € they would not receive. */
+      percentByEnergyTarget: { qng: 15, eh40: 10, eh55: 5, eh85: 0, none: 0 },
       maxAmount: euros(22_500),
       worstPerformingBuildingBonusPercent: 10,
       serialRenovationBonusPercent: 15,

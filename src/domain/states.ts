@@ -3,7 +3,7 @@ import type { FederalState, StateCode } from './types'
 /**
  * Grunderwerbsteuer by Bundesland.
  *
- * All sixteen verified 2026-09-11 against finanz-tools.de and rechenbar.de, which agree.
+ * All sixteen verified 2026-09-14 against finanz-tools.de and rechenbar.de, which agree.
  * See docs/DATA-SOURCES.md. Two rates moved recently and both are reflected here:
  * Bremen rose to 5.5% on 2025-07-01, Thüringen fell to 5.0% on 2024-01-01.
  *
@@ -35,7 +35,7 @@ export const FEDERAL_STATES: readonly FederalState[] = [
 ]
 
 /** The date FEDERAL_STATES was last checked against source, ISO. */
-export const STATES_VERIFIED_ON = '2026-09-11'
+export const STATES_VERIFIED_ON = '2026-09-14'
 
 const DEFAULT_STATE_CODE: StateCode = 'BY'
 

@@ -89,7 +89,9 @@ not for Claude Code. `feat(domain): add annuity schedule` is a complete commit m
 One logical change per commit. When a `TODO.md` is in play, tick its item in the same commit as the
 work, so the record and the code never disagree.
 
-Run `./scripts/ci.sh` before committing and `./scripts/preflight.sh` before pushing.
+Run `./scripts/ci.sh` before committing and `./scripts/preflight.sh` before pushing. Preflight also
+fails when the KfW figures are more than 30 days past their last check — the interface prints that
+date on every loan, so it must not go stale. Re-check against `docs/DATA-SOURCES.md`.
 
 ## Working agreement
 
