@@ -111,7 +111,8 @@
     "removePeriod": "Remove this period",
     "yearAbbrev": "yr",
     "subsidy": "Repayment subsidy",
-    "subsidyNote": "The state repays {{amount}} of this loan on your behalf, so you borrow {{gross}} and pay back {{net}}."
+    "subsidyNote": "The state repays {{amount}} of this loan on your behalf, so you borrow {{gross}} and pay back {{net}}.",
+    "cappedToCeiling": "Reduced to {{ceiling}} — your answers put this household's ceiling below the {{requested}} you asked for. Change them back and your figure returns."
   },
   "eligibility": {
     "eligible": "You probably qualify",

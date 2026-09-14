@@ -1,4 +1,4 @@
-import { euros, max, type Money } from './money'
+import { euros, max, min, type Money } from './money'
 import type { CeilingRule, Profile, Programme, ProgrammeKey } from './types'
 
 /** The date every figure below was last checked against source. */
@@ -321,4 +321,27 @@ export function highestCeiling(ceiling: CeilingRule): Money {
     (highest, tier) => max(highest, tier.withQng ?? tier.standard),
     euros(0),
   )
+}
+
+/**
+ * What a tranche can actually draw: what the reader asked for, capped by what this
+ * household may borrow under this programme.
+ *
+ * The cap is not fixed. KfW 300's ceiling is a grid of children × QNG, so answering
+ * "one child" after sliding a five-child household's loan to 270,000 € drops the
+ * ceiling to 170,000 €. Without this the page went on quoting a monthly payment on
+ * 100,000 € the household would be refused — which is the one thing this app must
+ * never do.
+ *
+ * The reader's own figure is left in the state rather than overwritten: put the
+ * children back and their number comes back with them. The interface shows the drawable
+ * figure and says what it did.
+ */
+export function drawableAmount(
+  amount: Money,
+  programme: Programme | undefined,
+  profile: Profile,
+): Money {
+  if (!programme) return amount
+  return min(amount, maxLoanFor(programme.ceiling, profile))
 }

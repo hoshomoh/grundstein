@@ -5,7 +5,7 @@ import { Badge, FieldLabel, RailSlider, RateInput, TextInput } from '@/component
 import { checkEligibility, excludedProgrammes, incomeLimitFor } from '@/domain/eligibility'
 import { euros, toNumber } from '@/domain/money'
 import type { PortfolioRow } from '@/domain/portfolio'
-import { maxLoanFor } from '@/domain/programmes'
+import { drawableAmount, maxLoanFor } from '@/domain/programmes'
 import type { FollowupPeriod, Profile, Programme, ProgrammeKey, Tranche } from '@/domain/types'
 import { formatEuros, formatEurosWithCents, formatPercent, formatWholePercent } from '@/lib/format'
 import { cn } from '@/lib/utils'
@@ -51,6 +51,13 @@ export function TrancheCard({
     : { ok: true, reasons: [] as const }
   const ceiling = programme ? maxLoanFor(programme.ceiling, profile) : euros(0)
   const maxYears = programme?.maxYears ?? 35
+
+  /* The slider shows what this household can actually draw, which is not always what
+   * they last asked for — answering "one child" after sliding a five-child loan to its
+   * tier lowers the ceiling underneath it. Their own figure stays in the state, so
+   * putting the children back brings it back. */
+  const drawable = drawableAmount(tranche.amount, programme, profile)
+  const wasCapped = tranche.amount.greaterThan(drawable)
 
   return (
     <div
@@ -138,6 +145,18 @@ export function TrancheCard({
             </p>
           ) : null}
 
+          {/* A number that changed itself needs to say so, and say why — otherwise the
+              reader's 270.000 € is quietly 170.000 € and the payment beneath it is
+              unexplained. */}
+          {wasCapped ? (
+            <p className="text-shu mb-4 text-xs">
+              {t('tranche.cappedToCeiling', {
+                requested: formatEuros(tranche.amount),
+                ceiling: formatEuros(drawable),
+              })}
+            </p>
+          ) : null}
+
           {row?.subsidy.greaterThan(0) === true ? (
             <p className="text-moku mb-4 text-xs">
               {t('tranche.subsidyNote', {
@@ -151,12 +170,12 @@ export function TrancheCard({
           <div className="grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-7.5 gap-y-3">
             <SliderRow
               label={t('tranche.amount')}
-              reading={formatEuros(tranche.amount)}
-              value={toNumber(tranche.amount)}
+              reading={formatEuros(drawable)}
+              value={toNumber(drawable)}
               min={0}
               max={Math.max(AMOUNT_STEP, toNumber(ceiling))}
               step={AMOUNT_STEP}
-              valueText={`${formatEuros(tranche.amount)} ${t('requirements.maxLoan')} ${formatEuros(ceiling)}`}
+              valueText={`${formatEuros(drawable)} ${t('requirements.maxLoan')} ${formatEuros(ceiling)}`}
               onChange={(value) => {
                 onChange({ amount: euros(value) })
               }}

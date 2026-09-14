@@ -111,7 +111,8 @@
     "removePeriod": "Diesen Zeitraum entfernen",
     "yearAbbrev": "J.",
     "subsidy": "Tilgungszuschuss",
-    "subsidyNote": "Der Staat übernimmt {{amount}} dieses Darlehens, Sie nehmen also {{gross}} auf und zahlen {{net}} zurück."
+    "subsidyNote": "Der Staat übernimmt {{amount}} dieses Darlehens, Sie nehmen also {{gross}} auf und zahlen {{net}} zurück.",
+    "cappedToCeiling": "Auf {{ceiling}} gesenkt — nach Ihren Angaben liegt die Höchstgrenze für diesen Haushalt unter den {{requested}}, die Sie gewählt hatten. Ändern Sie die Angaben zurück, kommt Ihr Betrag wieder."
   },
   "eligibility": {
     "eligible": "Sie qualifizieren sich wahrscheinlich",

@@ -293,6 +293,31 @@ describe('your loans', () => {
     }
   })
 
+  /* The figure on screen must be one the household could actually be lent. */
+  it('says so when a loan is held down to the household ceiling', () => {
+    loans(
+      storeWith((store) => {
+        store.update((state) => ({
+          ...state,
+          profile: { ...state.profile, children: 1 },
+          tranches: state.tranches.map((tranche) =>
+            tranche.programmeKey === '300' ? { ...tranche, amount: euros(270_000) } : tranche,
+          ),
+        }))
+      }),
+    )
+
+    expect(screen.getByText(/Reduced to 170\.000/)).toBeInTheDocument()
+    // And the slider reads the drawable figure, not the one in the state.
+    const amount = screen.getAllByRole('group', { name: 'Amount' })
+    expect(amount[0]?.querySelector('[role="slider"]')).toHaveAttribute('aria-valuenow', '170000')
+  })
+
+  it('says nothing when the loan is within the ceiling', () => {
+    loans()
+    expect(screen.queryByText(/Reduced to/)).not.toBeInTheDocument()
+  })
+
   it('gives every slider an accessible name', () => {
     loans()
     for (const name of ['Amount', 'Interest rate', 'Years', 'Interest only']) {

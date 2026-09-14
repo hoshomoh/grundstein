@@ -242,3 +242,63 @@ describe('coverOf', () => {
     expect(coverOf(euros('499999.50'), euros(600_000), euros(100_000)).status).toBe('covered')
   })
 })
+
+/* The bug this guards: a ceiling is not a constant. KfW 300's is a grid of children ×
+ * QNG, so a household that slides its loan to the five-child tier and then answers
+ * "one child" has a ceiling 100.000 € below the figure still sitting in the state. The
+ * page went on amortising the old number — quoting a monthly payment on money that
+ * household would be refused, which is the one thing this app must not do. */
+describe('a ceiling that moves under a loan', () => {
+  const bigFamily = profile({ children: 5, energy: 'qng' })
+  const oneChild = profile({ children: 1, energy: 'eh40' })
+  const asked = tranche({ programmeKey: '300', amount: euros(270_000), ratePercent: 1.12 })
+
+  it('lends the whole amount while the household still qualifies for it', () => {
+    const [row] = buildPortfolio([asked], PROGRAMMES, bigFamily).rows
+    expect(row?.amount.equals(euros(270_000))).toBe(true)
+    expect(row?.requested.equals(euros(270_000))).toBe(true)
+  })
+
+  it('drops to the new ceiling when the answers change', () => {
+    const [row] = buildPortfolio([asked], PROGRAMMES, oneChild).rows
+    expect(row?.amount.equals(euros(170_000))).toBe(true)
+  })
+
+  it('keeps what the reader asked for, so the interface can say what it did', () => {
+    const [row] = buildPortfolio([asked], PROGRAMMES, oneChild).rows
+    expect(row?.requested.equals(euros(270_000))).toBe(true)
+  })
+
+  it('charges interest on the drawable figure, not the asked-for one', () => {
+    const capped = buildPortfolio([asked], PROGRAMMES, oneChild)
+    const atCeiling = buildPortfolio(
+      [tranche({ ...asked, amount: euros(170_000) })],
+      PROGRAMMES,
+      oneChild,
+    )
+
+    expect(equalToTheCent(capped.totalInterest, atCeiling.totalInterest)).toBe(true)
+    expect(equalToTheCent(capped.peakPayment, atCeiling.peakPayment)).toBe(true)
+  })
+
+  /* Nothing is written back to the tranche, so the answer is reversible. */
+  it('restores the figure when the answers go back', () => {
+    const [row] = buildPortfolio([asked], PROGRAMMES, bigFamily).rows
+    expect(row?.amount.equals(euros(270_000))).toBe(true)
+  })
+
+  /* A childless household is below KfW 300's lowest tier: the ceiling is nothing, so
+   * the loan funds nothing and has no schedule at all. */
+  it('drops a loan the household cannot have to nothing', () => {
+    const none = buildPortfolio([asked], PROGRAMMES, profile({ children: 0 }))
+    expect(none.rows).toHaveLength(0)
+    expect(isZeroToTheCent(none.totalBorrowed)).toBe(true)
+  })
+
+  /* A flat ceiling does not move, so nothing is capped and nothing is announced. */
+  it('leaves a flat-ceiling loan alone', () => {
+    const [row] = buildPortfolio([tranche()], PROGRAMMES, oneChild).rows
+    expect(row?.amount.equals(euros(300_000))).toBe(true)
+    expect(row?.requested.equals(euros(300_000))).toBe(true)
+  })
+})

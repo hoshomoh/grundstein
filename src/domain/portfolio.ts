@@ -1,5 +1,6 @@
 import { amortise, type RateSegment, type ScheduleMonth, subsidyFor } from './amortisation'
 import { euros, max, type Money, sum, ZERO } from './money'
+import { drawableAmount } from './programmes'
 import type { Profile, Programme, ProgrammeKey, Tranche } from './types'
 
 const MONTHS_PER_YEAR = 12
@@ -9,8 +10,10 @@ export type PortfolioRow = {
   trancheId: number
   programmeKey: ProgrammeKey
   name: string
-  /** What was borrowed, before any Tilgungszuschuss. */
+  /** What was borrowed, before any Tilgungszuschuss — capped by the household's ceiling. */
   amount: Money
+  /** What the reader asked for. Above `amount` when their answers lowered the ceiling. */
+  requested: Money
   /** What has to be repaid, after it. */
   repayable: Money
   subsidy: Money
@@ -73,13 +76,16 @@ export function buildPortfolio(
   const allSchedules: (readonly ScheduleMonth[])[] = []
 
   for (const tranche of tranches) {
-    if (!tranche.amount.greaterThan(0)) continue
-
     const programme = programmes[tranche.programmeKey]
-    const subsidy = subsidyForTranche(tranche, programme, profile)
+    // What they asked for is not always what they may have: a household that answers
+    // its way below a programme's tier borrows the tier, not the slider's old value.
+    const amount = drawableAmount(tranche.amount, programme, profile)
+    if (!amount.greaterThan(0)) continue
+
+    const subsidy = subsidyForTranche({ ...tranche, amount }, programme, profile)
 
     const schedule = amortise({
-      amount: tranche.amount,
+      amount,
       ratePercent: tranche.ratePercent,
       years: tranche.years,
       graceYears: tranche.graceYears,
@@ -93,7 +99,8 @@ export function buildPortfolio(
       trancheId: tranche.id,
       programmeKey: tranche.programmeKey,
       name: tranche.name,
-      amount: tranche.amount,
+      amount,
+      requested: tranche.amount,
       repayable: schedule.repayable,
       subsidy,
       ratePercent: tranche.ratePercent,
