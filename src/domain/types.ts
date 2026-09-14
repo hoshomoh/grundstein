@@ -85,7 +85,6 @@ export type RepaymentSubsidy = {
   maxAmount: Money
   /** Added when the building is among the worst-performing in its class. */
   worstPerformingBuildingBonusPercent: number
-  /** Added for a serial renovation. */
   serialRenovationBonusPercent: number
 }
 

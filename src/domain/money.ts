@@ -59,12 +59,10 @@ export function atLeastZero(amount: Money): Money {
   return amount.isNegative() ? ZERO : amount
 }
 
-/** The smaller of two amounts. */
 export function min(a: Money, b: Money): Money {
   return a.lessThan(b) ? a : b
 }
 
-/** The larger of two amounts. */
 export function max(a: Money, b: Money): Money {
   return a.greaterThan(b) ? a : b
 }
@@ -84,7 +82,6 @@ export function equalToTheCent(a: Money, b: Money): boolean {
   return toCents(a).equals(toCents(b))
 }
 
-/** True when the amount is zero to the cent. */
 export function isZeroToTheCent(amount: Money): boolean {
   return toCents(amount).isZero()
 }

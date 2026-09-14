@@ -82,11 +82,9 @@ export function RailSlider({
           // it. `relative`/`top` rather than a translate, because the thumb's transform
           // is already spoken for by the hover scale.
           '[&_[data-slot=slider-thumb]]:relative [&_[data-slot=slider-thumb]]:top-(--gs-thumb-drop)',
-          // The track is a hairline, not a pill.
           '[&_[data-slot=slider-track]]:h-px [&_[data-slot=slider-track]]:rounded-none',
           '[&_[data-slot=slider-track]]:bg-rule [&_[data-slot=slider-track]]:overflow-visible',
           '[&_[data-slot=slider-range]]:bg-shu [&_[data-slot=slider-range]]:h-px',
-          // The thumb: 13px, paper-filled, ink-outlined, growing on hover.
           '[&_[data-slot=slider-thumb]]:size-(--gs-thumb) [&_[data-slot=slider-thumb]]:border',
           '[&_[data-slot=slider-thumb]]:border-ink [&_[data-slot=slider-thumb]]:bg-paper',
           '[&_[data-slot=slider-thumb]]:shadow-none [&_[data-slot=slider-thumb]]:ring-0',

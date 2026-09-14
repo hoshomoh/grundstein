@@ -10,7 +10,6 @@ export type PurchaseCostsInput = {
   notaryPercent: number
   registryPercent: number
   agentPercent: number
-  /** Whether an agent is involved at all. */
   agentInvolved: boolean
 }
 

@@ -134,7 +134,6 @@ export function findConflicts(
   return [...byPair.values()]
 }
 
-/** Whether a given tranche is caught up in any conflict. */
 export function trancheIdsInConflict(conflicts: readonly Conflict[]): Set<number> {
   const ids = new Set<number>()
   for (const conflict of conflicts) for (const id of conflict.trancheIds) ids.add(id)

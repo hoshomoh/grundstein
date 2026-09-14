@@ -77,8 +77,6 @@ export function buildPortfolio(
 
   for (const tranche of tranches) {
     const programme = programmes[tranche.programmeKey]
-    // What they asked for is not always what they may have: a household that answers
-    // its way below a programme's tier borrows the tier, not the slider's old value.
     const amount = drawableAmount(tranche.amount, programme, profile)
     if (!amount.greaterThan(0)) continue
 
@@ -198,7 +196,6 @@ export type Cover = {
   status: 'covered' | 'short' | 'over'
 }
 
-/** Whether the borrowing covers the price less the down payment. */
 /**
  * What the loans have to cover: the price less the buyer's own money.
  *
@@ -210,6 +207,7 @@ export function fundingNeeded(price: Money, down: Money): Money {
   return atLeastZero(price.minus(down))
 }
 
+/** Whether the borrowing covers the price less the down payment. */
 export function coverOf(totalBorrowed: Money, price: Money, down: Money): Cover {
   const needed = fundingNeeded(price, down)
   const difference = totalBorrowed.minus(needed)

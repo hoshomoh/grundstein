@@ -4,7 +4,6 @@ import { cn } from '@/lib/utils'
 
 export type ChipProps = {
   children: ReactNode
-  /** Whether the chip is currently chosen. */
   selected: boolean
   onToggle: () => void
   className?: string

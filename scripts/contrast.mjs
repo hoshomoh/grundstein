@@ -150,8 +150,6 @@ function sourceFiles(directory) {
   })
 }
 
-/* ---------------------------------------------------------------------------- */
-
 const css = readFileSync(CSS, 'utf8')
 const light = block(css, '\n:root {')
 const dark = block(css, '\n.dark {')
