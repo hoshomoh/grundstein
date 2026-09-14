@@ -1,5 +1,5 @@
 // @vitest-environment jsdom
-import { render, screen } from '@testing-library/react'
+import { render, screen, within } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import type { ReactNode } from 'react'
 import { beforeAll, describe, expect, it } from 'vitest'
@@ -230,6 +230,7 @@ describe('your loans', () => {
           programmeOrder={c.state.programmeOrder}
           profile={c.state.profile}
           rows={c.portfolio.rows}
+          borrowed={c.portfolio.totalBorrowed}
           down={c.state.down}
           cover={c.cover}
           conflicts={c.conflicts}
@@ -238,6 +239,8 @@ describe('your loans', () => {
           onTrancheRemove={() => undefined}
           onTrancheAdd={() => undefined}
           onReset={() => undefined}
+          suggestion={c.suggestion}
+          onApplySuggestion={() => undefined}
         />
       ),
       store,
@@ -316,6 +319,40 @@ describe('your loans', () => {
   it('says nothing when the loan is within the ceiling', () => {
     loans()
     expect(screen.queryByText(/Reduced to/)).not.toBeInTheDocument()
+  })
+
+  /* The default session already is the suggested package, so the offer stays out of the
+   * way — a button that would change nothing is noise. */
+  it('offers no package when the loans already are one', () => {
+    loans()
+    expect(screen.queryByText('Suggested for your answers')).not.toBeInTheDocument()
+  })
+
+  it('offers one once the loans have drifted from it', () => {
+    loans(
+      storeWith((store) => {
+        store.update((state) => ({ ...state, tranches: state.tranches.slice(0, 1) }))
+      }),
+    )
+
+    expect(screen.getByText('Suggested for your answers')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Use this package' })).toBeInTheDocument()
+  })
+
+  /* Replacing every loan on the page is not something to do on a stray tap. */
+  it('asks before replacing the loans, and says what it will not touch', async () => {
+    const user = userEvent.setup({ delay: null })
+    loans(
+      storeWith((store) => {
+        store.update((state) => ({ ...state, tranches: state.tranches.slice(0, 1) }))
+      }),
+    )
+
+    await user.click(screen.getByRole('button', { name: 'Use this package' }))
+
+    const dialog = screen.getByRole('alertdialog')
+    expect(within(dialog).getByText('Replace your loans?')).toBeInTheDocument()
+    expect(within(dialog).getByText(/your answers stay as they are/)).toBeInTheDocument()
   })
 
   it('gives every slider an accessible name', () => {

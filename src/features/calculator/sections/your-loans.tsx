@@ -1,11 +1,12 @@
 import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Callout, StackBar, type StackSegment } from '@/components/ds'
+import { Callout, ConfirmDialog, StackBar, type StackSegment } from '@/components/ds'
 import { checkEligibility, type Conflict } from '@/domain/eligibility'
-import { type Money, sum } from '@/domain/money'
+import type { Money } from '@/domain/money'
 import type { Cover, PortfolioRow } from '@/domain/portfolio'
 import type { Profile, Programme, ProgrammeKey, Tranche } from '@/domain/types'
+import { matchesSuggestion, type Suggestion } from '@/domain/suggestion'
 import { formatEuros, formatPercent, percentWidth, shareOf } from '@/lib/format'
 import { cn } from '@/lib/utils'
 
@@ -21,6 +22,8 @@ export type YourLoansProps = {
   programmeOrder: readonly ProgrammeKey[]
   profile: Profile
   rows: readonly PortfolioRow[]
+  /** The portfolio's own total. Not recomputed here: one total, one definition. */
+  borrowed: Money
   down: Money
   cover: Cover
   conflicts: readonly Conflict[]
@@ -29,6 +32,9 @@ export type YourLoansProps = {
   onTrancheRemove: (id: number) => void
   onTrancheAdd: (key: ProgrammeKey) => void
   onReset: () => void
+  /** A package for the answers as they stand, offered when it is not already in place. */
+  suggestion: Suggestion
+  onApplySuggestion: () => void
 }
 
 /** Section 003: the stack of loans, and whether it adds up. */
@@ -38,6 +44,7 @@ export function YourLoans({
   programmeOrder,
   profile,
   rows,
+  borrowed,
   down,
   cover,
   conflicts,
@@ -46,23 +53,26 @@ export function YourLoans({
   onTrancheRemove,
   onTrancheAdd,
   onReset,
+  suggestion,
+  onApplySuggestion,
 }: YourLoansProps): ReactElement {
   const { t } = useTranslation()
 
-  const borrowed = sum(tranches.map((tranche) => tranche.amount))
   /* The buyer's own money is part of the capital structure: showing only the loans
    * would make a heavily-deposited purchase look entirely debt-funded. */
   const financed = borrowed.plus(down)
 
-  const segments: StackSegment[] = tranches
-    .filter((tranche) => tranche.amount.greaterThan(0))
-    .map((tranche, index) => ({
-      id: String(tranche.id),
-      width: percentWidth(tranche.amount, financed),
-      colour: `var(--band-${String((index % BAND_COUNT) + 1)})`,
-      label: `${programmes[tranche.programmeKey]?.short ?? tranche.name} · ${formatPercent(shareOf(tranche.amount, financed))}`,
-      title: `${tranche.name}, ${formatEuros(tranche.amount)}`,
-    }))
+  /* Built from the rows, not the tranches: a loan held down to the household's ceiling
+   * is borrowing the lower figure, and a bar drawn from the asked-for one would
+   * disagree with the cover line beneath it. `rows` already leaves out anything funding
+   * nothing, which is what the old `.filter()` was for. */
+  const segments: StackSegment[] = rows.map((row, index) => ({
+    id: String(row.trancheId),
+    width: percentWidth(row.amount, financed),
+    colour: `var(--band-${String((index % BAND_COUNT) + 1)})`,
+    label: `${programmes[row.programmeKey]?.short ?? row.name} · ${formatPercent(shareOf(row.amount, financed))}`,
+    title: `${row.name}, ${formatEuros(row.amount)}`,
+  }))
 
   if (down.greaterThan(0)) {
     segments.push({
@@ -146,6 +156,13 @@ export function YourLoans({
         ))}
       </div>
 
+      <SuggestedPackage
+        suggestion={suggestion}
+        tranches={tranches}
+        programmes={programmes}
+        onApply={onApplySuggestion}
+      />
+
       <div className="flex flex-wrap items-center gap-2 pt-6">
         <span className="text-ink-3 text-label tracking-label mr-2 font-mono uppercase">
           {t('tranche.add')}
@@ -191,5 +208,83 @@ export function YourLoans({
         </button>
       </div>
     </section>
+  )
+}
+
+type SuggestedPackageProps = {
+  suggestion: Suggestion
+  tranches: readonly Tranche[]
+  programmes: Readonly<Record<ProgrammeKey, Programme>>
+  onApply: () => void
+}
+
+/**
+ * The arrangement of borrowing these answers point at, offered rather than imposed.
+ *
+ * It appears only when it would change something: once the package is in place the
+ * panel goes, because an offer to apply what is already applied is noise and a button
+ * that does nothing teaches people to ignore buttons.
+ *
+ * Applying replaces every loan on the page, so it asks first — the same courtesy the
+ * catalogue extends before deleting a programme.
+ */
+function SuggestedPackage({
+  suggestion,
+  tranches,
+  programmes,
+  onApply,
+}: SuggestedPackageProps): ReactElement | null {
+  const { t } = useTranslation()
+
+  if (suggestion.tranches.length === 0) return null
+  if (matchesSuggestion(tranches, suggestion)) return null
+
+  return (
+    <div className="border-rule-2 squircle mt-[clamp(26px,4vw,42px)] rounded-xl border border-dashed p-[clamp(18px,3vw,26px)]">
+      <p className="text-ink-3 text-label tracking-label mb-4 font-mono uppercase">
+        {t('suggestion.title')}
+      </p>
+
+      <ul className="m-0 flex list-none flex-wrap gap-x-7.5 gap-y-2 p-0">
+        {suggestion.tranches.map((suggested) => (
+          <li key={suggested.programmeKey} className="text-ink flex items-baseline gap-2.5 text-sm">
+            <span className="text-ink-3 text-label tracking-label font-mono uppercase">
+              {programmes[suggested.programmeKey]?.short ?? suggested.programmeKey}
+            </span>
+            <span className="font-mono tracking-[-0.02em]">{formatEuros(suggested.amount)}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div className="mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-3">
+        <p className="text-ink-2 m-0 max-w-[52ch] text-xs">
+          {suggestion.shortfall.greaterThan(0)
+            ? t('suggestion.short', {
+                funded: formatEuros(suggestion.funded),
+                shortfall: formatEuros(suggestion.shortfall),
+              })
+            : t('suggestion.covers', { needed: formatEuros(suggestion.needed) })}
+        </p>
+
+        <ConfirmDialog
+          title={t('suggestion.confirmTitle')}
+          body={t('suggestion.confirmBody')}
+          confirmLabel={t('suggestion.apply')}
+          onConfirm={onApply}
+        >
+          <button
+            type="button"
+            className={cn(
+              'border-shu text-shu squircle hover:bg-shu-soft min-h-10.5 shrink-0 cursor-pointer',
+              'rounded-lg border bg-transparent px-4 py-2.5',
+              'text-label tracking-label font-mono uppercase',
+              'transition-[color,background-color,border-color,transform] duration-150 ease-(--ease-gs) active:scale-[0.97]',
+            )}
+          >
+            {t('suggestion.apply')}
+          </button>
+        </ConfirmDialog>
+      </div>
+    </div>
   )
 }

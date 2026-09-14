@@ -1,6 +1,7 @@
 import { purchaseCosts, type PurchaseCosts } from '@/domain/costs'
 import { findConflicts, trancheIdsInConflict, type Conflict } from '@/domain/eligibility'
 import { buildPortfolio, coverOf, type Cover, type Portfolio } from '@/domain/portfolio'
+import { suggestPackage, type Suggestion } from '@/domain/suggestion'
 import { useSessionStore } from '@/state/session-context'
 import type { SessionState } from '@/state/session-state'
 import { useSession } from '@/state/use-session'
@@ -13,6 +14,8 @@ export type Calculation = {
   conflicts: readonly Conflict[]
   /** Which tranches to mark as clashing. */
   conflictedTrancheIds: ReadonlySet<number>
+  /** The package these answers point at, whether or not it is the one on the page. */
+  suggestion: Suggestion
 }
 
 /**
@@ -47,5 +50,12 @@ export function useCalculation(): Calculation {
     cover: coverOf(portfolio.totalBorrowed, state.price, state.down),
     conflicts,
     conflictedTrancheIds: trancheIdsInConflict(conflicts),
+    suggestion: suggestPackage({
+      price: state.price,
+      down: state.down,
+      profile: state.profile,
+      programmes: state.programmes,
+      programmeOrder: state.programmeOrder,
+    }),
   }
 }

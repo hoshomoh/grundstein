@@ -167,6 +167,14 @@
     "over": "Too much by {{amount}}",
     "short": "Still need {{amount}}"
   },
+  "suggestion": {
+    "title": "Suggested for your answers",
+    "covers": "Covers the {{needed}} this purchase needs, cheapest money first.",
+    "short": "Reaches {{funded}}. No programme you qualify for covers the last {{shortfall}}.",
+    "apply": "Use this package",
+    "confirmTitle": "Replace your loans?",
+    "confirmBody": "Every loan on the page is replaced by this package. Your price, your down payment and your answers stay as they are."
+  },
   "ledger": {
     "note": "Each bar is what one loan costs you in total. Dark is the money you borrowed. Red is the interest you pay on top of it.",
     "everything": "Everything together",

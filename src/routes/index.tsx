@@ -19,6 +19,7 @@ import { createPrefersDarkStore, nextTheme, resolveDark } from '@/lib/appearance
 import { useSessionStore } from '@/state/session-context'
 import {
   addTranche,
+  applySuggestion,
   removeTranche,
   withDown,
   withPrice,
@@ -36,7 +37,8 @@ const prefersDarkStore = createPrefersDarkStore(typeof window === 'undefined' ? 
 function CalculatorRoute(): ReactElement {
   const { t } = useTranslation()
   const store = useSessionStore()
-  const { state, costs, portfolio, cover, conflicts, conflictedTrancheIds } = useCalculation()
+  const { state, costs, portfolio, cover, conflicts, conflictedTrancheIds, suggestion } =
+    useCalculation()
 
   const systemPrefersDark = useSyncExternalStore(
     prefersDarkStore.subscribe,
@@ -122,6 +124,7 @@ function CalculatorRoute(): ReactElement {
         programmeOrder={state.programmeOrder}
         profile={state.profile}
         rows={portfolio.rows}
+        borrowed={portfolio.totalBorrowed}
         down={state.down}
         cover={cover}
         conflicts={conflicts}
@@ -137,6 +140,10 @@ function CalculatorRoute(): ReactElement {
         }}
         onReset={() => {
           store.reset()
+        }}
+        suggestion={suggestion}
+        onApplySuggestion={() => {
+          store.update((current) => applySuggestion(current, suggestion))
         }}
       />
 

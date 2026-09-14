@@ -167,6 +167,14 @@
     "over": "Zu viel um {{amount}}",
     "short": "Es fehlen {{amount}}"
   },
+  "suggestion": {
+    "title": "Vorschlag für Ihre Angaben",
+    "covers": "Deckt die benötigten {{needed}} ab – das günstigste Geld zuerst.",
+    "short": "Erreicht {{funded}}. Kein Programm, für das Sie infrage kommen, deckt die letzten {{shortfall}}.",
+    "apply": "Diesen Vorschlag übernehmen",
+    "confirmTitle": "Darlehen ersetzen?",
+    "confirmBody": "Alle Darlehen auf der Seite werden durch diesen Vorschlag ersetzt. Kaufpreis, Eigenkapital und Ihre Angaben bleiben unverändert."
+  },
   "ledger": {
     "note": "Jeder Balken zeigt, was ein Darlehen insgesamt kostet. Dunkel ist die geliehene Summe. Rot sind die Zinsen, die obendrauf kommen.",
     "everything": "Alles zusammen",

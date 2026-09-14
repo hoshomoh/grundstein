@@ -1,6 +1,7 @@
 export { Badge, type BadgeProps, type BadgeTone } from './badge'
 export { Callout, type CalloutProps } from './callout'
 export { Chip, type ChipProps } from './chip'
+export { ConfirmDialog, type ConfirmDialogProps } from './confirm-dialog'
 export { Disclosure, type DisclosureItem, type DisclosureProps } from './disclosure'
 export { FieldLabel, type FieldLabelProps } from './field-label'
 export { HairlineSelect, type HairlineSelectProps, type SelectOption } from './hairline-select'

@@ -1,5 +1,5 @@
 import { amortise, type RateSegment, type ScheduleMonth, subsidyFor } from './amortisation'
-import { euros, max, type Money, sum, ZERO } from './money'
+import { atLeastZero, euros, max, type Money, sum, ZERO } from './money'
 import { drawableAmount } from './programmes'
 import type { Profile, Programme, ProgrammeKey, Tranche } from './types'
 
@@ -199,8 +199,19 @@ export type Cover = {
 }
 
 /** Whether the borrowing covers the price less the down payment. */
+/**
+ * What the loans have to cover: the price less the buyer's own money.
+ *
+ * Named once and shared, because the suggester and the cover line must agree on it —
+ * a package built against one definition and judged against another would report
+ * itself short.
+ */
+export function fundingNeeded(price: Money, down: Money): Money {
+  return atLeastZero(price.minus(down))
+}
+
 export function coverOf(totalBorrowed: Money, price: Money, down: Money): Cover {
-  const needed = price.minus(down)
+  const needed = fundingNeeded(price, down)
   const difference = totalBorrowed.minus(needed)
 
   if (difference.abs().lessThan(euros(1))) return { difference: ZERO, status: 'covered' }

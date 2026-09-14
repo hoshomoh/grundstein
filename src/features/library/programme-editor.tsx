@@ -1,9 +1,8 @@
 import type { ReactElement } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { Chip, FieldLabel, MoneyInput, RateInput, TextInput } from '@/components/ds'
+import { Chip, ConfirmDialog, FieldLabel, MoneyInput, RateInput, TextInput } from '@/components/ds'
 
-import { ConfirmDialog } from './confirm-dialog'
 import { Checkbox } from '@/components/ui/checkbox'
 import { euros, type Money } from '@/domain/money'
 import { highestCeiling } from '@/domain/programmes'

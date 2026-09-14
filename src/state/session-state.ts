@@ -1,5 +1,6 @@
 import { euros, type Money } from '@/domain/money'
 import { PROGRAMME_ORDER, PROGRAMMES } from '@/domain/programmes'
+import type { Suggestion } from '@/domain/suggestion'
 import type { Profile, Programme, ProgrammeKey, StateCode, Tranche } from '@/domain/types'
 import { DEFAULT_LANGUAGE, type Language } from '@/i18n/locales'
 
@@ -133,6 +134,29 @@ export function addTranche(state: SessionState, key: ProgrammeKey): SessionState
     tranches: [...state.tranches, tranche],
     nextTrancheId: state.nextTrancheId + 1,
   }
+}
+
+/**
+ * Replace the loans with a suggested package.
+ *
+ * Every other figure on the page is left alone — the price, the down payment, the
+ * answers and the catalogue are the reader's, and only the arrangement of borrowing is
+ * being proposed. Rates, terms and grace years come from `trancheFrom` so a suggested
+ * loan is indistinguishable from one added by hand; only the amount is ours.
+ */
+export function applySuggestion(state: SessionState, suggestion: Suggestion): SessionState {
+  const tranches = suggestion.tranches
+    .map((suggested, index) => {
+      const tranche = trancheFrom(
+        state.nextTrancheId + index,
+        suggested.programmeKey,
+        state.programmes,
+      )
+      return tranche === null ? null : { ...tranche, amount: suggested.amount }
+    })
+    .filter((tranche): tranche is Tranche => tranche !== null)
+
+  return { ...state, tranches, nextTrancheId: state.nextTrancheId + tranches.length }
 }
 
 export function removeTranche(state: SessionState, id: number): SessionState {
